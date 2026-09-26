@@ -1,7 +1,7 @@
 # TypeBeat Radio — Chat Handoff
 
 **Date:** 2026-09-24  
-**Cache-bust:** `?v=ui-polish-95` (bump on every static CSS/JS change; update `index.html` + this file + `DESIGN_SYSTEM.md` / `THEMES.md` / `LLM_CONTEXT.md`)  
+**Cache-bust:** `?v=ui-polish-96` (bump on every static CSS/JS change; update `index.html` + this file + `DESIGN_SYSTEM.md` / `THEMES.md` / `LLM_CONTEXT.md`)  
 **Stack:** Python `python -m radio` on `http://127.0.0.1:8765` (venv + yt-dlp for local audio)  
 **Scope note:** This is **typebeat radio only** — ignore Gemini Search+ / other repos unless the user says otherwise.
 
@@ -42,9 +42,13 @@
 - **Crossfade:** always on for local audio (dual A↔B graph gains). Iframe = volume fade only.
 - **Compressor:** horizontal **amount** control (drag sideways). Fill = set amount, **not** live GR / spectrum. Spectrum = `#audio-viz` **above** compressor. Audio path must actually compress (`polish.setAmount` → DynamicsCompressor).
 
-## Latest polish batch (`ui-polish-95`) — seven-pillar review
+## Latest polish batch (`ui-polish-96`) — tape label typography
 
-Static assets in `index.html` ship at **`?v=ui-polish-95`**. Impeccable-style seven-pillar pass on `radio/static` (motion, typography, interaction, UX copy). Product rules from **94** (orb lock, FFP, NEXT UP, vinyl Exp, tape window) unchanged.
+Static assets in `index.html` ship at **`?v=ui-polish-96`**. Restored **tape** header-band title sizing from pre-95: `html[data-skin="tape"] .as-tape-chrome__label-text` uses `calc(clamp(0.85rem, 2.8cqi, 1.35rem) * var(--tape-label-fit, 1))` again (still works with `fitTapeLabels()`). Global **95** chip/Exp type floors unchanged.
+
+## Batch (`ui-polish-95`) — seven-pillar review
+
+Impeccable-style seven-pillar pass on `radio/static` (motion, typography, interaction, UX copy). Product rules from **94** (orb lock, FFP, NEXT UP, vinyl Exp, tape window) unchanged.
 
 | Pillar | Shipped in 95 |
 |--------|----------------|
@@ -66,6 +70,7 @@ Incremental polish landed in static CSS/JS between 64 and 95 (individual batch n
 4. **Clearance copy** — FFP chip shows **FFP** on the pad; tooltip + `aria-label` spell out free-for-profit.
 5. **Tape window** — still **no** frosted overlay (64 rollback stands); reels + cover visible through shell window.
 6. **ui-polish-95** — seven-pillar batch above; static cache **95**.
+7. **ui-polish-96** — tape label header typography restore; cache **96**.
 
 ## Batch (`ui-polish-64`) — reference
 
@@ -107,7 +112,7 @@ Full-ring vinyl title (restored in 64), genre chip-fit, views two-line labels, M
 cd /Users/maximrahr/Documents/typebeat
 source venv/bin/activate
 python -m radio
-# open http://127.0.0.1:8765/?v=ui-polish-95
+# open http://127.0.0.1:8765/?v=ui-polish-96
 ```
 
 | Check | Expect |
@@ -158,4 +163,4 @@ Removed on load: `tb_radio_tape_glass`, `tb_radio_react_pos` (ui-polish-64 frost
 Prior agent transcript (this UI polish arc):  
 [`Typebeat UI polish`](7ecbc7f8-39c0-44d2-96cd-1d67fcdd1a65)
 
-When starting a new chat: attach **`radio/LLM_CONTEXT.md`** first, then **`radio/HANDOFF.md`** + **`radio/DESIGN_SYSTEM.md`**, hard-refresh `?v=ui-polish-95`, and confirm local audio tools before touching crossfade/compressor.
+When starting a new chat: attach **`radio/LLM_CONTEXT.md`** first, then **`radio/HANDOFF.md`** + **`radio/DESIGN_SYSTEM.md`**, hard-refresh `?v=ui-polish-96`, and confirm local audio tools before touching crossfade/compressor.

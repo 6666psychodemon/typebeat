@@ -43,7 +43,7 @@ Persists: `tb_radio_skin`, `tb_radio_prolific`, `tb_radio_max_age_months`, `tb_r
 | `tb_radio_vinyl_title_placement` | `inner_rim_top` · `inner_band_wrap` · `lower_inner_arc` |
 | `tb_radio_vinyl_title_scale` | integer percent 50–400 (default 100) |
 
-Hard-refresh: `?v=ui-polish-95`.
+Hard-refresh: `?v=ui-polish-96`.
 
 ## Glass modes (historical)
 

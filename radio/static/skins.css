@@ -2505,7 +2505,8 @@ html[data-skin="tape"] .art-wrap {
 }
 
 html[data-skin="tape"] .as-tape-chrome__label-text {
-  max-width: 100%;
+  font-size: calc(clamp(0.85rem, 2.8cqi, 1.35rem) * var(--tape-label-fit, 1));
+  max-width: 92%;
 }
 
 html[data-skin="tape"] .ctrl--side,

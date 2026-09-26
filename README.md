@@ -11,7 +11,7 @@ cd /Users/maximrahr/Documents/typebeat
 source venv/bin/activate
 pip install yt-dlp   # once; ffmpeg recommended
 python -m radio
-# http://127.0.0.1:8765/?v=ui-polish-95
+# http://127.0.0.1:8765/?v=ui-polish-96
 ```
 
 Copy `.env.example` → `.env` if you need Google sign-in for reactions (see `radio/AUTH.md`).
@@ -27,4 +27,4 @@ For **GitHub + Turso** (what ships in git vs what stays local), see [`docs/GITHU
 | [`radio/DESIGN_SYSTEM.md`](radio/DESIGN_SYSTEM.md) | Normative UI and audio rules |
 | [`PRD_v2.md`](PRD_v2.md) | Product vision and roadmap |
 
-Hard-refresh the player after static changes using the cache version in `radio/static/index.html` (currently `ui-polish-95`).
+Hard-refresh the player after static changes using the cache version in `radio/static/index.html` (currently `ui-polish-96`).
