@@ -1,0 +1,2693 @@
+/* TypeBeat Radio — experimental skins
+   =====================================================================
+   html[data-skin] is always one of: deck | tape.
+
+     tape     — layered reel deck (andrewstephens75/as-tape-player).
+                Cover on insert; label fonts via Exp.
+     deck     — turntable. Liquid glass, circular platter, warm analog.
+   ===================================================================== */
+
+html[data-skin="tape"] .vinyl-title,
+html[data-skin="tape"] .vinyl-title__text {
+  display: none !important;
+}
+
+/* --- Curved track name (Deck default — always on via is-vinyl-name) ---
+   Font: Anton / Archivo Black (--font-title) — original vinyl circular title face.
+   Path sits on the sticker/hub ring, not the outer PVC rim. */
+.vinyl-title {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 8;
+  overflow: visible;
+  opacity: 1;
+  visibility: visible;
+  transform-origin: 50% 50%;
+  /* Same box as .art — geometric center shared with sticker / cover hub. */
+  margin: 0;
+  padding: 0;
+}
+
+.vinyl-title[hidden],
+html.is-vinyl-name[data-skin="deck"] .vinyl-title.is-empty {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+html.is-vinyl-name[data-skin="deck"] .vinyl-title:not(.is-empty):not([hidden]) {
+  display: block !important;
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Title spins with the sticker (same parent animation). */
+html.is-vinyl-name.is-vinyl-spin[data-skin="deck"] .art .art__sticker .vinyl-title {
+  transform: none;
+}
+
+.vinyl-title__text {
+  fill: rgba(28, 18, 10, 0.92);
+  font-family: var(--font-title);
+  font-size: unset;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  paint-order: stroke fill;
+  stroke: rgba(255, 248, 236, 0.55);
+  stroke-width: 0.42px;
+  opacity: 0;
+  transition: opacity var(--title-fade-ms, var(--art-fade-ms, var(--fade-ms))) var(--ease-out);
+}
+
+.vinyl-title__text.is-active {
+  opacity: 1;
+}
+
+html[data-skin="deck"] .vinyl-title__text {
+  font-family: "Anton", "Archivo Black", Impact, sans-serif;
+  font-size: unset;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  fill: rgba(255, 248, 236, 0.96);
+  stroke: rgba(12, 8, 5, 0.85);
+  stroke-width: 0.65px;
+  paint-order: stroke fill;
+  opacity: 0;
+}
+
+html[data-skin="deck"] .art__sticker .vinyl-title__text.is-active {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+html[data-skin="deck"] .title-sponge-canvas {
+  display: none !important;
+}
+
+/* Vinyl curved title owns the name — hide the straight strip below the platter. */
+html.is-vinyl-name[data-skin="deck"] .skin-nowplaying,
+html.is-vinyl-name[data-skin="deck"] .art__title {
+  display: none !important;
+}
+
+/* =====================================================================
+   TAPE — andrewstephens75/tape-player (layered reel deck)
+   ===================================================================== */
+
+
+/* Marker is the locked sticker/title font (Exp picker removed). */
+html,
+html[data-tape-font],
+html[data-tape-font="permanent-marker"] {
+  --tape-label-font: "Permanent Marker", cursive;
+}
+
+html[data-skin="tape"] {
+  --tape-ratio: 750 / 420;
+  --tape-w: min(calc(var(--art-size) * 1.18), 100%);
+  --font-title: "Permanent Marker", cursive;
+  --radius-art: 0;
+}
+
+html[data-skin="tape"] .atmosphere {
+  filter: saturate(0.92) contrast(1.02);
+}
+
+html[data-skin="tape"] .atmosphere__vignette {
+  opacity: 0.42;
+}
+
+html[data-skin="tape"] .glass {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+html[data-skin="tape"] .filter-block + .filter-block {
+  border-top: none;
+}
+
+html[data-skin="tape"] .art-wrap {
+  aspect-ratio: var(--tape-ratio);
+  width: var(--tape-w);
+  max-width: var(--tape-w);
+  /* Match cassette silhouette — kill sharp dark under-corners */
+  border-radius: 3.6% / 6.4%;
+  overflow: hidden;
+  background: transparent !important;
+  box-shadow: none;
+}
+
+html[data-skin="tape"] .vinyl-title,
+html[data-skin="tape"] .art__rim,
+html[data-skin="tape"] .art__sheen,
+html[data-skin="tape"] .art__img {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+html[data-skin="tape"] .art__img.is-active {
+  animation: none !important;
+}
+
+html[data-skin="tape"] .transport {
+  grid-template-columns: var(--side-orb-size) minmax(0, var(--tape-w)) var(--side-orb-size);
+  width: min(100%, calc(var(--tape-w) + var(--side-orb-size) * 2 + var(--gap-transport) * 2));
+  max-width: min(100%, calc(var(--tape-w) + var(--side-orb-size) * 2 + var(--gap-transport) * 2));
+}
+
+html[data-skin="tape"] .player-controls,
+html[data-skin="tape"] .skin-nowplaying {
+  width: min(100%, var(--tape-w));
+  max-width: var(--tape-w);
+}
+
+html[data-skin="tape"] .art,
+html[data-skin="tape"] .glass--art {
+  border: 0;
+  border-radius: 3.6% / 6.4%;
+  background: transparent !important;
+  box-shadow: none !important;
+  overflow: hidden;
+}
+
+html[data-skin="tape"] .as-tape-chrome__empty {
+  border-radius: 3.6% / 6.4%;
+  overflow: hidden;
+}
+
+html[data-skin="tape"] .art__sheen,
+html[data-skin="tape"] .art__rim {
+  display: none !important;
+}
+
+html[data-skin="tape"] .art:hover {
+  transform: none;
+  filter: none;
+}
+
+html[data-skin="tape"] .art__title,
+html[data-skin="tape"] .skin-nowplaying {
+  display: none !important;
+}
+
+html[data-skin="tape"] .art__play-glyph {
+  inset: auto;
+  top: 52%;
+  left: 50%;
+  width: 2rem;
+  height: 2rem;
+  transform: translate(-50%, -50%);
+  background: rgba(12, 12, 12, 0.55);
+  border-radius: 50%;
+  color: rgba(247, 243, 234, 0.95);
+  z-index: 12;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.55));
+}
+
+html[data-skin="tape"] .art__play-glyph svg {
+  width: 20px;
+  height: 20px;
+}
+
+.as-tape-chrome {
+  display: none;
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+html[data-skin="tape"] .as-tape-chrome {
+  display: block;
+}
+
+.as-tape-chrome__tray {
+  position: relative;
+  width: 100%;
+}
+
+.as-tape-chrome__empty {
+  display: block;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.as-tape-chrome__tape {
+  position: relative;
+  margin: 0;
+  border: none;
+  padding: 0;
+  width: 100%;
+  z-index: 1;
+  isolation: isolate;
+  transform: translateZ(0);
+}
+
+.as-tape-chrome__frame {
+  display: block;
+  width: 100%;
+  position: relative;
+  z-index: 4;
+  pointer-events: none;
+}
+
+html[data-skin="tape"] .art {
+  background: linear-gradient(165deg, #2c2620 0%, #1a1612 100%) !important;
+}
+
+.as-tape-chrome__cover {
+  display: block;
+  position: absolute;
+  left: 8.2%;
+  right: 8.2%;
+  top: 10.4%;
+  height: 20.8%;
+  width: auto;
+  object-fit: cover;
+  object-position: center top;
+  z-index: 3;
+  pointer-events: none;
+  border-radius: 1px;
+  filter: saturate(1.04) contrast(1.02);
+}
+
+.as-tape-chrome__cover[hidden] {
+  display: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-title-xfade="wipe"] .as-tape-chrome__label-text.is-leaving,
+  html[data-title-xfade="blur"] .as-tape-chrome__label-text.is-leaving,
+  html[data-title-xfade="blur"] .as-tape-chrome__label-text.is-entering {
+    animation: none !important;
+  }
+}
+
+.as-tape-chrome__reel,
+.as-tape-chrome__sprocket {
+  display: block;
+  position: absolute;
+  animation-name: as-tape-spin-cw;
+  animation-duration: 6s;
+  animation-direction: normal;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-play-state: paused;
+  transform-origin: 50% 50%;
+  pointer-events: none;
+}
+
+.as-tape-chrome__reel {
+  z-index: 1;
+}
+
+/* Clear window — reels + empty tray show through (as-tape-player layering). */
+.as-tape-chrome__window {
+  position: absolute;
+  left: 11.2%;
+  right: 11.2%;
+  top: 32.8%;
+  height: 27.6%;
+  z-index: 2;
+  pointer-events: none;
+  background: transparent;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.14);
+}
+
+.as-tape-chrome__sprocket {
+  z-index: 6;
+}
+
+.as-tape-chrome__reel--l {
+  top: 13.8%;
+  left: 11.1%;
+  width: 40%;
+  clip-path: circle(50%);
+}
+
+.as-tape-chrome__reel--r {
+  top: 13.8%;
+  left: 48.5%;
+  width: 40%;
+  clip-path: circle(27.5%);
+}
+
+.as-tape-chrome__sprocket--l {
+  top: 35%;
+  left: 25%;
+  width: 13%;
+}
+
+.as-tape-chrome__sprocket--r {
+  top: 35%;
+  left: 62%;
+  width: 13%;
+}
+
+/* Label chrome Exp toggle swaps frame src (cassette.png ↔ cassette-clean.png).
+   Bias / NR / D-C90 are baked into the PNG — never paint-over with CSS patches. */
+
+.as-tape-chrome__label-slot {
+  position: absolute;
+  left: 8.5%;
+  right: 8.5%;
+  top: 10.2%;
+  height: 21%;
+  z-index: 7;
+  overflow: hidden;
+  pointer-events: none;
+  container-type: inline-size;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Track title — fill white label header band; dual layers for fade. */
+.as-tape-chrome__label-slot .as-tape-chrome__label-text,
+.as-tape-chrome__label-text {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  font-family: var(--tape-label-font, "Permanent Marker", cursive);
+  font-size: calc(clamp(0.72rem, 5.8cqi, 1.62rem) * var(--tape-label-fit, 1));
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.05;
+  color: #1a1410;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 0.08em 0.35rem 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--title-fade-ms, var(--art-fade-ms, var(--fade-ms))) var(--ease-out);
+}
+
+.as-tape-chrome__label-text.is-active {
+  opacity: 1;
+}
+
+html[data-title-xfade="wipe"] .as-tape-chrome__label-text,
+html[data-title-xfade="blur"] .as-tape-chrome__label-text,
+html[data-title-xfade="tick"] .as-tape-chrome__label-text {
+  transition: none;
+}
+
+html[data-title-xfade="wipe"] .as-tape-chrome__label-text.is-leaving {
+  opacity: 1;
+  z-index: 3;
+  animation: tape-title-wipe-out var(--title-fade-ms, 480ms) var(--ease-out) forwards;
+}
+
+html[data-title-xfade="wipe"] .as-tape-chrome__label-text.is-entering {
+  opacity: 1;
+  z-index: 2;
+}
+
+html[data-title-xfade="blur"] .as-tape-chrome__label-text.is-leaving {
+  opacity: 1;
+  z-index: 3;
+  animation: tape-title-blur-out calc(var(--title-fade-ms, 480ms) * 0.45) var(--ease-out) forwards;
+}
+
+html[data-title-xfade="blur"] .as-tape-chrome__label-text.is-entering {
+  opacity: 0;
+  filter: blur(10px);
+  z-index: 2;
+  animation: tape-title-blur-in calc(var(--title-fade-ms, 480ms) * 0.55) var(--ease-out) forwards;
+}
+
+html[data-title-xfade="tick"] .as-tape-chrome__label-text.is-entering {
+  opacity: 1;
+  transition: none;
+}
+
+@keyframes tape-title-wipe-out {
+  from {
+    clip-path: inset(0 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 100%);
+  }
+}
+
+@keyframes tape-title-blur-out {
+  from {
+    opacity: 1;
+    filter: blur(0);
+  }
+  to {
+    opacity: 0;
+    filter: blur(10px);
+  }
+}
+
+@keyframes tape-title-blur-in {
+  from {
+    opacity: 0;
+    filter: blur(10px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+html[data-skin="tape"] .art.is-playing .as-tape-chrome__reel,
+html[data-skin="tape"] .art.is-playing .as-tape-chrome__sprocket {
+  animation-play-state: running;
+}
+
+@keyframes as-tape-spin-cw {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(359deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-skin="tape"] .art.is-playing .as-tape-chrome__reel,
+  html[data-skin="tape"] .art.is-playing .as-tape-chrome__sprocket {
+    animation: none !important;
+  }
+}
+
+html:not([data-skin="tape"]) .as-tape-chrome {
+  display: none !important;
+}
+
+html[data-skin="tape"] .filter-rail,
+html[data-skin="tape"] .player-controls,
+html[data-skin="tape"] .exp-panel {
+  border-radius: var(--radius-panel);
+}
+
+html[data-skin="tape"] .ctrl {
+  border-radius: var(--radius-ctrl);
+  background-color: rgba(18, 18, 18, 0.88);
+  border: 1px solid rgba(232, 226, 212, 0.14);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.28);
+  color: var(--sand);
+}
+
+html[data-skin="tape"] .ctrl:hover {
+  background-color: rgba(28, 28, 28, 0.92);
+  border-color: rgba(232, 226, 212, 0.22);
+}
+
+html[data-skin="tape"] .react__btn {
+  background-color: rgba(18, 18, 18, 0.88);
+  border: 1px solid rgba(232, 226, 212, 0.14);
+}
+
+html[data-skin="tape"] .react__btn:hover {
+  background-color: rgba(28, 28, 28, 0.92);
+}
+
+html[data-skin="tape"] .filter-block__label,
+html[data-skin="tape"] .exp-section__label {
+  letter-spacing: var(--chip-label-track);
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+/* =====================================================================
+   3. DECK — turntable
+   The art becomes the record: circular, grooved, spinning while it
+   plays, with a centre label for transport. Warm analog dark, soft
+   chrome, title lifted out from under the platter.
+   ===================================================================== */
+
+html[data-skin="deck"] {
+  --ink: #100e0c;
+  --ink-2: #17140f;
+  --sand: #e8dcc8;
+  --sand-bright: #f7f1e6;
+  --sand-dim: rgba(232, 220, 200, 0.78);
+  --accent: #ff5a3c;
+  --accent-hot: #ff8a6a;
+  --font-body: "Instrument Sans", "Avenir Next", "Segoe UI", sans-serif;
+  --font-title: "Anton", "Archivo Black", Impact, sans-serif;
+  --font-chip: "Space Grotesk", "Instrument Sans", "Avenir Next", sans-serif;
+  --font-chip-label: var(--font-chip);
+  --glass-bg: rgba(20, 17, 13, 0.68);
+  --glass-blur: blur(26px) saturate(135%);
+  --radius-panel: 18px;
+  --radius-art: 50%;
+  --radius-chip: 999px;
+  --radius-ctrl: 999px;
+  --radius-cta: 999px;
+  --cta-bg: linear-gradient(160deg, var(--accent-hot), var(--accent));
+  --cta-fg: #140806;
+  --cta-border: transparent;
+  --cta-shadow: 0 8px 22px rgba(0, 0, 0, 0.42);
+  --cta-shadow-hover: 0 10px 28px rgba(0, 0, 0, 0.5);
+  --cta-text-shadow: none;
+}
+
+html[data-skin="deck"] .atmosphere {
+  background: var(--ink);
+}
+
+html[data-skin="deck"] .atmosphere__vignette {
+  display: block;
+  background:
+    radial-gradient(ellipse at 50% 46%, transparent 16%, rgba(16, 14, 12, 0.42) 52%, rgba(16, 14, 12, 0.92) 100%),
+    linear-gradient(180deg, rgba(16, 14, 12, 0.35), transparent 30%, rgba(16, 14, 12, 0.62));
+}
+
+/* The platter — photoreal PVC: darkest band just outside the paper label,
+   grooves that lighten toward mid-disc, rim specular, inset sticker. */
+html[data-skin="deck"] .art {
+  border-radius: 50%;
+  border: none;
+  background-color: #090807;
+  background-image:
+    radial-gradient(
+      circle at 50% 50%,
+      #050403 0%,
+      #050403 19%,
+      #0c0a09 32%,
+      #161412 58%,
+      #1a1715 78%,
+      #0e0c0b 94%,
+      #c8c4bc 98.6%,
+      #2a2622 100%
+    );
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    inset 0 -18px 36px rgba(0, 0, 0, 0.5),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+html[data-skin="deck"] .art:hover {
+  transform: none;
+  filter: brightness(1.03);
+}
+
+/* Space / click focus must not paint an accent ring on the platter (keyboard tab still can). */
+html[data-skin="deck"] #btn-play:focus:not(:focus-visible),
+html[data-skin="tape"] #btn-play:focus:not(:focus-visible) {
+  outline: none;
+}
+
+html[data-skin="deck"] #btn-play:focus-visible,
+html[data-skin="tape"] #btn-play:focus-visible {
+  outline: 2px solid var(--accent, #c4844a);
+  outline-offset: 4px;
+}
+
+/* Label disc — one circle, cover art only (no paper ring / inner hub). */
+html[data-skin="deck"] .art > .art__img {
+  opacity: 0 !important;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+html[data-skin="deck"] .art__sticker {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50%;
+  height: 50%;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transform-origin: 50% 50%;
+  z-index: 5;
+  pointer-events: none;
+  overflow: visible;
+  background: transparent;
+  box-shadow: none;
+}
+
+html[data-skin="deck"] .art__sticker-media {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  z-index: 1;
+  background: #050403;
+  pointer-events: none;
+}
+
+html[data-skin="deck"] .art__sticker-media .art__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  min-width: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center center;
+  transform: scale(1.5);
+  transform-origin: 50% 50%;
+  z-index: 1;
+  box-shadow: none;
+  visibility: visible;
+  pointer-events: none;
+}
+
+html[data-skin="deck"] .art__sticker .art__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  min-width: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center center;
+  transform: scale(1.5);
+  transform-origin: 50% 50%;
+  z-index: 1;
+  box-shadow: none;
+  visibility: visible;
+  pointer-events: none;
+  transition: none !important;
+}
+
+html[data-skin="deck"] .art__sticker-media .art__img {
+  transition: none !important;
+}
+
+/* Platter + sticker stay full opacity during track nav (no .art dim / cover fade). */
+html[data-skin="deck"] .art,
+html[data-skin="deck"] .art.is-fading {
+  opacity: 1;
+  transition: filter 0.28s ease;
+}
+
+html[data-skin="deck"] .art__sticker .vinyl-title {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 4;
+  pointer-events: none;
+  overflow: visible;
+}
+
+/* Keep curved title on the label art (inward from path), not on outer grooves. */
+html[data-skin="deck"] .art__sticker .vinyl-title__path {
+  side: left;
+}
+
+html[data-skin="deck"] .art__sticker .vinyl-title__text:not(.is-active) {
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+html[data-skin="deck"] .art__sticker .art__img.is-active {
+  opacity: 1;
+  visibility: visible;
+}
+
+html[data-skin="deck"] .art__sticker .art__img:not(.is-active) {
+  opacity: 0;
+  visibility: hidden;
+}
+
+html:not([data-skin="deck"]) .art__sticker {
+  display: none !important;
+}
+
+/* Keep spin animation mounted so pause freezes the label (no snap to 0°). */
+html[data-skin="deck"] .art .art__sticker {
+  animation: deck-spin 14s linear infinite;
+  animation-play-state: paused;
+}
+
+html[data-skin="deck"] .art.is-playing .art__sticker {
+  animation-play-state: running;
+}
+
+@keyframes deck-spin {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+/* Grooves on black outer ring — cut out over the label (no specular wedges here).
+   Spins with the record; static glare lives on .art__sheen above. */
+html[data-skin="deck"] .art__rim {
+  display: block;
+  mix-blend-mode: normal;
+  opacity: 1;
+  z-index: 3;
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      transparent 18.7%,
+      rgba(0, 0, 0, 0.92) 19.05%,
+      rgba(0, 0, 0, 0.78) 22.8%,
+      rgba(0, 0, 0, 0.18) 30%,
+      transparent 38%
+    ),
+    repeating-radial-gradient(
+      circle at 50% 50%,
+      rgba(0, 0, 0, 0.62) 0 0.7px,
+      rgba(255, 255, 255, 0.07) 0.7px 1.35px,
+      rgba(0, 0, 0, 0.28) 1.35px 2.1px,
+      transparent 2.1px 3.4px
+    );
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.08),
+    inset 0 0 80px rgba(0, 0, 0, 0.42);
+  -webkit-mask-image: radial-gradient(circle, transparent 27%, #000 27.5%);
+  mask-image: radial-gradient(circle, transparent 27%, #000 27.5%);
+  animation:
+    deck-spin-full 14s linear infinite,
+    deck-groove-shimmer 4.2s ease-in-out infinite;
+  animation-play-state: paused, paused;
+  will-change: transform, filter;
+}
+
+@keyframes deck-groove-shimmer {
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.055);
+  }
+}
+
+html[data-skin="deck"] .art.is-playing .art__rim {
+  animation-play-state: running, running;
+}
+
+/* Specular glare — fixed in the room (~1–2 o'clock + ~7–8 o'clock fan wedges).
+   Grooves and label spin underneath; this layer never rotates. */
+html[data-skin="deck"] .art__sheen {
+  display: block;
+  inset: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: inherit;
+  z-index: 4;
+  pointer-events: none;
+  opacity: 0.82;
+  mix-blend-mode: screen;
+  transform: none !important;
+  will-change: opacity;
+  /* Absolute conic stops (no `from` offset) — avoids a 3/9 o'clock bar artifact. */
+  background:
+    conic-gradient(
+      at 50% 50%,
+      transparent 0deg 34deg,
+      rgba(220, 236, 255, 0.05) 40deg,
+      rgba(255, 255, 255, 0.24) 46deg,
+      rgba(200, 222, 255, 0.34) 49deg,
+      rgba(255, 255, 255, 0.1) 54deg,
+      transparent 61deg 208deg,
+      transparent 208deg 360deg
+    ),
+    conic-gradient(
+      at 50% 50%,
+      transparent 0deg 212deg,
+      rgba(255, 255, 255, 0.04) 218deg,
+      rgba(230, 242, 255, 0.2) 224deg,
+      rgba(255, 255, 255, 0.28) 227deg,
+      rgba(210, 228, 255, 0.08) 233deg,
+      transparent 240deg 360deg
+    );
+  -webkit-mask-image: radial-gradient(circle, transparent 27%, #000 27.5%, #000 96%, transparent 99.2%);
+  mask-image: radial-gradient(circle, transparent 27%, #000 27.5%, #000 96%, transparent 99.2%);
+  animation: deck-glare-breathe 5.5s ease-in-out infinite;
+  animation-play-state: paused;
+  filter: none;
+}
+
+html[data-skin="deck"] .art.is-playing .art__sheen {
+  animation-play-state: running;
+}
+
+@keyframes deck-glare-breathe {
+  0%,
+  100% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 0.94;
+  }
+}
+
+@keyframes deck-spin-full {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Centre transport glyph — same 50/50 center as cover hub (30% of platter). */
+html[data-skin="deck"] .art__play-glyph {
+  width: 28%;
+  height: 28%;
+  max-width: none;
+  max-height: none;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transform-origin: 50% 50%;
+  background: none !important;
+  opacity: 0;
+  z-index: 6;
+  pointer-events: none;
+}
+
+html[data-skin="deck"] .art__play-glyph::before,
+html[data-skin="deck"] .art__play-glyph::after {
+  display: none !important;
+}
+
+html[data-skin="deck"] .art.is-paused .art__play-glyph,
+html[data-skin="deck"] .art:hover .art__play-glyph {
+  opacity: 1;
+  pointer-events: auto;
+  background: none !important;
+}
+
+html[data-skin="deck"] .art__play-glyph svg {
+  position: relative;
+  z-index: 2;
+  width: 42% !important;
+  height: 42% !important;
+  color: rgba(247, 241, 230, 0.92);
+  transform: none;
+  opacity: 0.88;
+  filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.55));
+}
+
+html[data-skin="deck"] .art.is-playing .art__play-glyph svg {
+  opacity: 0.4;
+}
+
+html[data-skin="deck"] .art:hover .art__play-glyph svg {
+  opacity: 0.78;
+}
+
+html[data-skin="deck"] .art.is-paused .art__play-glyph svg.icon-play {
+  opacity: 0.62;
+}
+
+/* Title comes out from under the platter */
+html[data-skin="deck"] .art__title {
+  display: none !important;
+}
+
+html[data-skin="deck"] .skin-nowplaying {
+  display: -webkit-box;
+  color: var(--sand-bright);
+  letter-spacing: 0.07em;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.6);
+}
+
+html[data-skin="deck"] .ctrl {
+  width: 62px;
+  height: 62px;
+}
+
+/* Blob-like prev/next — soft organic orbs, less hard chrome */
+html[data-skin="deck"] .ctrl--side {
+  width: var(--side-orb-size);
+  height: var(--side-orb-size);
+  border-radius: 46% 54% 48% 52% / 52% 46% 54% 48%;
+  border: none;
+  --glass-bg: rgba(18, 15, 12, 0.82);
+  --glass-fill:
+    radial-gradient(120% 90% at 32% 22%, rgba(255, 255, 255, 0.16), transparent 52%),
+    radial-gradient(90% 80% at 70% 78%, rgba(0, 0, 0, 0.28), transparent 55%);
+  --glass-stroke: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.18) 0%,
+    rgba(255, 138, 106, 0.08) 48%,
+    rgba(255, 255, 255, 0.04) 100%
+  );
+  --glass-blur: blur(10px) saturate(120%);
+  --glass-quiet-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    inset 0 -10px 18px rgba(0, 0, 0, 0.35),
+    0 14px 28px rgba(0, 0, 0, 0.42);
+  --glass-shadow: var(--glass-quiet-shadow);
+  box-shadow: var(--glass-quiet-shadow);
+}
+
+html[data-skin="deck"] .ctrl--side:hover {
+  filter: brightness(1.06);
+  --glass-quiet-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -10px 18px rgba(0, 0, 0, 0.32),
+    0 0 0 1px rgba(255, 138, 106, 0.18),
+    0 16px 32px rgba(0, 0, 0, 0.46);
+  --glass-shadow: var(--glass-quiet-shadow);
+  box-shadow: var(--glass-quiet-shadow);
+}
+
+html[data-skin="deck"] #btn-prev.ctrl--side {
+  border-radius: 52% 44% 56% 48% / 48% 54% 46% 52%;
+}
+
+html[data-skin="deck"] #btn-next.ctrl--side {
+  border-radius: 44% 56% 48% 52% / 54% 46% 52% 48%;
+}
+
+/* Shared panel chrome — same dark glass + light type for EVERY skin.
+   Deck used to strip the left rail to near-transparent (labels looked black
+   over bright cover art). Keep skin materials on the platter; unify docks. */
+.filter-rail,
+.exp-panel {
+  --glass-bg: rgba(10, 11, 16, 0.88);
+  --glass-fill:
+    radial-gradient(120% 90% at 16% 0%, rgba(255, 255, 255, 0.08), transparent 52%),
+    linear-gradient(165deg, rgba(255, 255, 255, 0.05) 0%, rgba(0, 0, 0, 0.28) 100%);
+  --glass-stroke: linear-gradient(
+    135deg,
+    rgba(255, 250, 242, 0.28) 0%,
+    rgba(255, 90, 60, 0.14) 45%,
+    rgba(255, 255, 255, 0.06) 100%
+  );
+  --glass-blur: blur(14px) saturate(140%);
+  --glass-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 0 0 1px rgba(255, 250, 242, 0.08),
+    0 8px 20px rgba(0, 0, 0, 0.28);
+  background-color: rgba(10, 11, 16, 0.88);
+  border-color: rgba(255, 250, 242, 0.1);
+  color: rgba(255, 250, 242, 0.92);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
+}
+
+.filter-block__label,
+.exp-section__label,
+.exp-panel__title,
+.exp-field__label,
+.exp-hint,
+.views-slider__label {
+  color: rgba(255, 250, 242, 0.88) !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.65);
+}
+
+.views-slider__label:not(.is-active) {
+  opacity: 0.5;
+}
+
+.views-slider__label.is-active {
+  opacity: 1;
+}
+
+html[data-skin] .views-slider__label:not(.is-active) {
+  opacity: 0.5;
+}
+
+html[data-skin] .views-slider__label.is-active {
+  opacity: 1;
+}
+
+/* Zen Deck chrome — quiet filter / reaction slabs (keep chips usable) */
+html[data-skin="deck"] .filter-rail {
+  border-radius: 20px;
+}
+
+html[data-skin="deck"] .filter-block + .filter-block {
+  border-top: none;
+}
+
+html[data-skin="deck"] .player-controls {
+  background-image: none;
+  background-color: transparent;
+  border-color: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+html[data-skin="deck"] .exp-panel {
+  border-radius: 18px;
+}
+
+html[data-skin="deck"] .genre-chip.is-active,
+html[data-skin="deck"] .genre-chip[aria-pressed="true"] {
+  background: linear-gradient(160deg, var(--accent-hot), var(--accent));
+}
+
+html[data-skin="deck"] .genre-chip {
+  padding-inline: max(var(--chip-pad-x), 0.85rem);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-skin="deck"] .art .art__sticker,
+  html[data-skin="deck"] .art__rim,
+  html[data-skin="deck"] .art__sheen {
+    animation: none !important;
+    filter: none !important;
+  }
+}
+
+/* =====================================================================
+   Poster shell adaptations + contrast tokens
+   typebeat2 skins assumed liquid-glass chrome (react/level as glass).
+   Poster uses a shared .player-controls glass + equal orbs.
+   ===================================================================== */
+
+/* Hide standalone skin-toggle — skins live in the exp panel */
+.skin-toggle {
+  display: none !important;
+}
+
+/* Deck invite — warm sand panel (Signal/Cassette poster leftovers removed;
+   those skins migrated away and their selectors had been wrongly remapped
+   onto deck, flattening vinyl chrome into paper/brutalist styles). */
+html[data-skin="deck"] .invite-panel {
+  background: rgba(22, 18, 14, 0.97);
+  border: 1px solid rgba(255, 90, 60, 0.28);
+  color: #f7f1e6;
+}
+
+html[data-skin="deck"] .invite-title {
+  color: var(--accent-hot);
+}
+
+html[data-skin="deck"] .invite-copy,
+html[data-skin="deck"] .invite-label {
+  color: rgba(232, 220, 200, 0.82);
+}
+
+html[data-skin="deck"] .invite-input {
+  background: #f3eadc;
+  color: #14110e;
+  border: 1.5px solid rgba(255, 90, 60, 0.4);
+}
+
+html[data-skin="deck"] .invite-input::placeholder {
+  color: rgba(20, 17, 14, 0.45);
+}
+
+html[data-skin="deck"] .invite-btn:not(.invite-btn--ghost) {
+  background: var(--cta-bg);
+  color: var(--cta-fg);
+  text-shadow: none;
+}
+
+html[data-skin="deck"] .invite-btn--ghost {
+  color: #f7f1e6;
+  border-color: rgba(232, 220, 200, 0.45);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+html[data-skin="deck"] .invite-error {
+  color: var(--accent-hot);
+}
+
+/* =====================================================================
+   Skin polish pass — hierarchy, hit targets, contrast (no layout moves)
+   ===================================================================== */
+
+/* --- Deck --- */
+html[data-skin="deck"] .skin-nowplaying {
+  margin: 0.15rem auto 0.35rem;
+  padding: 0 0.5rem;
+  letter-spacing: 0.08em;
+  color: var(--sand-bright);
+}
+
+html[data-skin="deck"] .player-controls {
+  margin-top: 0.15rem;
+  padding: 0.42rem 0.5rem;
+}
+
+html[data-skin="deck"] .art {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    inset 0 -18px 36px rgba(0, 0, 0, 0.5),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+html[data-skin="deck"] .filter-block__label {
+  letter-spacing: var(--chip-label-track);
+  color: rgba(255, 250, 242, 0.88);
+}
+
+html[data-skin="deck"] .react__btn {
+  min-width: 48px;
+  min-height: 48px;
+}
+
+html[data-skin="deck"] .ctrl--side {
+  width: var(--side-orb-size);
+  height: var(--side-orb-size);
+}
+
+/* CTA recipe — filled pills use tokens; never muddy text-shadow */
+html[data-skin] #btn-request-invite,
+html[data-skin] .cta-pill {
+  background: var(--cta-bg);
+  color: var(--cta-fg);
+  border: 1px solid var(--cta-border);
+  text-shadow: var(--cta-text-shadow);
+  box-shadow: var(--cta-shadow);
+  border-radius: var(--radius-cta);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+/* --- Skin-matched scrollbars (thin, muted) --- */
+html[data-skin="deck"] {
+  --scrollbar-thumb: rgba(232, 220, 200, 0.28);
+  --scrollbar-thumb-hover: rgba(232, 220, 200, 0.45);
+}
+
+/* Unauth Like: quiet react orb — don't telegraph the invite gate */
+html:not(.is-authed) #btn-like,
+html:not(.is-authed)[data-skin="deck"] #btn-like {
+  background: transparent;
+  border-color: rgba(232, 220, 200, 0.35);
+  color: var(--sand, #e8dcc8);
+  box-shadow: none;
+}
+
+html:not(.is-authed) #btn-like:hover,
+html:not(.is-authed)[data-skin="deck"] #btn-like:hover {
+  color: var(--accent-hot, #ff8a6a);
+  border-color: rgba(255, 138, 106, 0.45);
+  background: rgba(255, 90, 60, 0.14);
+}
+
+/* =====================================================================
+   Zen chrome — quieter borders / less double-rim noise (all skins)
+   ===================================================================== */
+.glass--panel,
+.glass--art-match {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 10px 24px rgba(0, 0, 0, 0.22);
+}
+
+.glass--art {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    var(--art-halo),
+    0 22px 48px rgba(0, 0, 0, 0.42);
+}
+
+/* Deck: kill zen chrome halo puddle under the platter */
+html[data-skin="deck"] .glass--art {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 -22px 40px rgba(0, 0, 0, 0.55),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+html:not([data-skin="deck"]) .art__rim {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.22);
+  background: none;
+  mix-blend-mode: normal;
+}
+
+html:not([data-skin="deck"]) .art__sheen {
+  opacity: 0.22;
+}
+
+
+.exp-section + .exp-section {
+  border-top-color: rgba(255, 255, 255, 0.05);
+}
+
+.exp-chip {
+  border-color: rgba(255, 250, 242, 0.16);
+}
+
+/* Crossfade Exp controls — MUST stay visible (were accidentally dropped once).
+   Do not hide .exp-select / .exp-field via skin CSS. Crossfade audio path is
+   independent of skins — never disable it from CSS edits. */
+.exp-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.22rem;
+  min-width: 0;
+}
+
+.exp-field__label {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 250, 242, 0.72);
+}
+
+.exp-scale-row {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-width: 0;
+}
+
+.exp-scale-row__input {
+  flex: 1;
+  min-width: 0;
+  accent-color: rgba(255, 200, 140, 0.85);
+}
+
+.exp-scale-row__value {
+  flex: 0 0 auto;
+  min-width: 2.6rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+  text-align: right;
+  color: rgba(255, 250, 242, 0.88);
+}
+
+.exp-hint--sub {
+  margin: 0.12rem 0 0;
+  font-size: 0.52rem;
+  line-height: 1.35;
+  color: rgba(255, 250, 242, 0.42);
+}
+
+.exp-select {
+  appearance: none;
+  -webkit-appearance: none;
+  display: block;
+  visibility: visible;
+  opacity: 1;
+  width: 100%;
+  border: 1px solid rgba(255, 250, 242, 0.28);
+  color: rgba(255, 250, 242, 0.92);
+  font-family: var(--font-body);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 0.36rem 1.6rem 0.36rem 0.52rem;
+  border-radius: 10px;
+  cursor: pointer;
+  min-height: 30px;
+  background-color: rgba(12, 12, 18, 0.92);
+  background-image:
+    linear-gradient(45deg, transparent 50%, rgba(255, 250, 242, 0.7) 50%),
+    linear-gradient(135deg, rgba(255, 250, 242, 0.7) 50%, transparent 50%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0.22));
+  background-position:
+    calc(100% - 14px) calc(50% - 2px),
+    calc(100% - 9px) calc(50% - 2px),
+    0 0;
+  background-size: 5px 5px, 5px 5px, 100% 100%;
+  background-repeat: no-repeat;
+}
+
+.exp-select option {
+  background: #12141c;
+  color: rgba(255, 250, 242, 0.92);
+}
+
+.exp-select:focus-visible {
+  outline: 2px solid rgba(255, 200, 140, 0.55);
+  outline-offset: 2px;
+}
+
+.exp-section--xfade {
+  display: flex;
+  flex-direction: column;
+  gap: 0.28rem;
+}
+
+/* Guard: never clip or hide Crossfade selects again */
+html .exp-section--xfade .exp-select,
+html .exp-section--xfade .exp-field {
+  display: flex;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+html .exp-section--xfade .exp-select {
+  display: block;
+}
+
+/* =====================================================================
+   Layout — rearranged constellation (default + only mode)
+   html[data-testing="rearranged"]
+   ===================================================================== */
+html[data-testing="rearranged"] .player {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+  align-items: center;
+  /* Room for wide compressor + Request Invite under the orbit (no overlap) */
+  padding-bottom: 14.5rem;
+}
+
+/* Extra clearance so Exp / filter rail never clips the prev orb */
+@media (min-width: 860px) {
+  html[data-testing="rearranged"] .stage-body {
+    column-gap: calc(var(--gutter) + 2.85rem);
+  }
+}
+
+html[data-testing="rearranged"] .transport {
+  grid-area: 1 / 1;
+  width: 100%;
+  z-index: 1;
+}
+
+html[data-testing="rearranged"] .skin-nowplaying {
+  grid-area: 1 / 1;
+  align-self: end;
+  z-index: 0;
+  opacity: 0.55;
+  pointer-events: none;
+  transform: translateY(2.6rem);
+}
+
+html[data-testing="rearranged"] .player-controls {
+  grid-area: 1 / 1;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  align-self: stretch;
+  justify-self: stretch;
+  background: transparent !important;
+  background-image: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  pointer-events: none;
+  z-index: 6;
+  position: relative;
+  transform: none;
+}
+
+html[data-testing="rearranged"] .react {
+  position: absolute;
+  left: calc(var(--side-orb-size) + var(--gap-transport));
+  width: min(var(--art-size), calc(100% - 2 * (var(--side-orb-size) + var(--gap-transport))));
+  aspect-ratio: 1 / 1;
+  top: 50%;
+  transform: translateY(-50%);
+  height: auto;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+  background: transparent;
+  backdrop-filter: none;
+  perspective: none;
+  transform-style: flat;
+}
+
+/* Cassette: keep the constellation, drop the vinyl-sized ring chrome. */
+
+html[data-skin="tape"][data-testing="rearranged"] .react {
+  width: min(var(--tape-w), calc(100% - 2 * (var(--side-orb-size) + var(--gap-transport))));
+  aspect-ratio: var(--tape-ratio);
+  overflow: visible;
+}
+
+html[data-testing="rearranged"] .react__btn,
+html[data-testing="rearranged"] .level {
+  position: absolute;
+  pointer-events: auto;
+  background: transparent !important;
+  background-image: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  min-width: 0;
+  overflow: visible;
+  transform-style: flat;
+  display: grid;
+  place-items: center;
+  color: var(--sand-bright, #fffaf2);
+  filter:
+    drop-shadow(0 1px 0 rgba(0, 0, 0, 0.35))
+    drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5));
+}
+
+/* Show SVG icon sets (emoji pseudo-content removed) */
+html[data-testing="rearranged"] .react__btn svg.react-icon {
+  display: none;
+  width: 2.35rem;
+  height: 2.35rem;
+  pointer-events: none;
+}
+
+html[data-testing="rearranged"] .react__btn svg.react-icon--line {
+  display: block;
+  opacity: 1;
+  color: var(--sand-bright, #fffaf2);
+}
+
+html[data-testing="rearranged"] .react__btn .level__icon,
+html[data-testing="rearranged"] .level__icon {
+  display: none;
+}
+
+html[data-testing="rearranged"] .react__btn::after {
+  display: none;
+  content: none;
+}
+
+/* Flat constellation — aligned corners on the vinyl rim */
+html[data-testing="rearranged"] #btn-loop {
+  left: var(--react-vinyl-loop-x, 6%);
+  right: auto;
+  top: var(--react-vinyl-loop-y, 8%);
+  width: 3.6rem;
+  height: 3.6rem;
+  transform: none;
+}
+
+html[data-testing="rearranged"] #btn-not-fit {
+  right: var(--react-vinyl-x-x, 6%);
+  left: auto;
+  top: var(--react-vinyl-x-y, 8%);
+  width: 3.6rem;
+  height: 3.6rem;
+  transform: none;
+}
+
+html[data-testing="rearranged"] #btn-like {
+  left: var(--react-vinyl-like-x, 1%);
+  right: auto;
+  top: auto;
+  bottom: var(--react-vinyl-like-y, 8%);
+  width: var(--orb-size-like);
+  height: var(--orb-size-like);
+  transform: rotate(-15deg);
+}
+
+html[data-testing="rearranged"] #btn-like svg.react-icon {
+  width: calc(var(--orb-size-like) * 0.52);
+  height: calc(var(--orb-size-like) * 0.52);
+}
+
+html[data-testing="rearranged"] #btn-dislike {
+  right: var(--react-vinyl-dislike-x, 1%);
+  left: auto;
+  top: auto;
+  bottom: var(--react-vinyl-dislike-y, 8%);
+  width: var(--orb-size-like);
+  height: var(--orb-size-like);
+  transform: rotate(-15deg);
+}
+
+html[data-testing="rearranged"] #btn-dislike svg.react-icon {
+  width: calc(var(--orb-size-like) * 0.52);
+  height: calc(var(--orb-size-like) * 0.52);
+}
+
+/* Tape: like/dislike further toward screen edges (~15–30px vs prior). */
+html[data-skin="tape"][data-testing="rearranged"] #btn-loop {
+  left: var(--react-tape-loop-x, 0%);
+  right: auto;
+  top: var(--react-tape-loop-y, -3%);
+  transform: none;
+}
+
+html[data-skin="tape"][data-testing="rearranged"] #btn-not-fit {
+  right: var(--react-tape-x-x, 0%);
+  left: auto;
+  top: var(--react-tape-x-y, -3%);
+  transform: none;
+}
+
+html[data-skin="tape"][data-testing="rearranged"] #btn-like {
+  left: calc(var(--react-tape-like-x, -6%) - 8px);
+  right: auto;
+  top: auto;
+  bottom: var(--react-tape-like-y, -13%);
+  transform: rotate(-12deg);
+}
+
+html[data-skin="tape"][data-testing="rearranged"] #btn-dislike {
+  right: calc(var(--react-tape-dislike-x, -6%) - 8px);
+  left: auto;
+  top: auto;
+  bottom: var(--react-tape-dislike-y, -13%);
+  transform: rotate(-12deg);
+}
+
+html[data-testing="rearranged"] #btn-like:hover,
+html[data-testing="rearranged"] #btn-dislike:hover,
+html[data-testing="rearranged"] #btn-not-fit:hover,
+html[data-testing="rearranged"] #btn-loop:hover {
+  filter:
+    brightness(1.14)
+    drop-shadow(0 1px 0 rgba(0, 0, 0, 0.35))
+    drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5));
+  background: transparent !important;
+}
+
+html[data-testing="rearranged"] #btn-like.is-active,
+html[data-testing="rearranged"] #btn-dislike.is-active,
+html[data-testing="rearranged"] #btn-not-fit.is-active,
+html[data-testing="rearranged"] #btn-loop.is-active,
+html[data-testing="rearranged"] #btn-loop[aria-pressed="true"] {
+  color: var(--accent-hot, #ff8a6a);
+}
+
+html.is-authed[data-testing="rearranged"] #btn-like,
+html:not(.is-authed)[data-testing="rearranged"] #btn-like {
+  background: transparent !important;
+  color: inherit;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Wide horizontal compressor — readable under vinyl on every skin */
+html[data-testing="rearranged"] #btn-compress.level {
+  left: 50%;
+  right: auto;
+  top: auto;
+  bottom: -5.35rem;
+  width: min(78%, 13.5rem);
+  height: 2.35rem;
+  min-width: 0;
+  min-height: 0;
+  border-radius: 10px !important;
+  clip-path: none !important;
+  transform: translateX(-50%);
+  cursor: ew-resize;
+  overflow: hidden;
+  border: 1px solid rgba(255, 250, 242, 0.22) !important;
+  background: rgba(12, 10, 8, 0.55) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 8px 18px rgba(0, 0, 0, 0.35) !important;
+  filter: none;
+  color: var(--sand-bright, #fffaf2);
+}
+
+/* Spectrum visualizer sits ABOVE the compressor (separate from GR meter). */
+html[data-testing="rearranged"] #audio-viz.audio-viz {
+  display: block;
+  position: absolute;
+  left: 50%;
+  right: auto;
+  top: auto;
+  bottom: calc(-5.35rem + 2.55rem);
+  width: min(78%, 13.5rem);
+  height: 1.85rem;
+  transform: translateX(-50%);
+  border-radius: 8px;
+  background: rgba(8, 7, 6, 0.45);
+  border: 1px solid rgba(255, 250, 242, 0.12);
+  z-index: 2;
+  pointer-events: none;
+}
+
+html[data-testing="rearranged"] #btn-compress.level::after {
+  content: none;
+  display: none;
+}
+
+/* No bar-graph icon inside the compressor — that reads as a visualizer.
+   Spectrum is #audio-viz above; this control is amount only. */
+html[data-testing="rearranged"] #btn-compress .level__icon {
+  display: none !important;
+}
+
+html[data-testing="rearranged"] #btn-compress .level__fill {
+  display: block;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: auto;
+  width: calc(var(--compress) * 100%);
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 138, 106, 0.55),
+    rgba(255, 90, 60, 0.92) 55%,
+    rgba(255, 138, 106, 0.72)
+  );
+}
+
+html[data-testing="rearranged"] #btn-compress .level__glow {
+  display: block;
+}
+
+/* Prev/next sit on one horizontal axis through the centre of the vinyl.
+   The transport grid centres them vertically; the margin pushes each orb
+   outward so the cap and its collar clear the artwork edge. Position uses
+   margin (not transform) so hover/press transforms stay available. */
+html[data-testing="rearranged"] .art-wrap {
+  transform: none;
+  /* Keep wrap as the sized box (aspect-ratio). Do NOT make .art a grid item
+     with height:100% — that circularly collapses the button to 0px (all
+     children are absolute), which hides the vinyl platter while rim text remains. */
+  display: block;
+  position: relative;
+}
+
+/* Fill the wrap so the PVC platter / grooves / label paint at full size */
+html[data-testing="rearranged"] .art-wrap > .art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+html[data-testing="rearranged"] #btn-prev,
+html[data-testing="rearranged"] #btn-next {
+  align-self: center;
+}
+
+html[data-testing="rearranged"] #btn-prev {
+  margin-right: var(--orb-clearance);
+}
+
+html[data-testing="rearranged"] #btn-next {
+  margin-left: var(--orb-clearance);
+}
+
+/* Padding reserves the outward shift so neither orb can be clipped by the
+   player box or the stage edge */
+html[data-testing="rearranged"] .transport {
+  overflow: visible;
+  padding-inline: calc(0.65rem + var(--orb-clearance));
+}
+
+html[data-testing="rearranged"] #btn-prev .ctrl__chevron,
+html[data-testing="rearranged"] #btn-next .ctrl__chevron {
+  transform: none;
+  filter:
+    drop-shadow(0 1px 0 rgba(0, 0, 0, 0.85))
+    drop-shadow(0 2px 5px rgba(0, 0, 0, 0.6));
+}
+
+/* --- Chip / button shapes (Exp) ---
+   Canonical ids: pill | cdj-ink.
+   data-shape is canonical; data-chip-shape kept in sync for older CSS.
+   Persisted default remains pill. Deleted ids (fold, blob, cue, drift, warp,
+   wave, teardrop, scallop, swoop, squircle, petal, cdj) map to cdj-ink in JS. */
+
+html[data-shape="pill"],
+html[data-chip-shape="pill"] {
+  --radius-chip: 999px;
+  --radius-ctrl: 999px;
+  --radius-cta: 999px;
+  --shape-chip-br: 999px;
+  --shape-orb-br: 999px;
+  --shape-chip-clip: none;
+  --shape-orb-clip: none;
+}
+
+/* Shared pad-bank geometry — CDJ rectangles + CDJ ink */
+html:is([data-shape^="cdj"], [data-chip-shape^="cdj"]) {
+  --cdj-orange: #ff7a18;
+  --cdj-blue: #4ec5ff;
+  --cdj-yellow: #ffe032;
+  --cdj-face: #0a0a0a;
+  --cdj-bar-h: 0.26rem;
+  --cdj-pad-w: 4.9rem;
+  --cdj-pad-w-sm: 3.55rem;
+  --cdj-pad-h: 3.2rem;
+  --cdj-pad-gap: 0.5rem;
+  --cdj-pad-x: 0.62rem;
+  --cdj-pad-top: 0.6rem;
+  --cdj-pad-bottom: 1.25rem;
+  --cdj-bar-inset: 0.46rem;
+  --cdj-type: 0.68rem;
+  --chip-pad-y: var(--cdj-pad-top);
+  --chip-pad-x: var(--cdj-pad-x);
+  --shape-row-gap: var(--cdj-pad-gap);
+  --shape-row-pad: 0.5rem 0.2rem 0.55rem;
+  --shape-chip-margin: 0;
+  --radius-ctrl: 999px;
+  --radius-cta: 999px;
+  --radius-chip: 5px;
+}
+
+html:is([data-shape="cdj-ink"], [data-chip-shape="cdj-ink"]) {
+  --cdj-type: 0.72rem;
+}
+
+html[data-shape] .genre-chip,
+html[data-shape] .exp-chip,
+html[data-shape] .react__btn,
+html[data-shape] .ctrl--side,
+html[data-shape] .level,
+html[data-shape] .auth-pill,
+html[data-shape] .cta-pill,
+html[data-chip-shape] .genre-chip,
+html[data-chip-shape] .exp-chip,
+html[data-chip-shape] .react__btn,
+html[data-chip-shape] .ctrl--side,
+html[data-chip-shape] .level,
+html[data-chip-shape] .auth-pill,
+html[data-chip-shape] .cta-pill {
+  transition:
+    border-radius 0.28s var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)),
+    clip-path 0.28s var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1)),
+    color 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+html:is([data-shape="pill"], [data-chip-shape="pill"]) :is(.genre-chip, .exp-chip, .react__btn, .ctrl--side, .level, .auth-pill, .cta-pill) {
+  overflow: visible;
+}
+
+html[data-shape="pill"] .genre-chip,
+html[data-shape="pill"] .exp-chip,
+html[data-shape="pill"] .auth-pill,
+html[data-shape="pill"] .cta-pill,
+html[data-chip-shape="pill"] .genre-chip,
+html[data-chip-shape="pill"] .exp-chip,
+html[data-chip-shape="pill"] .auth-pill,
+html[data-chip-shape="pill"] .cta-pill {
+  border-radius: 999px !important;
+  clip-path: none;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -1px 3px rgba(0, 0, 0, 0.28),
+    0 1px 2px rgba(0, 0, 0, 0.22),
+    0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+html[data-shape="pill"] .react__btn,
+html[data-shape="pill"] .ctrl--side,
+html[data-shape="pill"] .level,
+html[data-chip-shape="pill"] .react__btn,
+html[data-chip-shape="pill"] .ctrl--side,
+html[data-chip-shape="pill"] .level {
+  border-radius: 999px !important;
+  clip-path: none;
+}
+
+html:is([data-shape="pill"], [data-chip-shape="pill"]) :is(.genre-chip, .exp-chip, .auth-pill, .cta-pill):hover {
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    inset 0 -1px 3px rgba(0, 0, 0, 0.22),
+    0 4px 8px rgba(0, 0, 0, 0.2),
+    0 12px 22px rgba(0, 0, 0, 0.22);
+}
+
+html:is([data-shape="pill"], [data-chip-shape="pill"]) :is(.genre-chip, .exp-chip, .auth-pill, .cta-pill):active {
+  transform: translateY(1px) scale(0.98);
+}
+
+/* --- CDJ + CDJ ink pad banks ---
+   2026 tactile depth: recessed well in the panel, raised rubber cap,
+   top light (inner highlight + bottom AO), tight contact shadow + softer
+   ambient, press-in on active. Same language on CDJ and CDJ ink. */
+html:is([data-shape^="cdj"], [data-chip-shape^="cdj"]) :is(.exp-chips, .filter-chips) {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(var(--cdj-pad-w), 100%), 1fr));
+  align-items: stretch;
+  justify-content: stretch;
+  gap: var(--cdj-pad-gap);
+  margin: 0;
+  padding: var(--shape-row-pad);
+  overflow: visible;
+}
+
+/* Views + Track age are full-width range sliders — never CDJ pad grids. */
+html:is([data-shape^="cdj"], [data-chip-shape^="cdj"]) :is(
+  .filter-chips--tiers,
+  .filter-chips--age,
+  .filter-chips--prolific
+) {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  grid-template-columns: none !important;
+  grid-auto-flow: unset !important;
+  gap: 0;
+  padding: 0.1rem 0 0.15rem;
+  overflow: visible;
+}
+
+html:is([data-shape^="cdj"], [data-chip-shape^="cdj"]) :is(
+  .filter-chips--tiers,
+  .filter-chips--age
+) .views-slider,
+html:is([data-shape^="cdj"], [data-chip-shape^="cdj"]) :is(
+  .filter-chips--tiers,
+  .filter-chips--age
+) .views-slider__input,
+html:is([data-shape^="cdj"], [data-chip-shape^="cdj"]) :is(
+  .filter-chips--tiers,
+  .filter-chips--age
+) .views-slider__track,
+html:is([data-shape^="cdj"], [data-chip-shape^="cdj"]) :is(
+  .filter-chips--tiers,
+  .filter-chips--age
+) .views-slider__labels {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0;
+}
+
+html:is([data-shape^="cdj"], [data-chip-shape^="cdj"]) .exp-chips--age {
+  --cdj-pad-w-age: 2.55rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-flow: row;
+  grid-auto-columns: unset;
+  overflow: hidden;
+  padding-block: 0.28rem 0.32rem;
+  padding-inline-end: 0;
+  max-width: 100%;
+  min-width: 0;
+}
+
+html:is([data-shape^="cdj"], [data-chip-shape^="cdj"]) .exp-chips--age .exp-chip {
+  width: var(--cdj-pad-w-age);
+  min-width: var(--cdj-pad-w-age);
+  max-width: var(--cdj-pad-w-age);
+  padding-inline: 0.28rem !important;
+  justify-content: center;
+  text-align: center;
+  font-size: calc(var(--cdj-type) * 0.92);
+}
+
+html:is([data-shape^="cdj"], [data-chip-shape^="cdj"]) :is(.exp-section, .exp-dock, .filter-block) {
+  overflow: hidden;
+}
+
+html:is([data-shape^="cdj"], [data-chip-shape^="cdj"]) .exp-panel {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+html:is([data-shape^="cdj"], [data-chip-shape^="cdj"]) .chrome-rail {
+  overflow: hidden;
+}
+
+/* Left filter rail must scroll — never clip Clearance / Prolific / Track age. */
+html:is([data-shape^="cdj"], [data-chip-shape^="cdj"]) .filter-rail {
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+html:is([data-shape^="cdj"], [data-chip-shape^="cdj"]) .exp-panel {
+  padding-inline: calc(0.62rem + 4px);
+  padding-block: calc(0.58rem + 4px) calc(0.64rem + 6px);
+}
+
+html:is([data-shape^="cdj"], [data-chip-shape^="cdj"]) .filter-block {
+  padding-inline: calc(0.08rem + 2px);
+  padding-block: calc(0.22rem + 4px);
+}
+
+html:is([data-shape^="cdj"], [data-chip-shape^="cdj"]) .filter-chips--styles .genre-chip {
+  contain: layout paint;
+  max-width: 100%;
+}
+
+html:is([data-shape^="cdj"], [data-chip-shape^="cdj"]) :is(.genre-chip, .exp-chip) {
+  position: relative;
+  z-index: 0;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 0;
+  padding: var(--cdj-pad-top) var(--cdj-pad-x) var(--cdj-pad-bottom) !important;
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+  min-height: var(--cdj-pad-h);
+  border: 1px solid rgba(0, 0, 0, 0.55) !important;
+  background: #050505 !important;
+  clip-path: none !important;
+  overflow: hidden;
+  text-align: left;
+  /* Always one line — shrink type via --chip-fit, never wrap / never change pad size. */
+  white-space: nowrap !important;
+  overflow: hidden;
+  overflow-wrap: normal;
+  text-overflow: clip;
+  color: var(--cdj-accent, var(--cdj-orange));
+  border-radius: 6px !important;
+  font-size: calc(var(--cdj-type) * var(--chip-fit, 1));
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.15;
+  text-transform: uppercase;
+  box-shadow:
+    inset 0 3px 6px rgba(0, 0, 0, 0.72),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.45) !important;
+}
+
+html:is([data-shape="cdj-ink"], [data-chip-shape="cdj-ink"]) :is(.genre-chip, .exp-chip) {
+  -webkit-text-stroke: 0.5px #050505;
+  paint-order: stroke fill;
+  text-shadow:
+    0 0 0.45px #000,
+    0 1px 0 rgba(0, 0, 0, 0.55);
+}
+
+html:is([data-shape^="cdj"], [data-chip-shape^="cdj"]) :is(.genre-chip, .exp-chip):nth-child(3n + 1) {
+  --cdj-accent: var(--cdj-orange);
+  color: var(--cdj-accent);
+}
+
+html:is([data-shape^="cdj"], [data-chip-shape^="cdj"]) :is(.genre-chip, .exp-chip):nth-child(3n + 2) {
+  --cdj-accent: var(--cdj-blue);
+  color: var(--cdj-accent);
+}
+
+html:is([data-shape^="cdj"], [data-chip-shape^="cdj"]) :is(.genre-chip, .exp-chip):nth-child(3n) {
+  --cdj-accent: var(--cdj-yellow);
+  color: var(--cdj-accent);
+}
+
+html:is([data-shape^="cdj"], [data-chip-shape^="cdj"]) :is(.genre-chip, .exp-chip)::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  inset: 2px 2px 3px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.03) 18%, transparent 42%),
+    linear-gradient(180deg, #1c1c1c 0%, #121212 46%, #0c0c0c 100%);
+  box-shadow:
+    0 1px 1px rgba(0, 0, 0, 0.5),
+    0 4px 10px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.45);
+  transition: background 0.18s ease, box-shadow 0.18s ease, transform 0.14s var(--ease-press, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+html:is([data-shape^="cdj"], [data-chip-shape^="cdj"]) :is(.genre-chip, .exp-chip)::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  left: var(--cdj-pad-x);
+  right: var(--cdj-pad-x);
+  bottom: var(--cdj-bar-inset);
+  width: auto;
+  transform: none;
+  height: var(--cdj-bar-h);
+  border-radius: 1px;
+  background: var(--cdj-face);
+  pointer-events: none;
+  transition: background 0.2s ease;
+}
+
+html:is([data-shape^="cdj"], [data-chip-shape^="cdj"]) :is(.genre-chip, .exp-chip):hover::before {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.05) 18%, transparent 42%),
+    linear-gradient(180deg, #242424 0%, #161616 46%, #101010 100%);
+  box-shadow:
+    0 1px 1px rgba(0, 0, 0, 0.45),
+    0 5px 12px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.34),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.4);
+}
+
+html:is([data-shape^="cdj"], [data-chip-shape^="cdj"]) :is(.genre-chip, .exp-chip):hover {
+  transform: none;
+}
+
+html:is([data-shape^="cdj"], [data-chip-shape^="cdj"]) :is(.genre-chip, .exp-chip):active {
+  transform: none;
+}
+
+html:is([data-shape^="cdj"], [data-chip-shape^="cdj"]) :is(.genre-chip, .exp-chip):active::before {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, transparent 28%),
+    linear-gradient(180deg, #101010 0%, #0a0a0a 55%, #121212 100%);
+  box-shadow:
+    inset 0 2px 6px rgba(0, 0, 0, 0.62),
+    inset 0 1px 1px rgba(0, 0, 0, 0.4),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.08);
+  transform: none;
+}
+
+html:is([data-shape^="cdj"], [data-chip-shape^="cdj"]) :is(.genre-chip, .exp-chip).is-active,
+html:is([data-shape^="cdj"], [data-chip-shape^="cdj"]) :is(.genre-chip, .exp-chip)[aria-pressed="true"] {
+  background: #050505 !important;
+  border-color: rgba(0, 0, 0, 0.6) !important;
+  color: var(--cdj-accent, var(--cdj-orange)) !important;
+  filter: none;
+  transform: none;
+}
+
+html:is([data-shape^="cdj"], [data-chip-shape^="cdj"]) :is(.genre-chip, .exp-chip).is-active::before,
+html:is([data-shape^="cdj"], [data-chip-shape^="cdj"]) :is(.genre-chip, .exp-chip)[aria-pressed="true"]::before {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, transparent 30%),
+    linear-gradient(180deg, #141414 0%, #0a0a0a 55%, #101010 100%);
+  box-shadow:
+    inset 0 2px 5px rgba(0, 0, 0, 0.58),
+    inset 0 1px 1px rgba(0, 0, 0, 0.35),
+    inset 0 0 0 1px color-mix(in srgb, var(--cdj-accent, var(--cdj-orange)) 28%, transparent),
+    0 0 10px color-mix(in srgb, var(--cdj-accent, var(--cdj-orange)) 18%, transparent);
+}
+
+html:is([data-shape^="cdj"], [data-chip-shape^="cdj"]) :is(.genre-chip, .exp-chip).is-active::after,
+html:is([data-shape^="cdj"], [data-chip-shape^="cdj"]) :is(.genre-chip, .exp-chip)[aria-pressed="true"]::after {
+  background: var(--cdj-accent, var(--cdj-orange));
+}
+
+html:is([data-shape^="cdj"], [data-chip-shape^="cdj"]) .genre-chip.is-pending::before {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, transparent 30%),
+    #121212;
+  box-shadow:
+    inset 0 2px 6px rgba(0, 0, 0, 0.7),
+    inset 0 0 0 1px rgba(224, 192, 144, 0.45);
+}
+
+html:is([data-shape^="cdj"], [data-chip-shape^="cdj"]) .genre-chip.is-pending::after {
+  background: rgba(224, 192, 144, 0.55);
+}
+
+html[data-skin="deck"]:is([data-shape^="cdj"], [data-chip-shape^="cdj"]) :is(.genre-chip, .exp-chip)::before,
+html[data-skin="deck"]:is([data-shape^="cdj"], [data-chip-shape^="cdj"]) :is(.genre-chip, .exp-chip).is-active::before {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.14) 0%, transparent 28%),
+    linear-gradient(180deg, #1a1a1a 0%, #101010 55%, #0c0c0c 100%);
+}
+
+html:is([data-shape^="cdj"], [data-chip-shape^="cdj"]) :is(.react__btn, .ctrl--side, .level) {
+  border-radius: 999px !important;
+  clip-path: none !important;
+}
+
+html:is([data-shape^="cdj"], [data-chip-shape^="cdj"]) :is(.auth-pill, .cta-pill) {
+  border-radius: var(--radius-chip) !important;
+  clip-path: none !important;
+}
+
+@media (forced-colors: active) {
+  html:is([data-shape^="cdj"], [data-chip-shape^="cdj"]) :is(.genre-chip, .exp-chip) {
+    border: 2px solid ButtonText !important;
+  }
+}
+
+/* =====================================================================
+   Buttons carry no border strokes
+   Definition comes from fill, inner shadow and (on CDJ pads) the underline
+   bar. Focus-visible outlines are deliberately untouched — keyboard nav
+   still gets the 2px accent ring from radio.css.
+   ===================================================================== */
+.genre-chip,
+.exp-chip,
+.exp-fab,
+.react__btn,
+.level,
+.ctrl,
+.ctrl--side,
+.auth-pill,
+.cta-pill,
+.invite-btn,
+#btn-request-invite.glass,
+#btn-request-invite.glass--quiet,
+#btn-compress.level,
+html[data-testing="rearranged"] #btn-compress.level {
+  border: 0 !important;
+}
+
+/* Buttons that had no focus style of their own now that the stroke is gone */
+.exp-chip:focus-visible,
+.auth-pill:focus-visible,
+.cta-pill:focus-visible,
+.invite-btn:focus-visible {
+  outline: 2px solid var(--accent, #c4844a);
+  outline-offset: 3px;
+}
+
+/* Ring token replaces the stroke where a chip fill alone is too faint.
+   :where() keeps this at zero specificity so skin + state rules still win. */
+:root {
+  --btn-ring: rgba(255, 250, 242, 0.14);
+}
+
+html[data-skin="deck"] {
+  --btn-ring: rgba(10, 11, 12, 0.3);
+}
+
+:where(html:not([data-shape^="cdj"]):not([data-chip-shape^="cdj"])) :where(.genre-chip, .exp-chip) {
+  box-shadow: inset 0 0 0 1px var(--btn-ring);
+}
+
+:where(html[data-skin="deck"]) :where(.react__btn, .level, .auth-pill, .exp-fab) {
+  box-shadow: inset 0 0 0 1px var(--btn-ring);
+}
+
+/* Compressor track keeps its outline as an inner ring, not a border */
+html[data-testing="rearranged"] #btn-compress.level {
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 250, 242, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 8px 18px rgba(0, 0, 0, 0.35) !important;
+}
+
+/* =====================================================================
+   Transport prev / next — round brushed-metal CDJ transport buttons
+   Reference: Pioneer CUE / PLAY-PAUSE caps. Dark gunmetal cap with a
+   radial brushed sheen, bevelled rim, translucent recessed collar and a
+   soft drop shadow. Perfectly circular in every skin and every Exp shape,
+   centred on the vinyl's horizontal axis, clear of its rim.
+   ===================================================================== */
+:root {
+  /* Extra air between each orb and the artwork/vinyl edge */
+  --orb-clearance: clamp(0.6rem, 1.4vw, 1.15rem);
+}
+
+#btn-prev.ctrl--side,
+#btn-next.ctrl--side {
+  position: relative;
+  isolation: isolate;
+  width: var(--side-orb-size);
+  height: var(--side-orb-size);
+  min-width: var(--side-orb-size);
+  min-height: var(--side-orb-size);
+  aspect-ratio: 1 / 1;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  border: 0 !important;
+  border-radius: 50% !important;
+  clip-path: none !important;
+  overflow: visible !important;
+  color: #eef4f9;
+  background-color: #2c3035 !important;
+  background-image:
+    radial-gradient(72% 58% at 50% 6%, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0) 62%),
+    radial-gradient(96% 84% at 50% 108%, rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0) 58%),
+    /* fine radial brush striations */
+    repeating-conic-gradient(
+      from 0deg at 50% 50%,
+      rgba(255, 255, 255, 0.05) 0deg 0.65deg,
+      rgba(0, 0, 0, 0.06) 0.65deg 1.5deg
+    ),
+    conic-gradient(
+      from 208deg at 50% 50%,
+      #202327 0deg,
+      #5c636b 26deg,
+      #2a2e33 58deg,
+      #737b83 94deg,
+      #272b30 130deg,
+      #555c64 166deg,
+      #212428 202deg,
+      #697078 246deg,
+      #282c31 292deg,
+      #4b525a 330deg,
+      #202327 360deg
+    ) !important;
+  background-origin: padding-box !important;
+  background-clip: padding-box !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow:
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.55),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.75),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.12),
+    inset 0 0 14px rgba(0, 0, 0, 0.35),
+    0 2px 3px rgba(0, 0, 0, 0.45),
+    0 10px 20px rgba(0, 0, 0, 0.5),
+    0 18px 36px rgba(0, 0, 0, 0.35) !important;
+  scale: 1;
+  transition:
+    filter 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease,
+    opacity var(--react-opacity-ms, 0.18s) ease,
+    scale 0.32s cubic-bezier(0.22, 0.08, 0.25, 1);
+}
+
+/* Translucent recessed collar the cap sits in (ring only — never tints
+   the metal face, so it works on light and dark skins alike) */
+#btn-prev.ctrl--side::before,
+#btn-next.ctrl--side::before {
+  content: "";
+  position: absolute;
+  inset: -13%;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at 50% 46%,
+    rgba(255, 255, 255, 0) 76%,
+    rgba(232, 243, 252, 0.3) 79%,
+    rgba(168, 188, 204, 0.2) 88%,
+    rgba(120, 138, 154, 0.1) 95%,
+    rgba(0, 0, 0, 0.34) 100%
+  );
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.4));
+}
+
+#btn-prev.ctrl--side:hover,
+#btn-next.ctrl--side:hover,
+#btn-prev.ctrl--side:focus-visible,
+#btn-next.ctrl--side:focus-visible {
+  color: #ffffff;
+  filter: brightness(1.12);
+  opacity: var(--react-hover-opacity, 0.9);
+  transform: none;
+  scale: 1.08;
+  background-color: #2c3035 !important;
+  box-shadow:
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.65),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.72),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.16),
+    inset 0 0 14px rgba(0, 0, 0, 0.3),
+    0 2px 3px rgba(0, 0, 0, 0.45),
+    0 12px 24px rgba(0, 0, 0, 0.55),
+    0 20px 40px rgba(0, 0, 0, 0.38) !important;
+}
+
+#btn-prev.ctrl--side:active,
+#btn-next.ctrl--side:active {
+  scale: 0.97;
+  transform: none;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -1px 3px rgba(0, 0, 0, 0.8),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1),
+    inset 0 2px 10px rgba(0, 0, 0, 0.6),
+    0 1px 2px rgba(0, 0, 0, 0.5),
+    0 5px 12px rgba(0, 0, 0, 0.45) !important;
+}
+
+#btn-prev.ctrl--side:focus-visible,
+#btn-next.ctrl--side:focus-visible {
+  outline: 2px solid var(--accent, #c4844a);
+  outline-offset: 4px;
+}
+
+/* The blurred track thumbnail would fight the metal cap */
+#btn-prev .ctrl__thumb-wrap,
+#btn-next .ctrl__thumb-wrap {
+  display: none !important;
+}
+
+#btn-prev .ctrl__chevron,
+#btn-next .ctrl__chevron {
+  position: relative;
+  z-index: 1;
+  width: 30px;
+  height: 30px;
+  color: inherit;
+  filter:
+    drop-shadow(0 1px 0 rgba(0, 0, 0, 0.85))
+    drop-shadow(0 2px 5px rgba(0, 0, 0, 0.6));
+}
+
+@supports (corner-shape: squircle) {
+  #btn-prev.ctrl--side,
+  #btn-next.ctrl--side {
+    corner-shape: round !important;
+    border-radius: 50% !important;
+  }
+}
+
+#btn-compress.level,
+html[data-testing="rearranged"] #btn-compress.level {
+  border-radius: 10px !important;
+  clip-path: none !important;
+}
+
+#btn-compress .level__icon svg {
+  transform: none !important;
+}
+
+html[data-shape] #btn-prev.ctrl--side,
+html[data-shape] #btn-next.ctrl--side,
+html[data-shape] #btn-compress.level,
+html[data-chip-shape] #btn-prev.ctrl--side,
+html[data-chip-shape] #btn-next.ctrl--side,
+html[data-chip-shape] #btn-compress.level {
+  clip-path: none !important;
+}
+
+/* Exp fold — thin vertical tab; equal rail columns keep vinyl centered */
+html[data-exp-fold="on"] .exp-panel {
+  display: none;
+}
+
+html[data-exp-fold="on"] .exp-fab {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  min-width: var(--hit-min);
+  min-height: 7.5rem;
+  padding: 0.7rem 0.45rem;
+  letter-spacing: 0.22em;
+  align-self: flex-end;
+}
+
+html[data-testing="rearranged"] .react__btn svg.react-icon--fill {
+  display: block;
+  position: absolute;
+  opacity: 0;
+}
+
+html[data-testing="rearranged"] #btn-like:hover svg.react-icon--fill,
+html[data-testing="rearranged"] #btn-dislike:hover svg.react-icon--fill {
+  opacity: 1;
+}
+
+html[data-testing="rearranged"] #btn-like:hover svg.react-icon--line,
+html[data-testing="rearranged"] #btn-dislike:hover svg.react-icon--line {
+  opacity: 0;
+}
+
+html[data-testing="rearranged"][data-compress-ui="steps"] .compress-steps {
+  position: absolute;
+  left: 50%;
+  right: auto;
+  top: auto;
+  bottom: -5.35rem;
+  transform: translateX(-50%);
+  width: min(86%, 16rem);
+  justify-content: center;
+}
+
+html[data-testing="rearranged"][data-compress-ui="meter"] #btn-compress .level__gr {
+  display: block;
+}
+
+/* Era-functional a11y: large type, tracking lines, chunky chrome — not case replicas */
+html[data-skin="deck"] {
+  --type-chip: clamp(0.76rem, 0.64rem + 0.45vw, 0.94rem);
+}
+
+html[data-skin="deck"] .filter-block__label,
+html[data-skin="deck"] .exp-section__label {
+  letter-spacing: var(--chip-label-track);
+  font-size: var(--type-chip-label);
+}
+
+html[data-skin="deck"] .genre-chip,
+html[data-skin="deck"] .exp-chip {
+  font-weight: 700;
+}
+
+/* Panel type lock — left filters and Exp share one face; no underlines either skin */
+.filter-block__label,
+.exp-section__label,
+.exp-panel__title {
+  font-family: var(--font-chip-label);
+  font-size: var(--type-chip-label);
+  font-weight: var(--chip-label-weight);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.2;
+  border-bottom: none;
+  text-decoration: none;
+  padding-bottom: 0;
+}
+
+.genre-chip,
+.exp-chip,
+.exp-chip--compact,
+.exp-chips--age .exp-chip {
+  font-family: var(--font-chip);
+  font-size: calc(var(--type-chip) * var(--chip-fit, 1));
+  font-weight: var(--chip-weight);
+  letter-spacing: var(--chip-track);
+  line-height: var(--chip-leading);
+  text-transform: var(--chip-transform);
+}
+
+#btn-request-invite,
+.auth-pill.cta-pill {
+  font-family: var(--font-chip);
+  font-size: var(--type-chip);
+  font-weight: var(--chip-weight);
+  letter-spacing: var(--chip-track);
+  line-height: var(--chip-leading);
+  text-transform: uppercase;
+  border-radius: var(--radius-chip);
+  min-height: max(var(--hit-min), var(--cta-min-h));
+  padding: var(--chip-pad-y) var(--chip-pad-x);
+}
+
+@media (min-width: 860px) and (max-height: 1020px) {
+  /* Keep CDJ pads at full tall size (3.2rem). Rail scrolls — never squash height. */
+  html:is([data-shape^="cdj"], [data-chip-shape^="cdj"]) {
+    --cdj-pad-h: 3.2rem;
+    --cdj-pad-gap: 0.42rem;
+    --cdj-pad-x: 0.58rem;
+    --cdj-pad-top: 0.58rem;
+    --cdj-pad-bottom: 1.22rem;
+    --cdj-bar-h: 0.26rem;
+    --cdj-bar-inset: 0.44rem;
+    --cdj-type: 0.7rem;
+    --shape-row-gap: 0.42rem;
+    --shape-row-pad: 0.45rem 0.18rem 0.5rem;
+  }
+
+  html:is([data-shape="cdj-ink"], [data-chip-shape="cdj-ink"]) {
+    --cdj-type: 0.8rem;
+  }
+
+  .exp-section {
+    padding: 0.14rem 0;
+    gap: 0.1rem;
+  }
+  .exp-panel {
+    padding: 0.32rem 0.38rem 0.28rem;
+  }
+  .exp-panel__title {
+    margin-bottom: 0.2rem;
+  }
+  .exp-hint {
+    display: none;
+  }
+}
+
+/* --- Browser zoom resilience ---
+   Prefer shrinking rails + art together so 150% zoom keeps vinyl/tape + orbs
+   proportional rather than crushing the stage into overlapping chrome.
+   Vinyl is vector/CSS (% of .art) so it scales with --art-size.
+   Tape shell is a fixed PNG — layout (orbs, title, chrome) uses % / clamp. */
+html[data-skin="deck"] .art-wrap,
+html[data-skin="deck"] .art,
+html[data-skin="deck"] .vinyl-title {
+  max-width: 100%;
+}
+
+html[data-skin="tape"] .art-wrap {
+  width: min(100%, var(--art-size));
+  max-width: 100%;
+}
+
+html[data-skin="tape"] .as-tape-chrome__label-text {
+  max-width: 100%;
+}
+
+html[data-skin="tape"] .ctrl--side,
+html[data-skin="deck"] .ctrl--side {
+  width: var(--side-orb-size);
+  height: var(--side-orb-size);
+  flex: 0 0 auto;
+}
+
+/* ~150% browser zoom ≈ shorter CSS viewport — tighten rails, keep art/orbs linked. */
+@media (max-height: 720px), (max-width: 1100px) {
+  :root {
+    --rail-width: clamp(168px, 16vw, 220px);
+    --art-size: min(
+      78vw,
+      calc(100dvh - var(--invite-reserve) - var(--reactions-reserve) - var(--stage-pad-y) - var(--stage-pad-b) - 0.5rem),
+      520px
+    );
+    --orb-size: clamp(44px, 4.2vw, 52px);
+    --side-orb-size: clamp(52px, 5vw, 66px);
+    --reactions-reserve: calc(var(--orb-size-like) + 2.4rem);
+  }
+
+  html[data-testing="rearranged"] .player {
+    padding-bottom: 12.5rem;
+  }
+
+  html[data-testing="rearranged"] #btn-compress.level,
+  html[data-testing="rearranged"] #audio-viz.audio-viz {
+    width: min(82%, 11.5rem);
+  }
+}
+
+/* ~175% browser zoom — stage must not collide with rails / invite. */
+@media (max-height: 580px), (max-width: 920px) {
+  :root {
+    --rail-width: clamp(140px, 13.5vw, 178px);
+    --art-size: min(
+      58vw,
+      calc(100dvh - var(--invite-reserve) - var(--reactions-reserve) - var(--stage-pad-y) - var(--stage-pad-b) - 1.25rem),
+      340px
+    );
+    --orb-size: clamp(38px, 3.6vw, 46px);
+    --side-orb-size: clamp(44px, 4.4vw, 56px);
+    --reactions-reserve: calc(var(--orb-size-like) + 1.8rem);
+    --gutter: 0.55rem;
+  }
+
+  html[data-testing="rearranged"] .player {
+    padding-bottom: 10.5rem;
+  }
+
+  html[data-testing="rearranged"] #btn-compress.level {
+    bottom: -4.1rem;
+    width: min(76%, 9.5rem);
+    height: 1.95rem;
+  }
+
+  html[data-testing="rearranged"] #audio-viz.audio-viz {
+    bottom: calc(-4.1rem + 2.15rem);
+    width: min(76%, 9.5rem);
+    height: 1.25rem;
+  }
+
+  html[data-testing="rearranged"] .auth-rail--player {
+    top: calc(100% + 6.35rem);
+    max-width: min(92%, var(--art-size));
+  }
+
+  html[data-testing="rearranged"][data-compress-ui="steps"] .compress-steps {
+    bottom: -4.1rem;
+    width: min(86%, 12rem);
+  }
+
+  @media (min-width: 860px) {
+    html[data-testing="rearranged"] .stage-body {
+      column-gap: calc(var(--gutter) + 1.1rem);
+    }
+  }
+}
+
+@media (min-resolution: 1.25dppx) {
+  html[data-skin="deck"] .art {
+    /* Keep circular platter crisp under common zoom / HiDPI */
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .genre-chip:hover,
+  .exp-chip:hover,
+  .auth-pill:hover,
+  .cta-pill:hover,
+  #btn-request-invite:hover,
+  html:is([data-shape="pill"], [data-shape^="cdj"]) :is(.genre-chip, .exp-chip):hover,
+  html:is([data-chip-shape="pill"], [data-chip-shape^="cdj"]) :is(.genre-chip, .exp-chip):hover {
+    transform: none;
+  }
+}
+
+
+/* Exp orb-position tuners */
+.exp-section--react-pos .exp-pos-grid {
+  display: grid;
+  gap: 0.28rem;
+  margin-top: 0.35rem;
+}
+
+.exp-pos-row {
+  display: grid;
+  grid-template-columns: 3.6rem 1fr 1fr;
+  gap: 0.28rem;
+  align-items: center;
+}
+
+.exp-pos-row__name {
+  font-family: var(--font-chip);
+  font-size: 0.62rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(255, 250, 242, 0.7);
+}
+
+.exp-pos-input {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  appearance: textfield;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 250, 242, 0.18);
+  border-radius: 6px;
+  color: var(--sand-bright);
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.68rem;
+  padding: 0.28rem 0.35rem;
+}
+
+html:is([data-shape^="cdj"], [data-chip-shape^="cdj"]) .filter-check {
+  position: relative;
+  width: 100%;
+  min-height: var(--cdj-pad-h);
+  height: auto;
+  border-radius: var(--radius-chip);
+  padding: var(--cdj-pad-top) var(--cdj-pad-x) var(--cdj-pad-bottom);
+  background: transparent;
+  border-color: transparent;
+  color: var(--cdj-accent, var(--cdj-orange));
+  align-items: center;
+  font-size: var(--cdj-type);
+}
+
+html:is([data-shape^="cdj"], [data-chip-shape^="cdj"]) .filter-check::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.14) 0%, transparent 28%),
+    linear-gradient(180deg, #1c1c1c 0%, #101010 55%, #0a0a0a 100%);
+  box-shadow:
+    0 1px 1px rgba(0, 0, 0, 0.45),
+    0 4px 10px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.4);
+  z-index: 0;
+}
+
+html:is([data-shape^="cdj"], [data-chip-shape^="cdj"]) .filter-check > * {
+  position: relative;
+  z-index: 1;
+}
+
+html:is([data-shape^="cdj"], [data-chip-shape^="cdj"]) .filter-check.is-active::after,
+html:is([data-shape^="cdj"], [data-chip-shape^="cdj"]) .filter-check[aria-checked="true"]::after {
+  content: "";
+  position: absolute;
+  left: var(--cdj-bar-inset);
+  right: var(--cdj-bar-inset);
+  bottom: 0.28rem;
+  height: var(--cdj-bar-h);
+  border-radius: 1px;
+  background: var(--cdj-accent, var(--cdj-orange));
+  z-index: 1;
+}

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Radio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Black&family=Caveat:wght@500;600;700&family=Homemade+Apple&family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Sans:wght@400;500;600;700&family=Permanent+Marker&family=Rowdies:wght@700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/tokens.css?v=ui-polish-95" />
+  <link rel="stylesheet" href="/static/radio.css?v=ui-polish-95" />
+  <link rel="stylesheet" href="/static/skins.css?v=ui-polish-95" />
+  <!-- Not deferred: sets html[data-skin] before first paint -->
+  <script src="/static/skins.js?v=ui-polish-95"></script>
+</head>
+<body>
+  <!-- SVG refraction map for liquid-glass edges (graceful fallback if unsupported) -->
+  <svg class="visually-hidden" aria-hidden="true" width="0" height="0">
+    <filter id="liquid-lens" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012 0.04" numOctaves="2" seed="3" result="noise" />
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="18" xChannelSelector="R" yChannelSelector="G" />
+    </filter>
+    <filter id="grunge-ink" x="-15%" y="-15%" width="130%" height="130%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.09 0.14" numOctaves="3" seed="17" result="grungeNoise" />
+      <feDisplacementMap in="SourceGraphic" in2="grungeNoise" scale="1.35" xChannelSelector="R" yChannelSelector="G" />
+    </filter>
+  </svg>
+
+  <div class="atmosphere" id="atmosphere" aria-hidden="true">
+    <div class="atmosphere__cover" id="atmosphere-cover-a"></div>
+    <div class="atmosphere__cover atmosphere__cover--b" id="atmosphere-cover-b"></div>
+    <div class="atmosphere__wash" id="atmosphere-a"></div>
+    <div class="atmosphere__wash atmosphere__wash--b" id="atmosphere-b"></div>
+    <div class="atmosphere__chromatic"></div>
+    <div class="atmosphere__facets">
+      <span class="atmosphere__pane"></span>
+      <span class="atmosphere__pane"></span>
+      <span class="atmosphere__pane"></span>
+      <span class="atmosphere__pane"></span>
+    </div>
+    <div class="atmosphere__glass-edge"></div>
+    <div class="atmosphere__vignette"></div>
+  </div>
+
+  <main class="stage">
+    <div class="stage-body">
+      <aside class="chrome-rail chrome-rail--left" id="chrome-left" aria-label="Everyday filters">
+        <div class="filter-rail glass glass--panel glass--art-match" id="filter-rail" role="group" aria-label="Filters">
+          <div class="filter-block filter-block--views">
+            <span class="filter-block__label" id="tier-label">Views</span>
+            <div class="filter-chips filter-chips--tiers" id="tier-chips" role="listbox" aria-labelledby="tier-label"></div>
+          </div>
+
+          <div class="filter-block filter-block--styles">
+            <span class="filter-block__label" id="genre-label">Genre</span>
+            <div class="filter-chips filter-chips--styles" id="genre-chips" role="listbox" aria-labelledby="genre-label"></div>
+          </div>
+
+          <div class="filter-block filter-block--clearance">
+            <span class="filter-block__label" id="license-label">Clearance</span>
+            <div class="filter-chips filter-chips--license" id="license-chips" role="group" aria-labelledby="license-label">
+              <button type="button" class="genre-chip" data-filter="free" aria-pressed="false" data-tip="Only Tracks Tagged Free">FREE</button>
+              <button type="button" class="genre-chip" data-filter="ffp" aria-pressed="false" data-tip="Only Free For Profit Tracks" aria-label="FFP, free for profit">FFP</button>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <section class="player" aria-label="Radio Player">
+        <div class="transport">
+          <button type="button" class="ctrl ctrl--side glass glass--quiet" id="btn-prev" aria-label="Skip to previous track" data-tip="Skip to previous track">
+            <span class="ctrl__thumb-wrap" aria-hidden="true">
+              <img class="ctrl__thumb" id="prev-thumb" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="" />
+            </span>
+            <svg class="ctrl__chevron" viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.15" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M16.2 4.2 7.4 12.4l8.6 7.6" />
+              <path d="M15.1 5.6 9.2 12.3l5.7 5.2" opacity="0.35" />
+            </svg>
+          </button>
+
+          <div class="art-wrap" id="art-wrap">
+            <button type="button" class="art glass glass--art" id="btn-play" aria-label="Play current track">
+              <img id="art-a" class="art__img is-active" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="" draggable="false" />
+              <img id="art-b" class="art__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="" draggable="false" />
+              <span class="art__play-glyph" id="play-glyph" aria-hidden="true" data-tip="Play Or Pause">
+                <svg class="icon-play" viewBox="0 0 24 24" width="48" height="48" fill="currentColor"><path d="M8 5.5v13l11-6.5L8 5.5z"/></svg>
+                <svg class="icon-pause" viewBox="0 0 24 24" width="42" height="42" fill="currentColor"><path d="M7 5h3.5v14H7V5zm6.5 0H17v14h-3.5V5z"/></svg>
+              </span>
+              <span class="art__title" id="art-title" hidden>
+                <span class="art__title-text" id="art-title-text"></span>
+              </span>
+              <span class="art__sheen" aria-hidden="true"></span>
+              <span class="art__rim" aria-hidden="true"></span>
+            </button>
+          </div>
+
+          <button type="button" class="ctrl ctrl--side glass glass--quiet" id="btn-next" aria-label="Skip to next track" data-tip="Skip to next track">
+            <span class="ctrl__thumb-wrap" aria-hidden="true">
+              <img class="ctrl__thumb" id="next-thumb" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="" />
+            </span>
+            <svg class="ctrl__chevron" viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.15" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M7.8 4.2 16.6 11.6 8 19.8" />
+              <path d="M8.9 5.6 14.8 11.7 9.1 17" opacity="0.35" />
+            </svg>
+          </button>
+        </div>
+
+        <div class="player-controls">
+          <div class="react" role="group" aria-label="Reactions">
+            <button type="button" class="react__btn react__btn--like" id="btn-like" aria-label="Like" data-tip="Like">
+              <svg class="react-icon react-icon--line" viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M7 11v10H4a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1h3zm0 0 4.2-7.3A2.4 2.4 0 0 1 13.4 2.5 2.1 2.1 0 0 1 15.5 4.6V9H20a2 2 0 0 1 2 2.3l-1.2 7A2 2 0 0 1 18.8 20H7"/>
+              </svg>
+              <svg class="react-icon react-icon--fill" viewBox="0 0 24 24" width="44" height="44" fill="currentColor" aria-hidden="true">
+                <path d="M7 11v10H4a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1h3zm0 0 4.2-7.3A2.4 2.4 0 0 1 13.4 2.5 2.1 2.1 0 0 1 15.5 4.6V9H20a2 2 0 0 1 2 2.3l-1.2 7A2 2 0 0 1 18.8 20H7"/>
+              </svg>
+            </button>
+            <button type="button" class="react__btn react__btn--soft" id="btn-not-fit" aria-label="Not Fit For This Station" data-tip="Not Fit For This Station">
+              <svg class="react-icon react-icon--line react-icon--grunge" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.05" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true">
+                <path d="M6.6 6.1l10.8 11.4" />
+                <path d="M17.4 6.4 6.5 17.8" opacity="0.88" stroke-width="1.75" />
+                <path d="M7.2 5.8l1.1-.35M16.8 17.6l.9.45" opacity="0.55" stroke-width="1.2" />
+              </svg>
+            </button>
+            <button type="button" class="react__btn react__btn--like" id="btn-dislike" aria-label="Dislike" data-tip="Dislike">
+              <svg class="react-icon react-icon--line" viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M17 13V3h3a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-3zm0 0-4.2 7.3A2.4 2.4 0 0 1 10.6 21.5 2.1 2.1 0 0 1 8.5 19.4V15H4a2 2 0 0 1-2-2.3l1.2-7A2 2 0 0 1 5.2 4H17"/>
+              </svg>
+              <svg class="react-icon react-icon--fill" viewBox="0 0 24 24" width="44" height="44" fill="currentColor" aria-hidden="true">
+                <path d="M17 13V3h3a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-3zm0 0-4.2 7.3A2.4 2.4 0 0 1 10.6 21.5 2.1 2.1 0 0 1 8.5 19.4V15H4a2 2 0 0 1-2-2.3l1.2-7A2 2 0 0 1 5.2 4H17"/>
+              </svg>
+            </button>
+            <button type="button" class="react__btn" id="btn-loop" aria-label="Loop This Track" aria-pressed="false" data-tip="Loop This Track">
+              <svg class="react-icon react-icon--line loop-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="7.2" />
+                <path d="M12 4.8V2.4l2.2 2.4L12 7.2" />
+                <circle cx="12" cy="12" r="1.35" fill="currentColor" stroke="none" />
+              </svg>
+            </button>
+            <canvas id="audio-viz" class="audio-viz" width="220" height="32" aria-hidden="true"></canvas>
+            <button
+              type="button"
+              class="react__btn level"
+              id="btn-compress"
+              aria-label="Compression amount"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              aria-valuenow="25"
+              aria-valuetext="Compression amount 25 percent"
+              role="slider"
+              aria-orientation="horizontal"
+              data-tip="Hold And Drag To Compress"
+            >
+              <span class="level__fill" aria-hidden="true"></span>
+              <span class="level__glow" aria-hidden="true"></span>
+              <span class="level__gr" id="compress-gr" aria-hidden="true">25</span>
+              <span class="level__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 14v4M8 9v9M12 5v13M16 10v8M20 7v11" />
+                </svg>
+              </span>
+            </button>
+            <div class="compress-steps" id="compress-steps" role="group" aria-label="Compression presets">
+              <button type="button" class="compress-step" data-compress-step="low" aria-pressed="false">Low</button>
+              <button type="button" class="compress-step" data-compress-step="mid" aria-pressed="false">Mid</button>
+              <button type="button" class="compress-step" data-compress-step="high" aria-pressed="false">High</button>
+              <span class="compress-steps__gr" id="compress-steps-gr">25%</span>
+            </div>
+          </div>
+          <div class="auth-rail auth-rail--player" id="auth-rail" aria-label="Access">
+            <button type="button" class="auth-pill cta-pill" id="btn-request-invite" data-tip="Request Invite" hidden>
+              REQUEST INVITE
+            </button>
+            <button type="button" class="auth-pill glass glass--quiet" id="btn-sign-in" data-tip="Sign In With Google" hidden>
+              Sign In
+            </button>
+            <button type="button" class="auth-pill glass glass--quiet" id="btn-sign-out" data-tip="Sign Out" hidden>
+              Sign Out
+            </button>
+            <span class="auth-user" id="auth-user" hidden></span>
+          </div>
+        </div>
+      </section>
+
+      <aside class="chrome-rail chrome-rail--right" id="chrome-right" aria-label="Experimental">
+        <div class="exp-dock" id="exp-dock"></div>
+      </aside>
+    </div>
+  </main>
+
+  <div class="invite-overlay" id="invite-overlay" hidden>
+    <div class="invite-backdrop" id="invite-backdrop" tabindex="-1"></div>
+    <div class="invite-panel" role="dialog" aria-modal="true" aria-labelledby="invite-title">
+      <div class="invite-panel__form" id="invite-form-wrap">
+        <h2 class="invite-title" id="invite-title">Request Invite</h2>
+        <p class="invite-copy" id="invite-copy">TypeBeat Radio is invite-only. Leave your email and we will review access.</p>
+        <form id="invite-form" class="invite-form" novalidate>
+          <label class="invite-label" for="invite-email">Email</label>
+          <input class="invite-input" id="invite-email" name="email" type="email" autocomplete="email" required maxlength="254" placeholder="you@example.com" />
+          <label class="invite-label" for="invite-note">Note <span class="invite-optional">Optional</span></label>
+          <input class="invite-input" id="invite-note" name="note" type="text" maxlength="120" placeholder="One line" />
+          <div class="invite-actions">
+            <button type="button" class="invite-btn invite-btn--ghost" id="invite-cancel">Cancel</button>
+            <button type="submit" class="invite-btn" id="invite-submit">Send request</button>
+          </div>
+          <p class="invite-error" id="invite-error" hidden></p>
+        </form>
+      </div>
+      <div class="invite-panel__done" id="invite-done" hidden>
+        <h2 class="invite-title">Request Sent</h2>
+        <p class="invite-copy" id="invite-done-copy">We'll be in touch. If you're already invited, use Sign In.</p>
+        <div class="invite-actions">
+          <button type="button" class="invite-btn" id="invite-done-close">Close</button>
+          <button type="button" class="invite-btn invite-btn--ghost" id="invite-done-signin" hidden>Sign In</button>
+        </div>
+      </div>
+      <div class="invite-panel__setup" id="invite-setup" hidden>
+        <h2 class="invite-title">Sign In Setup</h2>
+        <p class="invite-copy">Google OAuth isn't configured yet. Add <code>GOOGLE_CLIENT_ID</code> and <code>GOOGLE_CLIENT_SECRET</code> to <code>.env</code> — see <code>radio/AUTH.md</code>.</p>
+        <div class="invite-actions">
+          <button type="button" class="invite-btn" id="invite-setup-close">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="yt-host" class="yt-host" aria-hidden="true"></div>
+  <!-- Dual same-origin hosts for true overlapping A↔B crossfade + Compressor (polish.js) -->
+  <audio id="audio-host-a" class="yt-host" preload="auto"></audio>
+  <audio id="audio-host-b" class="yt-host" preload="auto"></audio>
+  <script src="/static/polish.js?v=ui-polish-95" defer></script>
+  <script src="/static/radio.js?v=ui-polish-95" defer></script>
+</body>
+</html>

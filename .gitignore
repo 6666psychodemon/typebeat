@@ -1,0 +1,61 @@
+# Secrets — never commit
+.env
+.env.local
+.env.*.local
+*.pem
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+venv/
+.venv/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
+# Node
+node_modules/
+web/node_modules/
+.next/
+out/
+
+# Local SQLite catalog (use Turso or a fixture DB in CI)
+typebeats.db
+typebeats.db-*
+typebeats_activity_snapshot.db*
+*.sqlite
+*.sqlite-*
+
+# Radio runtime / cache (not shipped on GitHub)
+radio/data/auth.db
+radio/data/auth.db-*
+radio/data/audio_cache/
+radio/data/prolific_channels.sqlite
+radio/data/prolific_channels.sqlite-*
+radio/data/events.jsonl
+radio/data/warm_queue.json
+
+# Harvest / pipeline artifacts (keep scripts; data stays local or Turso)
+harvester_v2.log
+harvester_v2_checkpoint.txt
+jev_sweep.log
+jev_sweep_checkpoint.json
+jev_sweep.pid
+harvested_producers*.txt
+harvested_producers*.csv
+active_producers.csv
+sparse_producers.csv
+prolific_producers.csv
+prolific_producers.txt
+queries.txt
+new_artists.txt
+
+# OS / editor
+.DS_Store
+.cursor/
+.impeccable/
+
+# Misc local scratch
+0

@@ -1,0 +1,341 @@
+/* TypeBeat Radio — design tokens
+   Source of truth for proportions, layers, and reusable chrome recipes.
+   See ../DESIGN_SYSTEM.md for philosophy and usage.
+*/
+
+:root {
+  /* --- Palette (shared; skins override via html[data-skin]) --- */
+  --ink: #050508;
+  --ink-2: #121018;
+  --sand: #f2ebe0;
+  --sand-bright: #fffaf2;
+  --sand-dim: rgba(255, 250, 242, 0.82);
+  --accent: #ff5a3c;
+  --accent-hot: #ff8a6a;
+  --chrome-fg: #fffaf2;
+  --chrome-fg-muted: rgba(255, 250, 242, 0.88);
+
+  /* --- Type --- */
+  --font-title: "Anton", "Archivo Black", Impact, sans-serif;
+  --font-body: "Instrument Sans", "Avenir Next", "Segoe UI", sans-serif;
+  /* Left + right rails share this face (Cue/CDJ-era grotesk). Skins override. */
+  --font-chip: "Space Grotesk", "Instrument Sans", "Avenir Next", sans-serif;
+  --font-chip-label: var(--font-chip);
+  --type-chip: clamp(0.72rem, 0.6rem + 0.5vw, 0.9rem);
+  --type-chip-label: clamp(0.6875rem, 0.6rem + 0.35vw, 0.88rem);
+  --type-cta: var(--type-chip);
+  --type-tip: 0.75rem;
+  --chip-weight: 600;
+  --chip-label-weight: 700;
+  --chip-track: 0.02em;
+  --chip-label-track: 0.06em;
+  --chip-transform: uppercase;
+  --chip-leading: 1.16;
+
+  /* --- Radii --- */
+  --radius-panel: 18px;
+  --radius-art: 0;
+  --radius-chip: 999px;
+  --radius-ctrl: 999px;
+  --radius-cta: 999px;
+  --radius-modal: 14px;
+  /* Exp Shape overrides these via html[data-shape]
+     (pill | cdj-ink). See DESIGN_SYSTEM.md. */
+
+  /* --- Hit targets & orbs --- */
+  --orb-size: clamp(52px, 4.8vw, 58px);
+  --orb-size-like: calc(var(--orb-size) * 2);
+  --side-orb-size: clamp(64px, 5.8vw, 78px);
+  --hit-min: 44px;
+  --cta-min-h: 48px;
+
+  /* --- Gaps & safe margins --- */
+  --gutter: clamp(0.65rem, 1.2vw, 1rem);
+  --gap-transport: clamp(0.18rem, 0.55vw, 0.42rem);
+  --gap-chip: clamp(0.16rem, 0.35vw, 0.28rem);
+  --gap-react: 0.45rem;
+  --safe-top: max(0.55rem, env(safe-area-inset-top));
+  --safe-right: max(0.65rem, env(safe-area-inset-right));
+  --safe-bottom: max(0.55rem, env(safe-area-inset-bottom));
+  --safe-left: max(0.55rem, env(safe-area-inset-left));
+  --auth-inset-y: 0.7rem;
+  --auth-inset-x: 0.85rem;
+  --invite-reserve: 3.85rem;
+  --reactions-reserve: calc(var(--orb-size-like) + 1.6rem);
+  --stage-pad-y: var(--safe-top);
+  --stage-pad-b: calc(var(--safe-bottom) + 0.35rem);
+
+  /* --- Scrollbars (muted; skins tint --scrollbar-thumb) --- */
+  --scrollbar-size: 5px;
+  --scrollbar-thumb: rgba(255, 250, 242, 0.22);
+  --scrollbar-thumb-hover: rgba(255, 250, 242, 0.38);
+  --scrollbar-track: transparent;
+
+  /* --- Stage geometry (all skins share) --- */
+  --rail-width: clamp(248px, 22vw, 300px);
+  --exp-tab-width: 2.75rem;
+  --art-size: min(
+    92vw,
+    calc(100dvh - var(--invite-reserve) - var(--reactions-reserve) - var(--stage-pad-y) - var(--stage-pad-b) - 1rem),
+    720px
+  );
+  --stage-max: 100%;
+  --chrome-rail-max: calc(100dvh - var(--invite-reserve) - var(--stage-pad-y) - var(--stage-pad-b));
+
+  /* --- Z-index layers --- */
+  --z-atmosphere: 0;
+  --z-stage: 1;
+  --z-player: 4;
+  --z-chrome: 6;
+  --z-exp: 8;
+  --z-auth: 12;
+  --z-modal: 40;
+  --z-tip: 10000;
+
+  /* --- Motion --- */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-press: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-luxe: cubic-bezier(0.45, 0.05, 0.55, 0.95);
+  --fade-ms: 480ms;
+  --art-fade-ms: 480ms;
+  --title-fade-ms: 480ms;
+  --react-idle-opacity: 0.75;
+  --react-hover-opacity: 0.9;
+  --react-active-opacity: 1;
+  --react-opacity-ms: 180ms;
+
+  /* --- Cover-art glass (html[data-glass]; contrast via scrim, not extra blur) ---
+     Default values match Hard. Soft / Stained / Glass override. Full-bleed cover. */
+  --atm-cover-blur: 3px;
+  --atm-cover-scale: 1.06;
+  --atm-cover-bright: 0.78;
+  --atm-cover-sat: 1.22;
+  --atm-cover-opacity: 0.92;
+  --atm-cover-shift: 0%;
+  --atm-wash-blur: 8px;
+  --atm-wash-scale: 1.04;
+  --atm-wash-bright: 0.5;
+  --atm-wash-sat: 1.2;
+  --atm-wash-contrast: 1.12;
+  --atm-wash-opacity: 0.4;
+
+  /* --- Liquid glass (baseline / Deck-leaning) --- */
+  --glass-bg: rgba(8, 8, 14, 0.32);
+  --glass-fill:
+    radial-gradient(120% 90% at 20% 0%, rgba(255, 255, 255, 0.1), transparent 55%),
+    linear-gradient(165deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 90, 60, 0.03) 40%, rgba(0, 0, 0, 0.22) 100%);
+  --glass-stroke: linear-gradient(
+    130deg,
+    rgba(255, 255, 255, 0.28) 0%,
+    rgba(255, 90, 60, 0.16) 48%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  --glass-blur: blur(18px) saturate(150%);
+  --glass-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    0 12px 28px rgba(0, 0, 0, 0.28);
+  --glass-quiet-bg: rgba(10, 10, 16, 0.72);
+  --glass-quiet-fill:
+    radial-gradient(120% 90% at 16% 0%, rgba(255, 255, 255, 0.09), transparent 52%),
+    linear-gradient(165deg, rgba(255, 255, 255, 0.05) 0%, rgba(0, 0, 0, 0.35) 100%);
+  --glass-quiet-stroke: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.42) 0%,
+    rgba(255, 138, 106, 0.28) 42%,
+    rgba(255, 255, 255, 0.08) 100%
+  );
+  --glass-quiet-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 0 0 1px rgba(255, 90, 60, 0.16),
+    0 12px 28px rgba(0, 0, 0, 0.4);
+  --controls-glow:
+    0 12px 28px rgba(0, 0, 0, 0.32),
+    0 0 18px rgba(255, 90, 60, 0.1);
+  --art-halo: 0 0 0 1px rgba(255, 250, 242, 0.55), 0 24px 56px rgba(0, 0, 0, 0.5);
+
+  /* --- Chips --- */
+  --chip-pad-y: clamp(0.4rem, 0.3rem + 0.4vw, 0.55rem);
+  --chip-pad-x: clamp(0.88rem, 0.7rem + 0.75vw, 1.25rem);
+  --chip-min-h: clamp(2.2rem, 1.9rem + 0.7vw, 2.75rem);
+  --chip-gap: clamp(0.32rem, 0.55vw, 0.48rem);
+  --focus-ring: 2px solid var(--accent);
+  --focus-offset: 3px;
+
+  /* --- Primary CTA (Request Invite and peers) ---
+     Dark ink on sand/accent fill. Never add dark text-shadow —
+     it muddies high-contrast CTAs. Elevation lives on the pill, not glyphs. */
+  --cta-bg: linear-gradient(160deg, var(--accent-hot), var(--accent));
+  --cta-fg: #140806;
+  --cta-border: transparent;
+  --cta-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    inset 0 -1px 3px rgba(0, 0, 0, 0.22),
+    0 1px 2px rgba(0, 0, 0, 0.2),
+    0 8px 18px rgba(0, 0, 0, 0.32);
+  --cta-shadow-hover:
+    inset 0 1px 0 rgba(255, 255, 255, 0.34),
+    inset 0 -1px 3px rgba(0, 0, 0, 0.18),
+    0 4px 8px rgba(0, 0, 0, 0.2),
+    0 12px 24px rgba(0, 0, 0, 0.36);
+  --cta-text-shadow: none;
+  --cta-pad-y: var(--chip-pad-y);
+  --cta-pad-x: var(--chip-pad-x);
+  --cta-tracking: var(--chip-track);
+  --cta-weight: var(--chip-weight);
+}
+
+html[data-glass="soft"] {
+  --atm-cover-blur: 10px;
+  --atm-cover-scale: 1.12;
+  --atm-cover-bright: 0.58;
+  --atm-cover-sat: 1.55;
+  --atm-cover-opacity: 0.72;
+  --atm-cover-shift: 0%;
+  --atm-wash-blur: 28px;
+  --atm-wash-scale: 1.08;
+  --atm-wash-bright: 0.5;
+  --atm-wash-sat: 1.52;
+  --atm-wash-contrast: 1.04;
+  --atm-wash-opacity: 0.58;
+}
+
+html[data-glass="hard"] {
+  --atm-cover-blur: 3px;
+  --atm-cover-scale: 1.06;
+  --atm-cover-bright: 0.78;
+  --atm-cover-sat: 1.22;
+  --atm-cover-opacity: 0.92;
+  --atm-cover-shift: 0%;
+  --atm-wash-blur: 8px;
+  --atm-wash-scale: 1.04;
+  --atm-wash-bright: 0.5;
+  --atm-wash-sat: 1.2;
+  --atm-wash-contrast: 1.12;
+  --atm-wash-opacity: 0.4;
+}
+
+html[data-glass="stained"] {
+  --atm-cover-blur: 5px;
+  --atm-cover-scale: 1.08;
+  --atm-cover-bright: 0.7;
+  --atm-cover-sat: 1.35;
+  --atm-cover-opacity: 0.85;
+  --atm-cover-shift: 0%;
+  --atm-wash-blur: 14px;
+  --atm-wash-scale: 1.06;
+  --atm-wash-bright: 0.52;
+  --atm-wash-sat: 1.3;
+  --atm-wash-contrast: 1.06;
+  --atm-wash-opacity: 0.42;
+}
+
+html[data-glass="glass"] {
+  /* Base at Hard; radio.css keyframes morph toward Soft */
+  --atm-cover-blur: 3px;
+  --atm-cover-scale: 1.06;
+  --atm-cover-bright: 0.78;
+  --atm-cover-sat: 1.22;
+  --atm-cover-opacity: 0.92;
+  --atm-cover-shift: 0%;
+  --atm-wash-blur: 8px;
+  --atm-wash-scale: 1.04;
+  --atm-wash-bright: 0.5;
+  --atm-wash-sat: 1.2;
+  --atm-wash-contrast: 1.12;
+  --atm-wash-opacity: 0.4;
+}
+
+/* Reusable CTA recipe — invite rail, modal primary, EXP when accent-filled */
+.cta-pill,
+.auth-pill.cta-pill,
+#btn-request-invite {
+  appearance: none;
+  border: 1px solid var(--cta-border);
+  background: var(--cta-bg);
+  background-image: var(--cta-bg);
+  color: var(--cta-fg);
+  font-family: var(--font-chip);
+  font-size: var(--type-chip);
+  font-weight: var(--chip-weight);
+  letter-spacing: var(--chip-track);
+  line-height: var(--chip-leading);
+  text-transform: uppercase;
+  text-shadow: var(--cta-text-shadow);
+  -webkit-font-smoothing: antialiased;
+  padding: var(--chip-pad-y) var(--chip-pad-x);
+  min-height: max(var(--hit-min), var(--cta-min-h));
+  border-radius: var(--radius-chip);
+  box-shadow: var(--cta-shadow);
+  cursor: pointer;
+  white-space: nowrap;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  transition: transform 0.18s var(--ease-press), filter 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cta-pill:hover,
+.auth-pill.cta-pill:hover,
+#btn-request-invite:hover {
+  color: var(--cta-fg);
+  filter: brightness(1.06);
+  box-shadow: var(--cta-shadow-hover);
+  text-shadow: var(--cta-text-shadow);
+}
+
+.cta-pill:active,
+#btn-request-invite:active {
+  transform: scale(0.97);
+}
+
+@media (min-width: 860px) {
+  :root {
+    --art-size: min(
+      68dvh,
+      36vw,
+      calc(100dvh - var(--invite-reserve) - var(--reactions-reserve) - 1.25rem),
+      620px
+    );
+    --rail-width: clamp(240px, 20vw, 292px);
+  }
+}
+
+/* ~14" MacBook — slightly tighter type/gap only. Do NOT crush CDJ pad height
+   (pads stay tall; left rail scrolls if Genre is long). */
+@media (min-width: 860px) and (max-height: 1020px) {
+  :root {
+    --type-chip: clamp(0.66rem, 0.58rem + 0.28vw, 0.8rem);
+    --type-chip-label: clamp(0.62rem, 0.54rem + 0.22vw, 0.74rem);
+    --chip-gap: 0.28rem;
+    --rail-width: clamp(220px, 18.5vw, 268px);
+  }
+
+  html:is([data-shape^="cdj"], [data-chip-shape^="cdj"]) .filter-block {
+    padding-block: 0.22rem;
+  }
+
+  html:is([data-shape^="cdj"], [data-chip-shape^="cdj"]) .filter-chips--styles {
+    gap: 0.28rem;
+  }
+}
+
+@media (max-width: 859px) {
+  :root {
+    --art-size: min(
+      90vw,
+      calc(100dvh - var(--invite-reserve) - var(--reactions-reserve) - min(40dvh, 18rem) - 2rem),
+      460px
+    );
+    --orb-size: 54px;
+  }
+}
+
+@media (max-height: 720px) {
+  :root {
+    --art-size: min(70vw, calc(100dvh - 11rem), 400px);
+    --type-chip: clamp(0.6rem, 0.5rem + 0.45vw, 0.76rem);
+    --chip-pad-y: 0.34rem;
+    --chip-pad-x: 0.88rem;
+    --chip-min-h: 1.95rem;
+    --chip-gap: 0.34rem;
+  }
+}

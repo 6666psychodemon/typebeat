@@ -1,0 +1,41 @@
+[
+  {
+    "video_id": "fixture001",
+    "title": "Drake Type Beat - Midnight Drive",
+    "artist_style": "Drake",
+    "channel_name": "Fixture Beats",
+    "url": "https://www.youtube.com/watch?v=fixture001",
+    "views": 1200,
+    "published_time": "2025-06-01",
+    "scraped_at": "2025-06-02T12:00:00Z",
+    "genre": "dark_trap",
+    "is_free": 1,
+    "free_for_profit": 0
+  },
+  {
+    "video_id": "fixture002",
+    "title": "Playboi Carti x Yeat Type Beat",
+    "artist_style": "Playboi Carti",
+    "channel_name": "Fixture Beats",
+    "url": "https://www.youtube.com/watch?v=fixture002",
+    "views": 890,
+    "published_time": "2025-06-03",
+    "scraped_at": "2025-06-04T12:00:00Z",
+    "genre": "plugg_rage",
+    "is_free": 1,
+    "free_for_profit": 1
+  },
+  {
+    "video_id": "fixture003",
+    "title": "90s Boom Bap Type Beat",
+    "artist_style": null,
+    "channel_name": "Fixture Beats",
+    "url": "https://www.youtube.com/watch?v=fixture003",
+    "views": 450,
+    "published_time": "2025-05-20",
+    "scraped_at": "2025-05-21T12:00:00Z",
+    "genre": "boom_bap",
+    "is_free": 0,
+    "free_for_profit": 0
+  }
+]
