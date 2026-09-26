@@ -47,7 +47,7 @@ Do not reintroduce a user-facing “crossfade on/off” control. Station commits
 - Clearing the prep timer when overlap starts requires an **xfade watchdog** + deferred timeout that still recovers (never `return` while leaving `navLock.busy`).
 - Timeout-wrap `HTMLMediaElement.play()` and graph `crossfadeTo` so hung promises cannot freeze Next.
 
-Hard-refresh cache-bust: `?v=ui-polish-96`.
+Hard-refresh cache-bust: `?v=ui-polish-98`.
 
 ### Zoom / proportions (~150% / ~175%)
 
@@ -110,7 +110,7 @@ Symptom: brief start of next → silence → next starts again.
 ### How to verify true crossfade
 
 1. Ensure **yt-dlp** is installed (`/api/audio/tools` → `ready: true`).
-2. Hard-refresh with cache-bust (`?v=ui-polish-96`).
+2. Hard-refresh with cache-bust (`?v=ui-polish-98`).
 3. Press play and wait until **Compressor** is usable (local audio promoted — not “Needs Local Audio”).
 4. With Preload = **Aggressive** (default): let ~8–15s pass; console **`[preload] ready`** / **`[preload] primed`**, then Next → **`[xfade] overlap active`** (~3000 or ~7000ms) with both tracks audible continuously (no blip→silence→restart).
 5. Compressor meter fill = **set amount** (drag sideways); DynamicsCompressor actually compresses. Spectrum bars live only in **`#audio-viz`** above it — never treat the compressor as a visualizer.
@@ -396,6 +396,6 @@ Prior SoundManager2 / CodeFronts references remain in `THEMES.md` as visual stud
 
 ## Do / Don’t
 
-**Do:** reserve equal left/right columns so vinyl stays centered; keep CDJ pads tall (3.2rem); Genre labels one-line via `--chip-fit`; Views/age equal full-width sliders; high-contrast filled CTAs; skin-specific fonts/materials; hard-refresh after token/CSS deploys (`?v=ui-polish-96`); keep dual-source overlap crossfades always on for local audio; log `[xfade] overlap active` in DevTools when overlap runs; compressor fill = amount + separate `#audio-viz`; tilt line icons for dynamism; 2s tooltip delay.
+**Do:** reserve equal left/right columns so vinyl stays centered; keep CDJ pads tall (3.2rem); Genre labels one-line via `--chip-fit`; Views/age equal full-width sliders; high-contrast filled CTAs; skin-specific fonts/materials; hard-refresh after token/CSS deploys (`?v=ui-polish-98`); keep dual-source overlap crossfades always on for local audio; log `[xfade] overlap active` in DevTools when overlap runs; compressor fill = amount + separate `#audio-viz`; tilt line icons for dynamism; 2s tooltip delay.
 
 **Don’t:** border strokes on buttons (fill + inner shadow instead — focus rings excepted); let prev/next overlap the artwork or sit off its centre line; overlay Exp or filters on the vinyl; let Request Invite overlap the compressor or timeline; clip Exp Crossfade controls without `overflow-y: auto`; dark text-shadow on dark CTA text; Genre-section scrollbars as the fit strategy; squash `--cdj-pad-h` to fit more chips; wrap Genre labels to two lines; drive compressor fill from GR / spectrum; put Track age back on a CDJ pad grid; purple-AI / cream-terracotta default looks; hard-cut local audio on station change; optional crossfade toggle; reintroduce Shape/Glass/Compress-UI/**orb-position** Exp pickers; treat ~480ms volume swaps as “true crossfade”; stay on iframe when local cache is reachable within 3s; 1px-only focus or state.

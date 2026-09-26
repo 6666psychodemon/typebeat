@@ -293,6 +293,8 @@ html[data-skin="tape"] .art {
   }
 }
 
+/* Reels + sprockets: constant 6s spin while playing (as-tape-player parity).
+   Play/pause mirrors deck vinyl — animation stays mounted; `.art.is-playing` runs it. */
 .as-tape-chrome__reel,
 .as-tape-chrome__sprocket {
   display: block;
@@ -304,6 +306,7 @@ html[data-skin="tape"] .art {
   animation-timing-function: linear;
   animation-play-state: paused;
   transform-origin: 50% 50%;
+  will-change: transform;
   pointer-events: none;
 }
 
@@ -479,7 +482,7 @@ html[data-skin="tape"] .art.is-playing .as-tape-chrome__sprocket {
 
 @keyframes as-tape-spin-cw {
   from { transform: rotate(0deg); }
-  to { transform: rotate(359deg); }
+  to { transform: rotate(360deg); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2505,8 +2508,9 @@ html[data-skin="tape"] .art-wrap {
 }
 
 html[data-skin="tape"] .as-tape-chrome__label-text {
-  font-size: calc(clamp(0.85rem, 2.8cqi, 1.35rem) * var(--tape-label-fit, 1));
-  max-width: 92%;
+  /* Fill white header band — same cqi curve as base rule (avoid 2.8cqi fine-print). */
+  font-size: calc(clamp(0.85rem, 5.8cqi, 1.62rem) * var(--tape-label-fit, 1));
+  max-width: 100%;
 }
 
 html[data-skin="tape"] .ctrl--side,

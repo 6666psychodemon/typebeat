@@ -1744,7 +1744,8 @@
     fitTapeLabels();
   }
 
-  const TAPE_LABEL_FIT_MIN = 0.22;
+  /** Long titles shrink for width only — never below ~68% of band-filling size. */
+  const TAPE_LABEL_FIT_MIN = 0.68;
 
   function fitTapeLabelEl(el) {
     if (!(el instanceof HTMLElement)) return;

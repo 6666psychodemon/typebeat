@@ -1,6 +1,6 @@
 # TypeBeat Radio — LLM context (master handoff)
 
-**Cache-bust (static assets):** `?v=ui-polish-96` on all CSS/JS in `radio/static/index.html`. Bump together with `HANDOFF.md`, `DESIGN_SYSTEM.md`, `THEMES.md`, and this file after any static change.
+**Cache-bust (static assets):** `?v=ui-polish-98` on all CSS/JS in `radio/static/index.html`. Bump together with `HANDOFF.md`, `DESIGN_SYSTEM.md`, `THEMES.md`, and this file after any static change.
 
 **Last updated:** 2026-09-24 · **Active product:** `radio/` (not Streamlit, not `web/` scaffold).
 
@@ -74,7 +74,7 @@ pip install yt-dlp     # once; ffmpeg recommended (brew install ffmpeg)
 cp .env.example .env   # optional — Google OAuth + session secret (see AUTH.md)
 
 python -m radio
-# → http://127.0.0.1:8765/?v=ui-polish-96
+# → http://127.0.0.1:8765/?v=ui-polish-98
 ```
 
 **Verify audio tooling:** `GET /api/audio/tools` → `{ "ready": true }` (yt-dlp on PATH). Without it, crossfade overlap and compressor run in **iframe fallback** (volume fade only, no true A↔B graph overlap).
@@ -260,7 +260,9 @@ Removed on load: `tb_radio_tape_glass`, `tb_radio_react_pos`, legacy vinyl/spong
 | **ui-polish-64** | **Rollback tape frost**; **restore vinyl full 360° ring**; LLM docs; cache bump |
 | **ui-polish-65 → 94** | Vinyl **title placement + scale** Exp; **orb tuners removed** + locked `DEFAULT_REACT_POS`; pending genre **NEXT UP** / **CHANGE NOW?**; clearance **FFP** face label |
 | **ui-polish-95** | Seven-pillar pass: **`react-like-lift`** (no like-bounce); functional type ≥ ~11px; deck+tape play **focus-visible**; skip/play/compress **aria** + tips; compressor fill **scaleY**; cache **95** |
-| **ui-polish-96** | Tape header title: restore `clamp(0.85rem, 2.8cqi, 1.35rem)` + `--tape-label-fit` on `html[data-skin="tape"]`; cache **96** |
+| **ui-polish-96** | Tape header title override `2.8cqi` / `1.35rem` (regression — too small); cache **96** |
+| **ui-polish-97** | Tape title: `5.8cqi` / `1.62rem` + `TAPE_LABEL_FIT_MIN` **0.68**; cache **97** |
+| **ui-polish-98** | Tape reel spin audit (CSS `as-tape-spin-cw` + `.art.is-playing`; constant 6s RPM); cache **98** |
 
 Tape label transitions from 63 (**Fade / Wipe / Blur / Tick**) are unchanged. Vinyl default placement is **top inner rim** (`inner_rim_top`); **Upper wrap** restores a full inner ring path.
 

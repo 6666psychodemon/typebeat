@@ -1,6 +1,6 @@
 # Display fonts for TypeBeat Radio
 
-Used by the radio player (`radio/static`). After font/CSS changes, hard-refresh with the current cache-bust from [`HANDOFF.md`](../HANDOFF.md) / `index.html` (today: `?v=ui-polish-96`).
+Used by the radio player (`radio/static`). After font/CSS changes, hard-refresh with the current cache-bust from [`HANDOFF.md`](../HANDOFF.md) / `index.html` (today: `?v=ui-polish-98`).
 
 ## Druk (preferred)
 
