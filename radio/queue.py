@@ -29,6 +29,19 @@ WARM_QUEUE_SIZE = 40
 INDEX_GENRE_VIEWS = "idx_beats_genre_views"
 INDEX_VIEWS_VID = "idx_beats_views_vid"
 
+_column_cache: dict[str, bool] = {}
+
+
+def beats_has_column(conn: sqlite3.Connection, name: str) -> bool:
+    """True when beats has this column. Cached so a missing parent_genre
+    does not break station playback. Existence alone is not a filter."""
+    cached = _column_cache.get(name)
+    if cached is not None:
+        return cached
+    found = any(row[1] == name for row in conn.execute("PRAGMA table_info(beats)"))
+    _column_cache[name] = found
+    return found
+
 _prolific_ready = False
 _prolific_count = 0
 
@@ -326,9 +339,18 @@ def _fetch_by_genres_page(
     require_ffp: bool = False,
     require_prolific: bool = False,
     max_age_months: int | None = None,
+    column: str = "genre",
 ) -> list[sqlite3.Row]:
-    """Keyset page through lowest-view tagged rows (uses idx_beats_genre_views)."""
-    placeholders = ",".join("?" * len(db_genres))
+    """Keyset page through lowest-view tagged rows.
+
+    ``column`` is ``genre`` (one subgenre, or Underground) or ``parent_genre``
+    (a parent button). Callers pass ``parent_genre`` only after that column
+    is filled. A missing column stays on ``genre``.
+    """
+    if column not in ("genre", "parent_genre"):
+        column = "genre"
+    if column == "parent_genre" and not beats_has_column(conn, "parent_genre"):
+        column = "genre"
     min_views = max(1, int(min_views))
     free_sql, free_params = _free_clauses(
         require_free=require_free,
@@ -336,13 +358,14 @@ def _fetch_by_genres_page(
         require_prolific=require_prolific,
         max_age_months=max_age_months,
     )
+    placeholders = ",".join("?" * len(db_genres))
     parsed = _parse_cursor(cursor)
     if parsed:
         c_views, c_vid = parsed
         sql = f"""
             SELECT video_id, title, channel_name, views, url, published_time
             FROM beats
-            WHERE genre IN ({placeholders})
+            WHERE {column} IN ({placeholders})
               AND views >= ?
               AND views <= ?
               AND video_id IS NOT NULL
@@ -369,7 +392,7 @@ def _fetch_by_genres_page(
     sql = f"""
         SELECT video_id, title, channel_name, views, url, published_time
         FROM beats
-        WHERE genre IN ({placeholders})
+        WHERE {column} IN ({placeholders})
           AND views >= ?
           AND views <= ?
           AND video_id IS NOT NULL
@@ -578,10 +601,14 @@ def _fetch_union_station_page(
     max_views: int,
     fetch_n: int,
     cursor: str | None,
+    *,
+    match_column: str = "genre",
     **filt: Any,
 ) -> tuple[list[sqlite3.Row], str | None, bool]:
-    """Tagged ``db_genres`` rows OR Underground keyword hits, one shared page.
+    """Tagged rows OR Underground keyword hits, one shared page.
 
+    ``match_column`` is ``parent_genre`` for a parent button and ``genre``
+    for one subgenre. Keyword hits stay Underground titles.
     Each side keeps its own keyset. A page alternates them so neither catalog
     is dropped, and each cursor advances only through rows that were consumed.
     """
@@ -596,6 +623,7 @@ def _fetch_union_station_page(
             max_views,
             fetch_n,
             genre_cursor,
+            column=match_column,
             **filt,
         )
     matched: list[sqlite3.Row] = []
@@ -676,6 +704,7 @@ def build_queue_page(
     require_ffp: bool = False,
     require_prolific: bool = False,
     max_age_months: int | None = None,
+    subgenre: str | None = None,
 ) -> dict[str, Any]:
     """
     One shuffled batch of a station's filtered catalog.
@@ -763,8 +792,54 @@ def build_queue_page(
                 )
                 scanned = list(rows)
                 return rows
-            db_genres = genre.get("db_genres") or []
+            db_genres = list(genre.get("db_genres") or [])
             keywords = genre.get("keywords") or []
+            parent = genre.get("parent")
+            chosen = (subgenre or "").strip()
+            # Explore can play one subgenre. Main buttons play the parent.
+            if chosen and chosen in db_genres:
+                rows = _fetch_by_genres_page(
+                    conn,
+                    [chosen],
+                    ceiling,
+                    fetch_n,
+                    cursor,
+                    column="genre",
+                    **filt,
+                )
+                scanned = list(rows)
+                return rows
+            # Parent buttons read parent_genre. All is deep_mix (above).
+            # UG MIX stays on genre = Underground.
+            if parent and parent != "Underground" and db_genres:
+                use_parent = beats_has_column(conn, "parent_genre")
+                tagged = [parent] if use_parent else db_genres
+                column = "parent_genre" if use_parent else "genre"
+                if keywords:
+                    rows, union_next, union_has_more = _fetch_union_station_page(
+                        conn,
+                        tagged,
+                        keywords,
+                        ceiling,
+                        fetch_n,
+                        cursor,
+                        match_column=column,
+                        **filt,
+                    )
+                    used_union = True
+                    scanned = list(rows)
+                    return rows
+                rows = _fetch_by_genres_page(
+                    conn,
+                    tagged,
+                    ceiling,
+                    fetch_n,
+                    cursor,
+                    column=column,
+                    **filt,
+                )
+                scanned = list(rows)
+                return rows
             if db_genres and keywords:
                 rows, union_next, union_has_more = _fetch_union_station_page(
                     conn,

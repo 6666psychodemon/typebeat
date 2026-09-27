@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS beats (
     published_time TEXT,
     scraped_at TEXT,
     genre TEXT,
+    parent_genre TEXT,
     is_free INTEGER,
     free_for_profit INTEGER DEFAULT 0,
     jev_genre TEXT,
@@ -24,3 +25,6 @@ CREATE TABLE IF NOT EXISTS beats (
 
 CREATE INDEX IF NOT EXISTS idx_beats_genre_views ON beats(genre, views);
 CREATE INDEX IF NOT EXISTS idx_beats_views_vid ON beats(views, video_id);
+CREATE INDEX IF NOT EXISTS idx_beats_parent_genre_views_vid
+    ON beats(parent_genre, views, video_id)
+    WHERE parent_genre IS NOT NULL;

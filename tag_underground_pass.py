@@ -27,6 +27,12 @@ only), Nines, Potter Payper, Marnz Malone, Clavish, D Block Europe,
 Bugzy Malone, Knucks, Nemzzz, and Unknown T. Central Cee and Headie One
 stay Drill.
 
+Lo-fi and chill are one genre, Lo-fi/Chill (lo-fi, lofi, chill, chillhop;
+"chill" does not match inside a longer word). Loyle Carner is UK Rap.
+Little Simz stays Conscious. Shoegaze, Grunge, Nirvana, and Alternative
+Rock are separate strings. When one title names more than one of those
+four, Shoegaze beats Grunge, then Nirvana, then Alternative Rock.
+
 Artist genres, in order: hand overrides, data/djcrates_artist_genres.json,
 an optional short Wikidata pass, then TypeSafe Choice on at most 2000
 unmatched names. LLM judgments are cached in data/artist_genre_library.json.
@@ -92,6 +98,10 @@ SPEC = {
     "Boom Bap/Old School": 68,
     "Detroit": 66,
     "Crunk": 66,
+    "Shoegaze": 69,
+    "Grunge": 67,
+    "Nirvana": 65,
+    "Alternative Rock": 59,
     "Roots Reggae": 64,
     "Ragga": 64,
     "Conscious": 63,
@@ -102,11 +112,30 @@ SPEC = {
     "Ambient/Cloud": 58,
     "Dance Pop": 57,
     "R&B": 55,
+    "Trapsoul": 56,
     "Funk": 50,
-    "Chill": 48,
+    "Hoodtrap": 48,
+    "Supertrap": 48,
     "Pop Rap": 44,
     "Trap": 42,
+    "Lo-fi/Chill": 40,
     "Hip-Hop": 22,
+    "Club": 58,
+    "Midwest Emo": 62,
+    "Indie Rock": 60,
+    "Dembow": 88,
+    "Reggaeton": 87,
+    "Cumbia": 85,
+    "Corridos Tumbados": 86,
+    "Latin Trap": 80,
+    "RKT": 86,
+    "80s": 72,
+    "90s": 72,
+    "2000s": 72,
+    "Country": 66,
+    "Meme": 89,
+    "Emo Rap": 83,
+    "Phonk": 84,
 }
 
 HIPHOP_SUB_GENRE = {
@@ -310,6 +339,10 @@ HAND: dict[str, str] = {
     "chip": "Grime",
     "flowdan": "Grime",
     # Dancehall / afro / jazz / boom bap / conscious
+    "j hus": "Afroswing",
+    "nsg": "Afroswing",
+    "not3s": "Afroswing",
+    "kojo funds": "Afroswing",
     "skillibeng": "Dancehall",
     "skilli beng": "Dancehall",
     "vybz kartel": "Dancehall",
@@ -322,7 +355,7 @@ HAND: dict[str, str] = {
     "omah lay": "Afrobeat (Classic)",
     "omah": "Afrobeat (Classic)",
     "tyla": "Amapiano-Afrobeats",
-    "loyle carner": "Conscious",
+    "loyle carner": "UK Rap",
     "little simz": "Conscious",
     "simz": "Conscious",
     "nujabes": "Jazz",
@@ -340,8 +373,11 @@ HAND: dict[str, str] = {
     # High-frequency names the labeler missed or filed too loosely.
     "pierre bourne": "Plugg/Pluggnb",
     "lucki": "Plugg/Pluggnb",
-    "lil peep": "Melodic Trap",
-    "lilpeep": "Melodic Trap",
+    "lil peep": "Emo Rap",
+    "lilpeep": "Emo Rap",
+    "xxxtentacion": "Emo Rap",
+    "xxx tentacion": "Emo Rap",
+    "lil tracy": "Emo Rap",
     "southside": "Trap",
     "808 mafia": "Trap",
     "smokepurpp": "Trap",
@@ -358,8 +394,46 @@ HAND: dict[str, str] = {
     "three six mafia": "Crunk",
     "rome streetz": "Boom Bap/Old School",
     "hopsin": "Conscious",
-    "the neptunes": "Hip-Hop",
-    "neptunes": "Hip-Hop",
+    "the neptunes": "2000s",
+    "neptunes": "2000s",
+    "pharrell": "2000s",
+    "pharrell williams": "2000s",
+    "chad hugo": "2000s",
+    "timbaland": "2000s",
+    "scott storch": "2000s",
+    "just blaze": "2000s",
+    "mannie fresh": "2000s",
+    "polow da don": "2000s",
+    "polow": "2000s",
+    "danja": "2000s",
+    "jazze pha": "2000s",
+    "erykah badu": "R&B",
+    "erykah": "R&B",
+    "badu": "R&B",
+    "hamza": "R&B",
+    "smino": "Hip-Hop",
+    "travis scott": "Trap",
+    "travisscott": "Trap",
+    "julio foolio": "Trap",
+    "foolio": "Trap",
+    "fredo bang": "Trap",
+    "lil double 0": "Trap",
+    "hurricane wisdom": "Trap",
+    "el alfa": "Dembow",
+    "blessd": "Reggaeton",
+    "lomiiel": "Reggaeton",
+    "jazzworx": "Amapiano-Afrobeats",
+    "dlala thukzin": "Amapiano-Afrobeats",
+    "thukzin": "Amapiano-Afrobeats",
+    "zach bryan": "Country",
+    "dylan gossett": "Country",
+    "dj premier": "Boom Bap/Old School",
+    "premier": "Boom Bap/Old School",
+    "pete rock": "Boom Bap/Old School",
+    "rza": "Boom Bap/Old School",
+    "mobb deep": "Boom Bap/Old School",
+    "dr dre": "G-Funk",
+    "dr. dre": "G-Funk",
 }
 
 # Single-token aliases that are ordinary words. Multi-word names that contain
@@ -381,12 +455,17 @@ DENY = frozenset({
     "dancehall", "grime", "afro", "afrobeat", "afrobeats", "soul", "phonk",
     "plug", "plugg", "jerk", "detroit", "experimental", "ambient", "jersey",
     "westcoast", "eastcoast", "reggaeton", "hiphop", "lofi", "crunk",
+    "grunge", "nirvana", "shoegaze", "shoegazing",
 })
 
 SKIP_NAMES = frozenset({
     "rb", "rnb", "r b", "hip hop", "trap", "drill", "funk", "phonk", "jazz",
     "rap", "pop", "soul", "reggae", "dancehall", "grime", "afrobeat",
     "afrobeats", "west coast", "east coast", "uk rap", "boom bap",
+    "grunge", "nirvana", "shoegaze", "shoegazing", "alternative rock",
+    "alt rock", "lo fi", "lofi", "chill", "chillhop",
+    "jay z", "jayz",
+    "lil uzi vert", "lil uzi", "uzi vert",
 })
 
 # Genre words and non-rap misfiles. Phrase rules still catch "{style} type beat".
@@ -395,6 +474,8 @@ LLM_NAME_BLOCK = frozenset({
     "deftones", "phonk", "trap", "drill", "funk",
     # Ordinary words and genre tokens that would match inside unrelated titles.
     "cloud", "dembow", "jungle", "monk", "war",
+    "grunge", "nirvana", "shoegaze", "shoegazing", "chill", "lofi",
+    "alternative rock", "alt rock",
     # Reggaeton artists are not Dancehall. Leave them Underground.
     "daddy yankee", "yandel", "farruko", "sech", "nicky jam", "ozuna",
     "el alfa", "chencho corleone", "j balvin", "jhay cortez", "anuel",
@@ -430,19 +511,75 @@ NAME_STOP = DENY | STRUCTURE | frozenset({
 # (regex, genre). First matching pattern is not "the" winner — highest SPEC is.
 ANYWHERE_SRC: list[tuple[str, str]] = [
     (r"\b(?:brazilian\s+phonk|funk\s+phonk)\b", "Brazilian Phonk"),
+    (r"\b(?:drift\s+)?phonk\b", "Phonk"),
     (r"\b(?:brazilian\s+funk|baile\s+funk|funk\s+carioca)\b", "Brazilian Funk"),
     (r"\b(?:uk|ny)\s+drill\b|\bdrill\s+uk\b|\bukdrill\b|\bnydrill\b", "Drill"),
     (r"\bafro\s*swing\b", "Afroswing"),
     (r"\b(?:melodic|emo)\s+trap\b", "Melodic Trap"),
     (r"\bdark\s+trap\b", "Dark/Aggressive"),
-    (r"\btrap\s*soul\b|\btrapsoul\b", "R&B"),
+    (r"\btrap\s*soul\b|\btrapsoul\b", "Trapsoul"),
+    (r"\bhoodtraps?\b", "Hoodtrap"),
+    (r"\bsupertraps?\b", "Supertrap"),
     (r"\bdance\s*hall\b", "Dancehall"),
     (r"\bgrime\b", "Grime"),
     (r"\bdrill\b", "Drill"),
     (r"\bafrobeats?\b|\bafro\s+beats?\b", "Afrobeat (Classic)"),
     (r"\brn\s*&\s*b\b|\br\s*&\s*b\b|\br\s+and\s+b\b|\brnb\b", "R&B"),
-    # "trap type beat" / "trap beat" only. Not "trap instrumental", not bare "trap".
-    (r"\btrap\s+type\s*beats?\b|\btrap\s+beats?\b", "Trap"),
+    # Generic trap phrases. Not bare "trap", not "trap instrumental", not afrotrap.
+    # Hoodtrap and supertrap are their own strings above. Trapsoul is Trapsoul.
+    (r"\btrap\s+metal\b", "Trap"),
+    (r"\btrap\s+type\s*beats?\b", "Trap"),
+    (r"\btype\s*beats?\s+trap\b", "Trap"),
+    (r"\btrap\s+beats?\b", "Trap"),
+    # Four separate genres. Scores put Shoegaze above Grunge, then Nirvana,
+    # then Alternative Rock, so a title that names several lands on the first.
+    (r"\bshoegaz(?:e|ing)\b", "Shoegaze"),
+    (r"\bgrunge\b", "Grunge"),
+    (r"\bnirvana\b", "Nirvana"),
+    (r"\b(?:alternative|alt)\s+rock\b", "Alternative Rock"),
+    # Whole words only: "chill" does not match inside "chilling".
+    (r"\blo\s*fi\b", "Lo-fi/Chill"),
+    (r"\bchillhop\b|\bchill\b", "Lo-fi/Chill"),
+    (r"\bdeep\s+house\b|\bhouse\b", "Club"),
+    (r"\bclub\s+bangers?\b|\bedm\b|(?<!strip\s)\bclub\b", "Club"),
+    (r"\bmidwest\s+emo\b", "Midwest Emo"),
+    (r"\bindie\s+rock\b|\bindie\s+(?:alternative|alt)\b|\b(?:alternative|alt)\s+indie\b", "Indie Rock"),
+    (r"\bdembow\b", "Dembow"),
+    (r"\breggaeton\b|\bregueton\b", "Reggaeton"),
+    (r"\bcumbia\b", "Cumbia"),
+    (r"\bcorridos(?:\s+tumbados)?\b", "Corridos Tumbados"),
+    (r"\blatin\s+trap\b", "Latin Trap"),
+    (r"\brkt\b", "RKT"),
+    (r"\bspeed\s+garage\b|\b2\s*[- ]?\s*steps?\b|\buk\s+garage\b", "UK Garage"),
+    (r"\bjerk\s+type\s*beats?\b", "Plugg/Pluggnb"),
+    (r"\bwest\s+coast\b", "West Coast"),
+    (r"\beast\s+coast\b", "East Coast"),
+    (r"\bdirty\s+south\b|\bsouthern\b", "Southern"),
+    (r"\bboom\s*baps?\b|\bold\s+school\b", "Boom Bap/Old School"),
+    (r"\bg[\s-]*funk\b", "G-Funk"),
+    (r"\buk\s+rap\b", "UK Rap"),
+    (r"\broad\s+rap\b", "Road Rap"),
+    (r"\bjersey\s+club\b", "Jersey Club"),
+    (r"\bdance\s+pop\b", "Dance Pop"),
+    (r"\bpop\s+rap\b", "Pop Rap"),
+    (r"\b3\s*steps?\b|\bthree\s+steps?\b", "Amapiano-Afrobeats"),
+    (r"\b80'?s\b", "80s"),
+    (r"\b90'?s\b", "90s"),
+    (r"\b2000'?s\b", "2000s"),
+    (r"\bcountry\b", "Country"),
+    (r"\b500\s+cigarettes\b", "Meme"),
+    (r"\bskibidi\b", "Meme"),
+    (r"\btrollge\b", "Meme"),
+    (r"\bmeme\s+cockroach\b", "Meme"),
+    (r"\bamong\s+us\b|\bamogus\b", "Meme"),
+    (r"\bgoofy\s+ahh\b", "Meme"),
+    (r"\bsubway\s+surfers?\b", "Meme"),
+    (r"\brat\s+dance\b|\bdancing\s+rat\b", "Meme"),
+    (r"\bshrek\s+type\s*beats?\b", "Meme"),
+    (r"\bsmurf\s+cats?\b", "Meme"),
+    (r"\bdeez\s+nuts\b", "Meme"),
+    (r"\bmeme\s+rap\b|\bmeme\s+type\s*beats?\b", "Meme"),
+    (r"\bemo\s+rap\b", "Emo Rap"),
 ]
 
 STYLES: list[tuple[str, str]] = [
@@ -466,11 +603,8 @@ STYLES: list[tuple[str, str]] = [
     ("old school", "Boom Bap/Old School"),
     ("hip hop", "Hip-Hop"),
     ("g funk", "G-Funk"),
-    ("lo fi", "Boom Bap/Old School"),
-    ("lofi", "Boom Bap/Old School"),
     ("boombap", "Boom Bap/Old School"),
     ("gfunk", "G-Funk"),
-    ("chillhop", "Chill"),
     ("southern", "Southern"),
     ("midwest", "Midwest"),
     ("highlife", "Highlife"),
@@ -494,12 +628,10 @@ STYLES: list[tuple[str, str]] = [
     ("rage", "Rage/Opium"),
     ("melodic", "Melodic Trap"),
     ("jersey", "Jersey Club"),
-    ("chill", "Chill"),
     ("funk", "Funk"),
     ("soul", "R&B"),
     ("dark", "Dark/Aggressive"),
     ("pop", "Dance Pop"),
-    ("90s", "Boom Bap/Old School"),
 ]
 
 LLM_MAP = {
@@ -587,8 +719,13 @@ FREE_TAG_RE = re.compile(
     r"[\[\(\{*]+\s*(?:free(?:\s+for\s+profit)?|f\s*f\s*p|ffp|sold|not\s+free)\s*[\]\)\}*]+",
     re.IGNORECASE,
 )
+# Stop at the next clause. A prod credit must not swallow "Trap Type Beat" after it.
 PROD_TAIL_RE = re.compile(
-    r"(?:\((?:prod|produced)[^)]*\)|\b(?:prod|produced)\.?\s*by\b.*$|\|\s*(?:prod|produced)\b.*$)",
+    r"(?:"
+    r"\((?:prod|produced)[^)]*\)"
+    r"|\|\s*(?:prod|produced)\b[^|]*"
+    r"|\b(?:prod|produced)\.?\s*by\s+\S+"
+    r")",
     re.IGNORECASE,
 )
 SKIP_RE = re.compile(r"\bhow to make\b|\btutorials?\b|\bcompilations?\b", re.IGNORECASE)
@@ -817,8 +954,52 @@ def save_library(entries: dict[str, dict]) -> None:
     tmp.replace(LIB_PATH)
 
 
-def rebuild_index(entries: dict[str, dict]) -> None:
+def install_phrases(rows: list[dict]) -> None:
+    """Compile phrase rules from genres.db. The full title is what gets matched."""
+    global ANYWHERE, _STYLE_MAP, STYLE_RE
+    anywhere: list[tuple[re.Pattern[str], str]] = []
+    styles: list[tuple[str, str]] = []
+    for row in rows:
+        genre = str(row["genre"])
+        pattern = row.get("pattern")
+        scope = row.get("scope") or "anywhere"
+        if pattern:
+            anywhere.append((re.compile(str(pattern)), genre))
+        elif scope == "typebeat":
+            styles.append((str(row["phrase"]), genre))
+        else:
+            phrase = str(row["phrase"])
+            pat = r"\b" + re.escape(phrase).replace(r"\ ", r"\s+") + r"\b"
+            anywhere.append((re.compile(pat), genre))
+    if not anywhere and not styles:
+        return
+    ANYWHERE = anywhere
+    _STYLE_MAP = {}
+    parts: list[str] = []
+    for phrase, genre in sorted(styles, key=lambda item: len(item[0]), reverse=True):
+        _STYLE_MAP[phrase] = genre
+        parts.append(re.escape(phrase).replace(r"\ ", r"\s+"))
+    if parts:
+        STYLE_RE = re.compile(
+            r"\b(?P<style>" + "|".join(parts) + r")\s+type\s*beats?\b"
+        )
+    else:
+        STYLE_RE = re.compile(r"(?!)")
+
+
+def rebuild_index(entries: dict[str, dict] | None = None) -> None:
     reset_index()
+    from radio.genre_db import alias_rows, phrase_rows, subgenre_weights
+
+    weights = subgenre_weights()
+    if weights:
+        SPEC.update(weights)
+        for name, genre in alias_rows():
+            add_alias(name, genre)
+        install_phrases(phrase_rows())
+        return
+    if not entries:
+        return
     grouped: dict[str, list[dict]] = {"llm": [], "wikidata": [], "djcrates": [], "hand": []}
     for entry in entries.values():
         grouped.setdefault(entry["source"], []).append(entry)
@@ -830,33 +1011,35 @@ def rebuild_index(entries: dict[str, dict]) -> None:
 
 
 def strip_quotes(title: str) -> str:
+    """Keep every word. Quote marks are separators, not deletions."""
     text = title
-    previous = None
-    while previous != text:
-        previous = text
-        for cre in QUOTE_RES:
-            text = cre.sub(" ", text)
+    for ch in "\"“”„«»❝❞〝〞＂":
+        text = text.replace(ch, " ")
     return text
 
 
 def phrase_surface(title: str) -> str:
     text = strip_quotes(title).lower()
-    text = text.replace("’", "'").replace("`", "'")
+    text = text.replace("’", "'").replace("`", "'").replace("´", "'")
     text = FREE_TAG_RE.sub(" ", text)
     text = PROD_TAIL_RE.sub(" ", text)
+    # Subtitle dashes split artist clauses without deleting either side.
+    text = re.sub(r"\s+[-–—~]+\s+", " | ", text)
     text = text.replace("-", " ").replace("_", " ").replace("/", " ")
     text = re.sub(r"[\[\]\(\)\{\}*]+", " ", text)
     return re.sub(r"\s+", " ", text).strip()
 
 
 def phrase_genre(surface: str) -> str | None:
+    text = surface.replace("|", " ")
+    text = re.sub(r"\s+", " ", text)
     best: str | None = None
     best_spec = -1
     for cre, genre in ANYWHERE:
-        if cre.search(surface) and spec_of(genre) > best_spec:
+        if cre.search(text) and spec_of(genre) > best_spec:
             best = genre
             best_spec = spec_of(genre)
-    for match in STYLE_RE.finditer(surface):
+    for match in STYLE_RE.finditer(text):
         style = re.sub(r"\s+", " ", match.group("style"))
         genre = _STYLE_MAP.get(style)
         if genre and spec_of(genre) > best_spec:
@@ -950,6 +1133,25 @@ def resolve(phrase: str | None, artist: str | None) -> str | None:
     return phrase or artist
 
 
+def _scene_adjust(surface: str, genre: str | None) -> str | None:
+    """A few artists only move when the title names the scene.
+
+    A tighter phrase (drill, for example) still wins. Midwest emo is not emo rap.
+    """
+    emo = re.search(r"(?<!midwest\s)\bemo\b", surface)
+    if re.search(r"\blil uzi(?: vert)?\b|\buzi vert\b", surface):
+        if re.search(r"\brage\b|\bopium\b", surface):
+            if genre is None or spec_of(genre) <= spec_of("Rage/Opium"):
+                return "Rage/Opium"
+        elif emo or re.search(r"\bsoundcloud\b", surface):
+            if genre is None or spec_of(genre) <= spec_of("Emo Rap"):
+                return "Emo Rap"
+    if re.search(r"\bjuice w(?:rld|orld)\b", surface) and emo:
+        if genre is None or spec_of(genre) <= spec_of("Emo Rap"):
+            return "Emo Rap"
+    return genre
+
+
 def classify(title: str | None, channel: str | None = None) -> str | None:
     if not title:
         return None
@@ -958,7 +1160,7 @@ def classify(title: str | None, channel: str | None = None) -> str | None:
         return None
     phrase = phrase_genre(surface)
     artist = majority(artist_genres(surface, channel))
-    return resolve(phrase, artist)
+    return _scene_adjust(surface, resolve(phrase, artist))
 
 
 def unmatched_names(title: str, channel: str | None) -> list[str]:
@@ -993,10 +1195,14 @@ def _self_check() -> None:
         ("Trap Type Beat", "Trap"),
         ("trap beat", "Trap"),
         ("trap instrumental", None),
-        ("hoodtrap type beat", None),
-        ('"trap" type beat', None),
-        ('Drake Type Beat "Trap"', "Hip-Hop"),
-        ('Something "Trap Type Beat"', None),
+        ("hoodtrap type beat", "Hoodtrap"),
+        ("evil jerk + hoodtrap type beat", "Hoodtrap"),
+        ("SuperTrap Type Beat", "Supertrap"),
+        ("supertrap type beat", "Supertrap"),
+        ("afrotrap type beat", None),
+        ('"trap" type beat', "Trap"),
+        ('Drake Type Beat "Trap"', "Trap"),
+        ('Something "Trap Type Beat"', "Trap"),
         ("Drake Type Beat | Trap Type Beat", "Trap"),
         ("Gunna Type Beat | Trap Type Beat", "Melodic Trap"),
         ("West Coast Type Beat", "West Coast"),
@@ -1011,8 +1217,8 @@ def _self_check() -> None:
         ("R&B Dancehall Type Beat", "Dancehall"),
         ("Dancehall Type Beat", "Dancehall"),
         ("R&B Type Beat", "R&B"),
-        ("trapsoul type beat", "R&B"),
-        ("Trapsoul x Drake Type Beat", "R&B"),
+        ("trapsoul type beat", "Trapsoul"),
+        ("Trapsoul x Drake Type Beat", "Trapsoul"),
         ("Metro Boomin x 21 Savage x JID Type Beat", "Trap"),
         ("JID Type Beat", "Conscious"),
         ("J.I.D Type Beat", "Conscious"),
@@ -1062,7 +1268,7 @@ def _self_check() -> None:
         ("Kodak Black Dark Type Beat", "Dark/Aggressive"),
         ("uk drill type beat", "Drill"),
         ("drill type beat", "Drill"),
-        ("phonk type beat", None),
+        ("phonk type beat", "Phonk"),
         ("Brazilian Phonk Type Beat", "Brazilian Phonk"),
         ("funk phonk type beat", "Brazilian Phonk"),
         ("Baile Funk Type Beat", "Brazilian Funk"),
@@ -1077,8 +1283,24 @@ def _self_check() -> None:
         ("Larry June Type Beat", "West Coast"),
         ("Jay Worthy Type Beat", "West Coast"),
         ("Ohgeesy Type Beat", "West Coast"),
-        ("Loyle Carner Type Beat", "Conscious"),
+        ("Loyle Carner Type Beat", "UK Rap"),
+        ("Loyle Carner x Little Simz Type Beat", None),
+        ("Loyle Carner x J. Cole x Little Simz Type Beat", "Conscious"),
         ("Little Simz Type Beat", "Conscious"),
+        ("lo-fi type beat", "Lo-fi/Chill"),
+        ("lofi type beat", "Lo-fi/Chill"),
+        ("chill type beat", "Lo-fi/Chill"),
+        ("chillhop type beat", "Lo-fi/Chill"),
+        ("chilling type beat", None),
+        ('"chill" type beat', "Lo-fi/Chill"),
+        ("Nirvana x Grunge x Alternative Rock Type Beat", "Grunge"),
+        ("Shoegaze x Grunge Type Beat", "Shoegaze"),
+        ("shoegaze type beat", "Shoegaze"),
+        ("shoegazing type beat", "Shoegaze"),
+        ("grunge type beat", "Grunge"),
+        ("nirvana type beat", "Nirvana"),
+        ("alt-rock type beat", "Alternative Rock"),
+        ("alternative rock type beat", "Alternative Rock"),
         ("Nujabes Type Beat", "Jazz"),
         ("Mick Jenkins Type Beat", "Boom Bap/Old School"),
         ("Joey Bada$$ Type Beat", "Boom Bap/Old School"),
@@ -1123,7 +1345,7 @@ def _self_check() -> None:
         ("Chief Keef Type Beat", "Drill"),
         ("Metro Boomin Type Beat", "Trap"),
         ("Tyla Type Beat", "Amapiano-Afrobeats"),
-        ('Drake Type Beat "West Coast"', "Hip-Hop"),
+        ('Drake Type Beat "West Coast"', "West Coast"),
         ("type beat compilation vol 3", None),
         ("Detroit Type Beat", "Detroit"),
         ("Experimental Type Beat", "Experimental/Glitch"),
@@ -1132,13 +1354,57 @@ def _self_check() -> None:
         ("EBK Jaaybo Type Beat", "West Coast"),
         ("Iayze Type Beat", "Rage/Opium"),
         ("Plug Type Beat", None),
-        ("Jerk Type Beat", None),
+        ("Jerk Type Beat", "Plugg/Pluggnb"),
+        ("Corridos Tumbados Type Beat", "Corridos Tumbados"),
+        ("Peso Pluma Type Beat", "Corridos Tumbados"),
+        ("latin trap type beat", "Latin Trap"),
+        ("RKT Type Beat", "RKT"),
+        ("speed garage type beat", "UK Garage"),
+        ("2-step type beat", "UK Garage"),
         ("Cloud Type Beat", None),
-        ("Dembow Type Beat", None),
+        ("Dembow Type Beat", "Dembow"),
         ("BigXthaPlug Type Beat", "Southern"),
         ("Young Chop Type Beat", "Drill"),
         ("Three 6 Mafia Type Beat", "Crunk"),
         ("Rome Streetz Type Beat", "Boom Bap/Old School"),
+        (
+            '[FREE] Trap Type Beat - "ROLLIN" | Type Beat | Freestyle Beat | Rap Type Beat 2026',
+            "Trap",
+        ),
+        (
+            '"ESCAPE" | Trap Type Beat | Freestyle Beat | Type Beat | Hard Type Beat | Rap Type Beat 2026',
+            "Trap",
+        ),
+        ("type beat trap", "Trap"),
+        ("trap metal type beat", "Trap"),
+        ("deep house type beat", "Club"),
+        ("edm club banger", "Club"),
+        ("sad midwest emo / acoustic type beat", "Midwest Emo"),
+        ("indie rock type beat", "Indie Rock"),
+        ("indie type beat", None),
+        ("cumbia type beat", "Cumbia"),
+        ("The Neptunes Type Beat", "2000s"),
+        ("Pharrell Type Beat", "2000s"),
+        ("groovy 80s type beat", "80s"),
+        ("90s type beat", "90s"),
+        ("Travis Scott Type Beat", "Trap"),
+        ("Travis Scott Rage Type Beat", "Rage/Opium"),
+        ("500 Cigarettes Type Beat", "Meme"),
+        ("SKIBIDI TOILET TYPE BEAT", "Meme"),
+        ("Cigarettes After Sex Type Beat", None),
+        ("Lil Peep Type Beat", "Emo Rap"),
+        ("Juice WRLD Type Beat", "Melodic Trap"),
+        ("Juice WRLD Emo Type Beat", "Emo Rap"),
+        ("Lil Uzi Vert Type Beat", None),
+        ("Lil Uzi Vert Rage Type Beat", "Rage/Opium"),
+        ("Lil Uzi Vert Soundcloud Type Beat", "Emo Rap"),
+        ("XXXTentacion Type Beat", "Emo Rap"),
+        ("DJ Premier Type Beat", "Boom Bap/Old School"),
+        ("Jay-Z Type Beat", None),
+        ("El Alfa Type Beat", "Dembow"),
+        ("Hamza Type Beat", "R&B"),
+        ("Smino Type Beat", "Hip-Hop"),
+        ("J Hus Type Beat", "Afroswing"),
     ]
     failed = 0
     for title, expected in cases:
@@ -1146,34 +1412,66 @@ def _self_check() -> None:
         if got != expected:
             failed += 1
             print(f"FAIL {title!r} -> {got!r} expected {expected!r}")
-    from radio.genres import get_genre
+    from radio.genres import RADIO_GENRES, get_genre, parent_has_button, parent_of
 
-    jersey = get_genre("jersey")
-    ragga = get_genre("ragga")
-    road = get_genre("road_rap")
-    funk = get_genre("funk")
-    afro = get_genre("afrobeat")
+    trap = get_genre("trap")
+    rap = get_genre("rap")
+    west = get_genre("west")
+    boombap = get_genre("boombap")
+    south = get_genre("southern")
+    y2010 = get_genre("y2010s")
+    lofi = get_genre("lofi")
+    caribbean = get_genre("caribbean")
+    latin = get_genre("latin")
+    uk = get_genre("uk")
+    nineties = get_genre("90s")
+    y2000 = get_genre("2000s")
+    latin_kw = latin["keywords"] if latin else []
     checks = [
-        jersey and "baile funk" in jersey["keywords"],
-        ragga and "dancehall" in ragga["keywords"],
-        road and "uk rap" in road["keywords"],
-        funk and "funk" in funk["keywords"],
-        afro and afro["db_genres"] == ["Afrobeat (Classic)"],
+        get_genre("hiphop") is None,
+        get_genre("throwback") is None,
+        get_genre("plugg") is None,
+        get_genre("jazz") is None,
+        trap and "Trapsoul" in trap["db_genres"] and "Hoodtrap" in trap["db_genres"],
+        rap and rap["db_genres"] == ["Hip-Hop", "Midwest", "Pop Rap"],
+        rap and "East Coast" not in rap["db_genres"] and "G-Funk" not in rap["db_genres"],
+        west and west["db_genres"] == ["West Coast", "G-Funk"],
+        boombap and boombap["db_genres"] == ["Boom Bap/Old School", "East Coast", "Conscious"],
+        boombap and "90s" not in boombap["keywords"] and "lofi" not in boombap["keywords"],
+        south and south["db_genres"] == ["Southern", "Crunk"],
+        y2010 and y2010["db_genres"] == ["Plugg/Pluggnb", "Emo Rap", "Phonk"],
+        y2010 and "Brazilian Phonk" not in y2010["db_genres"],
+        lofi and lofi["db_genres"] == ["Lo-fi/Chill", "Jazz"],
+        lofi and "lofi" in lofi["keywords"] and "jazz" in lofi["keywords"],
+        caribbean and caribbean["db_genres"] == ["Dancehall", "Dembow", "Reggaeton"],
+        caribbean and "Cumbia" not in caribbean["db_genres"],
+        latin and "Cumbia" in latin["db_genres"] and "Brazilian Phonk" in latin["db_genres"],
+        latin and "Corridos Tumbados" in latin["db_genres"],
+        "phonk" not in latin_kw and "funk" not in latin_kw,
+        "brazilian phonk" in latin_kw and "baile funk" in latin_kw,
+        uk and "Afroswing" in uk["db_genres"],
+        nineties and nineties["parent"] == "90s",
+        y2000 and y2000["db_genres"] == ["2000s"],
+        bool(get_genre("country")) == parent_has_button("Country"),
+        bool(get_genre("80s")) == parent_has_button("80s"),
+        parent_of("Hoodtrap") == "Trap",
+        parent_of("Trapsoul") == "Trap",
+        parent_of("Jazz") == "Lo-fi",
+        parent_of("90s") == "90s",
+        parent_of("Boom Bap/Old School") == "Boom Bap",
+        parent_of("G-Funk") == "West Coast",
+        parent_of("East Coast") == "Boom Bap",
+        parent_of("Hip-Hop") == "Rap",
+        parent_of("Plugg/Pluggnb") == "2010s",
+        parent_of("Phonk") == "2010s",
+        parent_of("Emo Rap") == "2010s",
+        parent_of("Afroswing") == "UK",
+        parent_of("Reggaeton") == "Caribbean",
+        parent_of("Cumbia") == "Latin",
+        parent_of("Brazilian Phonk") == "Latin",
+        parent_of("RKT") == "Latin",
+        not any(g["label"] in ("Hip-Hop", "Throwback", "Plugg", "Jazz") for g in RADIO_GENRES),
     ]
-    for gid, db in (
-        ("uk_rap", "UK Rap"),
-        ("dancehall", "Dancehall"),
-        ("brazilian_funk", "Brazilian Funk"),
-        ("brazilian_phonk", "Brazilian Phonk"),
-    ):
-        station = get_genre(gid)
-        keywords = station["keywords"] if station else []
-        checks.append(bool(station and db in station["db_genres"] and keywords))
-        if gid == "brazilian_phonk":
-            checks.append("phonk" not in keywords)
-        if gid == "brazilian_funk":
-            checks.append(all("stan" not in kw for kw in keywords))
-            checks.append("funk" not in keywords)
     if not all(checks):
         failed += 1
         print("FAIL station wiring", checks)
@@ -1380,7 +1678,7 @@ def llm_questions():
         "melodic_trap": "Melodic, emo, or guitar trap (Gunna, Lil Baby, Roddy Ricch, YNW Melly).",
         "dark": "Dark, horror, or aggressive trap, or US phonk that is not Brazilian.",
         "grime": "Grime (Skepta, Stormzy, Dizzee Rascal, Giggs, Wiley).",
-        "uk_rap": "UK rap that is not grime and not drill (Dave, Nines, Central Cee is drill).",
+        "uk_rap": "UK rap that is not grime and not drill (Dave, Loyle Carner, Nines; Central Cee is drill).",
         "afrobeat": "Afrobeats or classic afrobeat (Rema, Omah Lay, Wizkid, Burna Boy, Fela).",
         "rage": "Rage or opium (Playboi Carti, Yeat, Ken Carson, Destroy Lonely).",
         "plugg": "Plugg or pluggnb (Summrs, Autumn, Xavier Sobased).",
@@ -1395,7 +1693,7 @@ def llm_questions():
         "g_funk": "G-funk.",
         "boom_bap": "Boom bap or 90s hip-hop (Nas, Joey Bada$$, MF DOOM).",
         "detroit": "Detroit rap (Babytron, Veeze, 42 Dugg).",
-        "conscious": "Conscious or alternative rap (Loyle Carner, Little Simz, J. Cole).",
+        "conscious": "Conscious or alternative rap (Little Simz, J. Cole). Loyle Carner is UK rap.",
         "rnb": "R&B, including trapsoul. Not dancehall.",
         "dance_pop": "Dance pop.",
         "afropop": "Afropop that is not specifically afrobeats.",
@@ -1519,6 +1817,9 @@ def remote_from(entries: dict[str, dict]) -> dict[str, dict]:
 
 
 def write_underground(conn: sqlite3.Connection) -> Counter[str]:
+    from radio.genre_db import parent_by_subgenre
+
+    parents = parent_by_subgenre()
     counts: Counter[str] = Counter()
     scanned = 0
     moved = 0
@@ -1527,18 +1828,22 @@ def write_underground(conn: sqlite3.Connection) -> Counter[str]:
         if free_bytes() < MIN_FREE:
             print("stopping: free disk fell below 3 GiB", flush=True)
             break
-        pending: list[tuple[str, str]] = []
+        pending: list[tuple[str, str | None, str]] = []
         for video_id, title, channel in rows:
             scanned += 1
             genre = classify(title, channel)
             if not genre or genre not in SPEC or genre == "Underground":
                 continue
-            pending.append((genre, video_id))
+            pending.append((genre, parents.get(genre), video_id))
             counts[genre] += 1
             moved += 1
             if len(pending) >= BATCH:
                 conn.executemany(
-                    "UPDATE beats SET genre = ? WHERE video_id = ? AND genre = 'Underground'",
+                    """
+                    UPDATE beats
+                    SET genre = ?, parent_genre = ?
+                    WHERE video_id = ? AND genre = 'Underground'
+                    """,
                     pending,
                 )
                 conn.commit()
@@ -1546,14 +1851,18 @@ def write_underground(conn: sqlite3.Connection) -> Counter[str]:
                 free = free_bytes()
                 tight = free < MIN_FREE + 600 * 1024 * 1024
                 _checkpoint(conn, truncate=tight or _wal_bytes() > 32 * 1024 * 1024)
-                if free < MIN_FREE or _wal_bytes() > 400 * 1024 * 1024:
+                if free < MIN_FREE:
                     print("stopping: free disk fell below 3 GiB", flush=True)
                     _checkpoint(conn, truncate=True)
                     print(f"write scan stopped {scanned:,} moved {moved:,}", flush=True)
                     return counts
         if pending:
             conn.executemany(
-                "UPDATE beats SET genre = ? WHERE video_id = ? AND genre = 'Underground'",
+                """
+                UPDATE beats
+                SET genre = ?, parent_genre = ?
+                WHERE video_id = ? AND genre = 'Underground'
+                """,
                 pending,
             )
             conn.commit()

@@ -2971,3 +2971,31 @@ html[data-compress-ui="meter"] #btn-compress .level__fill {
 .filter-block--views .views-slider__label {
   font-size: clamp(0.42rem, 0.34rem + 0.28vw, 0.55rem);
 }
+
+.genre-map-link {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  min-height: 44px;
+  margin: 0 0 0.15rem;
+  padding: 0.15rem 0.05rem;
+  font-family: var(--font-chip);
+  font-size: var(--type-chip);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--sand-bright);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--accent);
+}
+
+.genre-map-link:hover {
+  color: var(--accent-hot);
+}
+
+.genre-map-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}

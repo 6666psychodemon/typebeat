@@ -52,6 +52,7 @@ from .genres import (
     genre_list_public,
     get_genre,
     get_view_tier,
+    taxonomy_public,
     view_tiers_public,
 )
 from .queue import (
@@ -363,6 +364,12 @@ class RadioHandler(BaseHTTPRequestHandler):
 
         if path in ("/", "/index.html"):
             return self._serve_file(STATIC_DIR / "index.html")
+
+        if path in ("/map", "/map.html"):
+            return self._serve_file(STATIC_DIR / "map.html")
+
+        if path == "/api/taxonomy":
+            return self._json(200, taxonomy_public())
 
         if path.startswith("/static/"):
             rel = path[len("/static/") :]

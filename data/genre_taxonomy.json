@@ -1,0 +1,814 @@
+{
+  "borders": [
+    "Trapsoul stays under Trap: the drums are trap, so the tag is not R&B.",
+    "Rage stays its own parent. It is the Carti/Yeat scene, not a dark-trap preset.",
+    "Premier, Pete Rock, RZA, and Mobb Deep are Boom Bap. The word 90s, with no such producer, is the 90s parent. In this catalog that word means 90s hip-hop, not pop.",
+    "Cumbia is Latin, not Dancehall. Reggaeton stays Caribbean because it is the dembow riddim family, not Latin pop.",
+    "Afroswing stays under UK. It is a London fusion (J Hus, NSG, Not3s, Kojo Funds): afrobeats drums plus dancehall plus UK road rap. The type-beat market is British.",
+    "Phonk on the 2010s parent is original and drift phonk. Brazilian Phonk stays under Latin.",
+    "Jazz sits under Lo-fi and is not its own radio button. Country and 80s stay on the map even when they have no main button."
+  ],
+  "parents": [
+    {
+      "id": "trap",
+      "name": "Trap",
+      "button": true,
+      "definition": "808s, rolling hats, and a loop built for a rap verse. The parent plays every trap subgenre.",
+      "differs": "Drill slides the 808. Rage is the distorted opium scene and stays its own parent. Plugg uses the sparse plugg drum, not this hat roll.",
+      "artists": [],
+      "weight": 10,
+      "subgenres": [
+        {
+          "id": "trap",
+          "name": "Trap",
+          "parent": "Trap",
+          "definition": "A straight trap type beat: hat rolls and 808s with no tighter tag. Matches trap type beat and type beat trap. Trap metal type beat lands here too.",
+          "differs": "Melodic trap has a sung or guitar hook. Hoodtrap and supertrap are the named tags. Dark Trap is the horror preset. Generic trap is what is left.",
+          "artists": ["Travis Scott", "Metro Boomin", "21 Savage", "Julio Foolio", "Fredo Bang", "Lil Double 0", "Hurricane Wisdom", "Kodak Black"],
+          "weight": 10
+        },
+        {
+          "id": "melodic-trap",
+          "name": "Melodic Trap",
+          "parent": "Trap",
+          "definition": "Trap drums under a guitar line or a sung melody. The melody is the hook, not a garnish.",
+          "differs": "Generic trap can be drums and a loop with no lead melody. Juice WRLD stays here unless the title says emo, which moves him to Emo Rap.",
+          "artists": ["Gunna", "Lil Baby", "Young Thug", "Future", "Roddy Ricch", "Don Toliver", "Juice WRLD"],
+          "weight": 8
+        },
+        {
+          "id": "dark-aggressive",
+          "name": "Dark/Aggressive",
+          "label": "Dark Trap",
+          "parent": "Trap",
+          "definition": "The existing dark-trap string, labeled Dark Trap: horror-score stabs or a harsher trap mix. Rows keep the name Dark/Aggressive.",
+          "differs": "Rage is a separate parent with opium drums. Drift phonk is the 2010s Phonk tag, not this preset.",
+          "artists": ["$uicideboy$", "Pouya"],
+          "weight": 6
+        },
+        {
+          "id": "trapsoul",
+          "name": "Trapsoul",
+          "parent": "Trap",
+          "definition": "Trap drums under R&B chords and a sung pocket. The title has to say trapsoul or trap soul.",
+          "differs": "Trapsoul is under Trap, not R&B. R&B is the sung record without the trap-drum tag. Bryson Tiller stays R&B unless the title says trapsoul.",
+          "artists": [],
+          "weight": 5
+        },
+        {
+          "id": "hoodtrap",
+          "name": "Hoodtrap",
+          "parent": "Trap",
+          "definition": "The hoodtrap tag: a grimy trap loop producers already file under trap.",
+          "differs": "It is trap, not a different genre. Supertrap is the other named tag. Afrotrap is not this pattern and stays untagged.",
+          "artists": [],
+          "weight": 4
+        },
+        {
+          "id": "supertrap",
+          "name": "Supertrap",
+          "parent": "Trap",
+          "definition": "The supertrap tag: the brighter internet trap offshoot, still trap drums.",
+          "differs": "Hoodtrap is the grimier tag. Generic trap is trap type beat without the supertrap word.",
+          "artists": [],
+          "weight": 4
+        },
+        {
+          "id": "detroit",
+          "name": "Detroit",
+          "parent": "Trap",
+          "definition": "Detroit rap pocket: off-beat flows and the minor-key loops Babytron, Veeze, and 42 Dugg beats copy.",
+          "differs": "Generic trap does not have the Detroit pocket. Midwest, the hip-hop region tag, is under Rap.",
+          "artists": ["Babytron", "Veeze", "42 Dugg", "Baby Smoove", "Kasher Quon"],
+          "weight": 6
+        }
+      ]
+    },
+    {
+      "id": "rage",
+      "name": "Rage",
+      "button": true,
+      "definition": "Distorted opium drums and the Carti/Yeat lane. Its own parent, not a trap preset.",
+      "differs": "Dark Trap is a horror trap mix under Trap. Lil Uzi Vert lands here only when the title says rage, not when it says emo or soundcloud.",
+      "artists": ["Playboi Carti", "Yeat", "Ken Carson", "Destroy Lonely", "OsamaSon", "SoFaygo"],
+      "weight": 8,
+      "subgenres": [
+        {
+          "id": "rage-opium",
+          "name": "Rage/Opium",
+          "parent": "Rage",
+          "definition": "The rage and opium string. Carti, Yeat, and the opium drum kit.",
+          "differs": "A dark trap preset with no rage or opium word stays Dark Trap. Uzi with rage in the title is this, not Emo Rap.",
+          "artists": ["Playboi Carti", "Yeat", "Ken Carson", "Destroy Lonely", "OsamaSon", "SoFaygo", "F1lthy"],
+          "weight": 8
+        }
+      ]
+    },
+    {
+      "id": "drill",
+      "name": "Drill",
+      "button": true,
+      "definition": "Sliding 808s. NY drill and UK drill are the same string.",
+      "differs": "UK drill stays on this button. The UK parent does not steal it. Trap hats do not slide.",
+      "artists": ["Headie One", "Central Cee", "Pop Smoke", "Lil Durk", "Chief Keef", "Digga D"],
+      "weight": 8,
+      "subgenres": [
+        {
+          "id": "drill",
+          "name": "Drill",
+          "parent": "Drill",
+          "definition": "Drill, including uk drill and ny drill. One database string.",
+          "differs": "There is no second drill genre. A UK rap title with no drill word stays UK Rap.",
+          "artists": ["Headie One", "Central Cee", "Pop Smoke", "Lil Durk", "Chief Keef", "Digga D"],
+          "weight": 8
+        }
+      ]
+    },
+    {
+      "id": "2010s",
+      "name": "2010s",
+      "button": true,
+      "definition": "2010s internet rap that is not trap, rage, or drill: plugg, emo rap, and original phonk.",
+      "differs": "Brazilian Phonk is Latin. Melodic trap stays under Trap. Rage stays its own parent.",
+      "artists": [],
+      "weight": 7,
+      "subgenres": [
+        {
+          "id": "plugg",
+          "name": "Plugg/Pluggnb",
+          "parent": "2010s",
+          "definition": "The plugg and pluggnb string: sparse drums, the Pierre Bourne and MexikoDro pocket.",
+          "differs": "Generic trap has rolling hats. Plugg is the thinner internet drum. The old Plugg-only button is this subgenre now.",
+          "artists": ["Summrs", "Autumn", "Pierre Bourne", "Lucki", "MexikoDro"],
+          "weight": 6
+        },
+        {
+          "id": "emo-rap",
+          "name": "Emo Rap",
+          "parent": "2010s",
+          "definition": "Soundcloud-era emo rap. Lil Peep, XXXTentacion, and Lil Tracy map here.",
+          "differs": "Lil Uzi Vert is Emo Rap only when the title says emo or soundcloud, and not when it says rage. Juice WRLD stays Melodic Trap unless the title says emo. Midwest emo is Alt.",
+          "artists": ["Lil Peep", "XXXTentacion", "Lil Tracy"],
+          "weight": 6
+        },
+        {
+          "id": "phonk",
+          "name": "Phonk",
+          "parent": "2010s",
+          "definition": "Original phonk and drift phonk. Memphis-derived cowbell loops and the later drift edit.",
+          "differs": "Brazilian phonk and funk phonk are Brazilian Phonk under Latin. A bare phonk title is this, not that.",
+          "artists": ["DJ Smokey", "Kordhell"],
+          "weight": 5
+        }
+      ]
+    },
+    {
+      "id": "boom-bap",
+      "name": "Boom Bap",
+      "button": true,
+      "definition": "Boom-bap practice and the east-coast lineage: chopped breaks, not a coast-less hip-hop loop.",
+      "differs": "The Rap button is for hip-hop that names no coast and no boom-bap practice. The word 90s is the 90s parent, even when the beat is also boom bap.",
+      "artists": [],
+      "weight": 7,
+      "subgenres": [
+        {
+          "id": "boom-bap-old-school",
+          "name": "Boom Bap/Old School",
+          "parent": "Boom Bap",
+          "definition": "Boom bap and old school. Premier, Pete Rock, RZA, Mobb Deep, and Nas.",
+          "differs": "A title that says 90s is the 90s parent. These producer names without that word stay here. Jay-Z alone stays untagged.",
+          "artists": ["DJ Premier", "Pete Rock", "RZA", "Mobb Deep", "Nas", "MF DOOM"],
+          "weight": 7
+        },
+        {
+          "id": "east-coast",
+          "name": "East Coast",
+          "parent": "Boom Bap",
+          "definition": "The east-coast tag when the title names the coast and no tighter boom-bap or drill phrase.",
+          "differs": "Do not file this under Rap. Drill with an east-coast city still wins as Drill when the title says drill.",
+          "artists": ["Dave East"],
+          "weight": 5
+        },
+        {
+          "id": "conscious",
+          "name": "Conscious",
+          "parent": "Boom Bap",
+          "definition": "Conscious rap. Little Simz maps here.",
+          "differs": "A generic hip-hop title with no conscious word is the Hip-Hop string under Rap. Smino is Hip-Hop, not this.",
+          "artists": ["Little Simz", "J. Cole", "JID"],
+          "weight": 4
+        }
+      ]
+    },
+    {
+      "id": "west-coast",
+      "name": "West Coast",
+      "button": true,
+      "definition": "West-coast rap and g-funk. The coast is the parent, not a leftover hip-hop tag.",
+      "differs": "G-funk is the whining synth under this parent. It does not go on the Rap button.",
+      "artists": [],
+      "weight": 6,
+      "subgenres": [
+        {
+          "id": "west-coast",
+          "name": "West Coast",
+          "parent": "West Coast",
+          "definition": "The west-coast tag. 2Pac stays here rather than on 90s.",
+          "differs": "G-Funk is the tighter Dre synth tag. A 90s word still goes to the 90s parent.",
+          "artists": ["Kendrick Lamar", "Larry June", "Shoreline Mafia", "Jay Worthy", "2Pac"],
+          "weight": 5
+        },
+        {
+          "id": "g-funk",
+          "name": "G-Funk",
+          "parent": "West Coast",
+          "definition": "G-funk. The high synth and the Dre pocket.",
+          "differs": "Dr. Dre stays G-Funk, not generic West Coast and not 90s. A west-coast title with no g-funk word stays West Coast.",
+          "artists": ["Dr. Dre"],
+          "weight": 6
+        }
+      ]
+    },
+    {
+      "id": "southern",
+      "name": "Southern",
+      "button": true,
+      "definition": "Southern rap that is not trap and not the crunk chant.",
+      "differs": "Trap is its own parent. Crunk is the subgenre under this one, not a separate button.",
+      "artists": [],
+      "weight": 5,
+      "subgenres": [
+        {
+          "id": "southern",
+          "name": "Southern",
+          "parent": "Southern",
+          "definition": "The southern and dirty-south tag.",
+          "differs": "Crunk is the chant record. Trap drums from Atlanta stay Trap, not Southern.",
+          "artists": ["BigXthaPlug"],
+          "weight": 5
+        },
+        {
+          "id": "crunk",
+          "name": "Crunk",
+          "parent": "Southern",
+          "definition": "Crunk. The chant and the Three 6 / Lil Jon pocket.",
+          "differs": "Southern without the crunk word stays Southern. Trap is not crunk.",
+          "artists": ["Three 6 Mafia"],
+          "weight": 4
+        }
+      ]
+    },
+    {
+      "id": "rap",
+      "name": "Rap",
+      "button": true,
+      "definition": "Beats that say hip-hop but name no coast and no boom-bap practice.",
+      "differs": "East Coast stays Boom Bap. G-Funk stays West Coast. Do not dump either into this button.",
+      "artists": [],
+      "weight": 6,
+      "subgenres": [
+        {
+          "id": "hip-hop",
+          "name": "Hip-Hop",
+          "parent": "Rap",
+          "definition": "The generic leftover hip-hop string. Drake, Doechii, and Smino.",
+          "differs": "If the title names a coast, boom bap, trap, or drill, that tighter tag wins. This is what is left.",
+          "artists": ["Drake", "Doechii", "Smino"],
+          "weight": 5
+        },
+        {
+          "id": "midwest",
+          "name": "Midwest",
+          "parent": "Rap",
+          "definition": "The midwest hip-hop region tag.",
+          "differs": "Midwest emo is Alt. The word midwest alone is this region, not the emo guitar tag.",
+          "artists": [],
+          "weight": 4
+        },
+        {
+          "id": "pop-rap",
+          "name": "Pop Rap",
+          "parent": "Rap",
+          "definition": "Pop rap. The title says pop rap.",
+          "differs": "Pop country is Country. A melodic trap guitar is Melodic Trap, not pop rap.",
+          "artists": [],
+          "weight": 3
+        }
+      ]
+    },
+    {
+      "id": "rnb",
+      "name": "R&B",
+      "button": true,
+      "definition": "Sung R&B, classic soul, psychedelic soul, and funk.",
+      "differs": "Trapsoul is Trap. Dance pop is Club. The word 80s is the 80s parent, not a reason to move Prince here.",
+      "artists": ["The Weeknd", "Erykah Badu", "Frank Ocean", "Rihanna", "Hamza", "SZA", "Bryson Tiller"],
+      "weight": 6,
+      "subgenres": [
+        {
+          "id": "rnb",
+          "name": "R&B",
+          "parent": "R&B",
+          "definition": "R&B. The Weeknd, Erykah Badu, Frank Ocean, Rihanna, and Hamza.",
+          "differs": "Trapsoul needs the trapsoul words and lives under Trap. Bryson Tiller stays R&B unless the title says trapsoul.",
+          "artists": ["The Weeknd", "Erykah Badu", "Frank Ocean", "Rihanna", "Hamza", "SZA", "Bryson Tiller"],
+          "weight": 6
+        },
+        {
+          "id": "classic-soul",
+          "name": "Classic Soul",
+          "parent": "R&B",
+          "definition": "Classic soul. The title says classic soul.",
+          "differs": "A modern R&B title with no classic-soul words stays R&B.",
+          "artists": [],
+          "weight": 3
+        },
+        {
+          "id": "psychedelic-soul",
+          "name": "Psychedelic Soul",
+          "parent": "R&B",
+          "definition": "Psychedelic soul. The title says psychedelic soul.",
+          "differs": "Prince without that phrase is not pulled off his existing tag, and a title that says 80s is the 80s parent.",
+          "artists": [],
+          "weight": 3
+        },
+        {
+          "id": "funk",
+          "name": "Funk",
+          "parent": "R&B",
+          "definition": "Funk as the American band pocket, not Brazilian funk.",
+          "differs": "Brazilian funk and baile funk are Latin. G-funk is West Coast. This string is the funk tag under R&B.",
+          "artists": [],
+          "weight": 3
+        }
+      ]
+    },
+    {
+      "id": "uk",
+      "name": "UK",
+      "button": true,
+      "definition": "UK rap, grime, UK garage, road rap, and afroswing.",
+      "differs": "UK drill is Drill, not this parent. Afrobeats is Afro. Afroswing stays here.",
+      "artists": [],
+      "weight": 6,
+      "subgenres": [
+        {
+          "id": "uk-rap",
+          "name": "UK Rap",
+          "parent": "UK",
+          "definition": "UK rap. Dave, Nines, Potter Payper, Marnz Malone, Clavish, D Block Europe, Bugzy Malone, Knucks, Nemzzz, Unknown T, Loyle Carner.",
+          "differs": "Headie One and Central Cee are Drill. Grime is its own string. Dave is the exact token, not every Dave.",
+          "artists": ["Dave", "Nines", "Potter Payper", "Marnz Malone", "Clavish", "D Block Europe", "Bugzy Malone", "Knucks", "Nemzzz", "Unknown T", "Loyle Carner"],
+          "weight": 6
+        },
+        {
+          "id": "grime",
+          "name": "Grime",
+          "parent": "UK",
+          "definition": "Grime. Dizzee Rascal and Giggs.",
+          "differs": "UK rap without the grime word stays UK Rap. UK drill is Drill.",
+          "artists": ["Giggs", "Dizzee Rascal", "Skepta", "Stormzy", "Wiley"],
+          "weight": 5
+        },
+        {
+          "id": "uk-garage",
+          "name": "UK Garage",
+          "parent": "UK",
+          "definition": "UK garage, 2-step, and speed garage.",
+          "differs": "Jersey club is Club. Amapiano is Afro. This is the UK garage shuffle.",
+          "artists": [],
+          "weight": 4
+        },
+        {
+          "id": "road-rap",
+          "name": "Road Rap",
+          "parent": "UK",
+          "definition": "Road rap. The title says road rap.",
+          "differs": "UK rap is the wider string. Drill is the sliding 808, even from London.",
+          "artists": [],
+          "weight": 4
+        },
+        {
+          "id": "afroswing",
+          "name": "Afroswing",
+          "parent": "UK",
+          "definition": "Afroswing is a London fusion: J Hus, NSG, Not3s, and Kojo Funds. Afrobeats drums plus dancehall plus UK road rap. The type-beat market is British, so the tag stays under UK.",
+          "differs": "It is not Afrobeats, not Dancehall, and not Caribbean. Those are the ingredients. The buyers are looking for a UK beat.",
+          "artists": ["J Hus", "NSG", "Not3s", "Kojo Funds"],
+          "weight": 5
+        }
+      ]
+    },
+    {
+      "id": "afro",
+      "name": "Afro",
+      "button": true,
+      "definition": "Afrobeats and the West African family: classic afrobeat, afropop, afrofusion, amapiano, highlife.",
+      "differs": "Afroswing stays under UK. Afrotrap is not a trap subgenre and stays untagged.",
+      "artists": [],
+      "weight": 6,
+      "subgenres": [
+        {
+          "id": "afrobeat-classic",
+          "name": "Afrobeat (Classic)",
+          "parent": "Afro",
+          "definition": "Classic afrobeat. The long Fela pocket, not the pop afrobeats drum.",
+          "differs": "Afropop and amapiano are the newer strings. Afroswing is UK.",
+          "artists": ["Rema", "Omah Lay"],
+          "weight": 4
+        },
+        {
+          "id": "afropop",
+          "name": "Afropop",
+          "parent": "Afro",
+          "definition": "Afropop and afro pop.",
+          "differs": "Amapiano has the log drum. Classic afrobeat is the older big-band form.",
+          "artists": ["Wizkid"],
+          "weight": 4
+        },
+        {
+          "id": "afrofusion",
+          "name": "Afrofusion",
+          "parent": "Afro",
+          "definition": "Afrofusion and afro fusion.",
+          "differs": "A named amapiano or afropop title beats this wider word.",
+          "artists": ["Burna Boy"],
+          "weight": 3
+        },
+        {
+          "id": "amapiano-afrobeats",
+          "name": "Amapiano-Afrobeats",
+          "parent": "Afro",
+          "definition": "Amapiano and the 3-step / amapiano-afrobeats pocket. Jazzworx and Dlala Thukzin.",
+          "differs": "UK garage is a different shuffle. Jazz under Lo-fi is not this, even though Jazzworx has jazz in the name.",
+          "artists": ["Jazzworx", "Dlala Thukzin", "Tyla"],
+          "weight": 5
+        },
+        {
+          "id": "highlife",
+          "name": "Highlife",
+          "parent": "Afro",
+          "definition": "Highlife. The title says highlife.",
+          "differs": "Afropop is the wider pop string. Highlife needs the word.",
+          "artists": [],
+          "weight": 3
+        }
+      ]
+    },
+    {
+      "id": "caribbean",
+      "name": "Caribbean",
+      "button": true,
+      "definition": "Dancehall, dembow, and reggaeton. The dembow riddim family.",
+      "differs": "Reggaeton stays here because of the dembow, not because it is Latin pop. Cumbia, Brazilian funk, and corridos are Latin. Afroswing is UK.",
+      "artists": [],
+      "weight": 6,
+      "subgenres": [
+        {
+          "id": "dancehall",
+          "name": "Dancehall",
+          "parent": "Caribbean",
+          "definition": "Dancehall. Existing dancehall rows stay dancehall.",
+          "differs": "Dembow and reggaeton are their own strings. Roots reggae and ragga are not on this parent.",
+          "artists": ["Skillibeng", "Vybz Kartel", "Popcaan", "Shenseea", "Spice"],
+          "weight": 5
+        },
+        {
+          "id": "dembow",
+          "name": "Dembow",
+          "parent": "Caribbean",
+          "definition": "Dembow. El Alfa.",
+          "differs": "Reggaeton is the wider commercial dembow song. A title that says dembow is this string.",
+          "artists": ["El Alfa"],
+          "weight": 5
+        },
+        {
+          "id": "reggaeton",
+          "name": "Reggaeton",
+          "parent": "Caribbean",
+          "definition": "Reggaeton. Blessd and Lomiiel. It stays Caribbean because it is the dembow riddim family.",
+          "differs": "Latin trap uses trap hats, not this dembow. Cumbia is Latin. RKT is the Argentine club edit, also Latin.",
+          "artists": ["Blessd", "Lomiiel"],
+          "weight": 5
+        }
+      ]
+    },
+    {
+      "id": "latin",
+      "name": "Latin",
+      "button": true,
+      "definition": "Latin beats that are not the Caribbean dembow family: cumbia, Brazilian funk, Brazilian phonk, corridos tumbados, latin trap, and RKT.",
+      "differs": "Dancehall, dembow, and reggaeton are Caribbean. Drift phonk is 2010s. Bare funk is not Brazilian funk.",
+      "artists": [],
+      "weight": 6,
+      "subgenres": [
+        {
+          "id": "cumbia",
+          "name": "Cumbia",
+          "parent": "Latin",
+          "definition": "Cumbia. Its own string.",
+          "differs": "Not folded into dancehall. RKT is the Argentine club edit of cumbia villera, not this plain cumbia tag.",
+          "artists": [],
+          "weight": 4
+        },
+        {
+          "id": "brazilian-funk",
+          "name": "Brazilian Funk",
+          "parent": "Latin",
+          "definition": "Brazilian funk, baile funk, and funk carioca.",
+          "differs": "The word funk alone is not this. Funk under R&B is the American pocket. Jersey club is not baile funk.",
+          "artists": [],
+          "weight": 5
+        },
+        {
+          "id": "brazilian-phonk",
+          "name": "Brazilian Phonk",
+          "parent": "Latin",
+          "definition": "Brazilian phonk and funk phonk only.",
+          "differs": "A bare phonk title is Phonk under 2010s. This tag needs brazilian phonk or funk phonk.",
+          "artists": [],
+          "weight": 5
+        },
+        {
+          "id": "corridos-tumbados",
+          "name": "Corridos Tumbados",
+          "parent": "Latin",
+          "definition": "Corridos tumbados. Requinto or sierreño guitar with a tuba or an 808, the tumbado pocket.",
+          "differs": "Not reggaeton and not cumbia. Gera MX, Aleman, and Makabelico belong to this string.",
+          "artists": ["Natanael Cano", "Peso Pluma", "Junior H", "Gera MX", "Aleman", "Makabelico"],
+          "weight": 5
+        },
+        {
+          "id": "latin-trap",
+          "name": "Latin Trap",
+          "parent": "Latin",
+          "definition": "Latin trap. Trap hats with a Spanish-language hook. The title says latin trap.",
+          "differs": "English trap type beat stays Trap. Reggaeton is dembow, not these hats.",
+          "artists": ["Anuel AA", "Bryant Myers"],
+          "weight": 4
+        },
+        {
+          "id": "rkt",
+          "name": "RKT",
+          "parent": "Latin",
+          "definition": "RKT. Argentine cumbia villera pushed with a club kick. L-Gante is the reference.",
+          "differs": "Not reggaeton, even though the drums borrow from it. Not plain cumbia, and not Brazilian funk.",
+          "artists": ["L-Gante", "Ecko"],
+          "weight": 4
+        }
+      ]
+    },
+    {
+      "id": "club",
+      "name": "Club",
+      "button": true,
+      "definition": "House, deep house, EDM club bangers, jersey club, and dance pop.",
+      "differs": "There is no Deep House station. Jersey club is its own string under this parent.",
+      "artists": [],
+      "weight": 5,
+      "subgenres": [
+        {
+          "id": "club",
+          "name": "Club",
+          "parent": "Club",
+          "definition": "Deep house, house, the word club, edm, and club banger.",
+          "differs": "Jersey Club and Dance Pop are the other strings. A strip-club title is not the house tag.",
+          "artists": [],
+          "weight": 4
+        },
+        {
+          "id": "jersey-club",
+          "name": "Jersey Club",
+          "parent": "Club",
+          "definition": "Jersey club. The bed squeak and the jersey kick pattern.",
+          "differs": "A house loop or an EDM club banger is Club, not jersey. Baile funk is Brazilian Funk.",
+          "artists": [],
+          "weight": 4
+        },
+        {
+          "id": "dance-pop",
+          "name": "Dance Pop",
+          "parent": "Club",
+          "definition": "Dance pop. The title says dance pop.",
+          "differs": "R&B is the sung ballad pocket. The word 80s is the 80s parent, not dance pop, unless the title also says dance pop.",
+          "artists": [],
+          "weight": 3
+        }
+      ]
+    },
+    {
+      "id": "alt",
+      "name": "Alt",
+      "button": true,
+      "definition": "Guitars that are not country: alternative rock, indie rock, grunge, shoegaze, midwest emo, and Nirvana.",
+      "differs": "When a title names several, the order is shoegaze, then grunge, then Nirvana, then midwest emo, then indie rock, then alternative rock.",
+      "artists": [],
+      "weight": 5,
+      "subgenres": [
+        {
+          "id": "alternative-rock",
+          "name": "Alternative Rock",
+          "parent": "Alt",
+          "definition": "Alternative rock or alt rock.",
+          "differs": "It loses to shoegaze, grunge, Nirvana, midwest emo, and indie rock when those are also named.",
+          "artists": [],
+          "weight": 3
+        },
+        {
+          "id": "indie-rock",
+          "name": "Indie Rock",
+          "parent": "Alt",
+          "definition": "Indie rock, or indie sitting next to rock or alternative.",
+          "differs": "The word indie alone is not enough. Alternative rock with no indie is Alternative Rock.",
+          "artists": [],
+          "weight": 3
+        },
+        {
+          "id": "grunge",
+          "name": "Grunge",
+          "parent": "Alt",
+          "definition": "Grunge. The title says grunge.",
+          "differs": "Nirvana is its own string when the title names the band. Shoegaze beats grunge when both are named.",
+          "artists": [],
+          "weight": 3
+        },
+        {
+          "id": "shoegaze",
+          "name": "Shoegaze",
+          "parent": "Alt",
+          "definition": "Shoegaze and shoegazing. Washed guitars.",
+          "differs": "It beats grunge and the other rock tags when both are named.",
+          "artists": [],
+          "weight": 3
+        },
+        {
+          "id": "midwest-emo",
+          "name": "Midwest Emo",
+          "parent": "Alt",
+          "definition": "Midwest emo, including a sad midwest emo acoustic title.",
+          "differs": "Midwest rap is under Rap. Emo rap is the 2010s soundcloud tag. This tag needs the words midwest emo.",
+          "artists": [],
+          "weight": 3
+        },
+        {
+          "id": "nirvana",
+          "name": "Nirvana",
+          "parent": "Alt",
+          "definition": "A Nirvana type beat. The band name.",
+          "differs": "Grunge without the name Nirvana stays Grunge. Nirvana beats midwest emo and indie rock.",
+          "artists": ["Nirvana"],
+          "weight": 3
+        }
+      ]
+    },
+    {
+      "id": "lo-fi",
+      "name": "Lo-fi",
+      "button": true,
+      "definition": "Lo-fi, chill, and jazz. Jazz is a subgenre here, not its own radio button. The map can still select Jazz alone.",
+      "differs": "A jazz sample inside boom bap, with no jazz word, stays Boom Bap. Country guitar is Country.",
+      "artists": [],
+      "weight": 5,
+      "subgenres": [
+        {
+          "id": "lofi-chill",
+          "name": "Lo-fi/Chill",
+          "parent": "Lo-fi",
+          "definition": "Lo-fi, lofi, chill, and chillhop as one genre string.",
+          "differs": "A title that says jazz or jazzy is Jazz, the other subgenre on this parent.",
+          "artists": [],
+          "weight": 5
+        },
+        {
+          "id": "jazz",
+          "name": "Jazz",
+          "parent": "Lo-fi",
+          "definition": "Jazz and jazzy beats. Selectable on its own from this map.",
+          "differs": "Lo-fi can be dusty without being jazz. Boom bap can sample jazz without the word. This tag needs jazz or jazzy.",
+          "artists": ["Nujabes"],
+          "weight": 4
+        }
+      ]
+    },
+    {
+      "id": "90s",
+      "name": "90s",
+      "button": true,
+      "definition": "The word 90s. In this catalog that is 90s hip-hop: boom bap, Memphis, and west-coast gangsta, not Britney or Backstreet pop.",
+      "differs": "DJ Premier, Pete Rock, RZA, and Mobb Deep without the word 90s stay Boom Bap. Jay-Z alone stays untagged.",
+      "artists": [],
+      "weight": 5,
+      "subgenres": [
+        {
+          "id": "90s",
+          "name": "90s",
+          "parent": "90s",
+          "definition": "The 90s word as its own subgenre. Same reading as the parent: 90s hip-hop.",
+          "differs": "A boom-bap producer name with no 90s word is Boom Bap, not this.",
+          "artists": [],
+          "weight": 5
+        }
+      ]
+    },
+    {
+      "id": "2000s",
+      "name": "2000s",
+      "button": true,
+      "definition": "The word 2000s, plus the producers beatmakers still name for that pocket. In this catalog that is 2000s hip-hop and R&B production, not 2000s pop.",
+      "differs": "A few titles are indie or nu-metal. The pile is Neptunes, Pharrell, and Timbaland. Not Premier, Pete Rock, RZA, or Mobb Deep.",
+      "artists": ["The Neptunes", "Pharrell", "Chad Hugo", "Timbaland", "Scott Storch", "Just Blaze", "Mannie Fresh", "Polow da Don", "Danja", "Jazze Pha"],
+      "weight": 5,
+      "subgenres": [
+        {
+          "id": "2000s",
+          "name": "2000s",
+          "parent": "2000s",
+          "definition": "The 2000s word, and those producer names when the title names them.",
+          "differs": "Boom-bap names stay Boom Bap. Dr. Dre stays G-Funk.",
+          "artists": ["The Neptunes", "Pharrell", "Chad Hugo", "Timbaland", "Scott Storch", "Just Blaze", "Mannie Fresh", "Polow da Don", "Danja", "Jazze Pha"],
+          "weight": 5
+        }
+      ]
+    },
+    {
+      "id": "80s",
+      "name": "80s",
+      "button": false,
+      "definition": "The word 80s. In this catalog that is synth, funk, city pop, and pop more often than 80s rap. No main radio button while the pile is thin. The bubble stays, and the tag stays searchable.",
+      "differs": "Prince or Michael Jackson without the word 80s is not pulled here. A title that says 80s is this subgenre even when it is not a station button.",
+      "artists": [],
+      "weight": 3,
+      "subgenres": [
+        {
+          "id": "80s",
+          "name": "80s",
+          "parent": "80s",
+          "definition": "The 80s word: synth pop, synthwave, funk, and city pop in the titles that carry it.",
+          "differs": "It is not an 80s-rap button. The sample is Take On Me, city pop, and synth pop, with only a few rap records using an 80s sample.",
+          "artists": [],
+          "weight": 3
+        }
+      ]
+    },
+    {
+      "id": "country",
+      "name": "Country",
+      "button": false,
+      "definition": "Country type beat and country folk, including country rap. No main radio button while the pile is under about 5,000. The parent is still Country, and the bubble stays searchable.",
+      "differs": "Alt is the rock guitar family. A Zach Bryan or Dylan Gossett title is this, not indie rock.",
+      "artists": ["Zach Bryan", "Dylan Gossett"],
+      "weight": 4,
+      "subgenres": [
+        {
+          "id": "country",
+          "name": "Country",
+          "parent": "Country",
+          "definition": "Country, country folk, and country rap.",
+          "differs": "Not a midwest emo acoustic title unless the word country is there.",
+          "artists": ["Zach Bryan", "Dylan Gossett"],
+          "weight": 4
+        }
+      ]
+    },
+    {
+      "id": "meme",
+      "name": "Meme",
+      "button": true,
+      "definition": "High-signal joke and brainrot subjects only.",
+      "differs": "Not a producer name and not a band that only shares a noun. Cigarettes After Sex is not Meme. Rizzy is not Meme.",
+      "artists": [],
+      "weight": 4,
+      "subgenres": [
+        {
+          "id": "meme",
+          "name": "Meme",
+          "parent": "Meme",
+          "definition": "500 cigarettes, skibidi, trollge, meme cockroach, among us, goofy ahh, subway surfers, rat dance, shrek type beat, smurf cat, deez nuts, meme rap, meme type beat.",
+          "differs": "Bare cigarette or cigarettes is not enough. The 500 cigarettes meme is the phrase. A trap drum under skibidi is still Meme.",
+          "artists": [],
+          "weight": 4
+        }
+      ]
+    },
+    {
+      "id": "underground",
+      "name": "Underground",
+      "button": true,
+      "definition": "Still untagged. The UG MIX button.",
+      "differs": "Anything with a parent has left this pile. Ambient, experimental, ragga, and roots reggae have no parent, so they are not bubbles and they are not buttons.",
+      "artists": [],
+      "weight": 2,
+      "subgenres": [
+        {
+          "id": "underground",
+          "name": "Underground",
+          "parent": "Underground",
+          "definition": "No subgenre yet.",
+          "differs": "Not a style. It is the remainder.",
+          "artists": [],
+          "weight": 2
+        }
+      ]
+    }
+  ]
+}
